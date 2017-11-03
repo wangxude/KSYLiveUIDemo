@@ -1,0 +1,9 @@
+
+platform :ios, ‘9.0‘
+
+target “KSYLiveUIDemo” do
+pod 'libksygpulive/KSYGPUResource'
+pod 'libksygpulive/libksygpulive'
+pod ‘Masonry’
+
+end
