@@ -8,6 +8,7 @@
 
 #import "KSYLiveOnFlowViewController.h"
 
+#import "ViewController.h"
 
 @interface KSYLiveOnFlowViewController ()
 
@@ -22,10 +23,24 @@
    
     //设置导航栏的按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStyleDone target:self action:@selector(close)];
+    
+    UIButton* button = [[UIButton alloc]init];
+    button.frame = CGRectMake(0, 100, 100, 100);
+    [button setTitle:@"跳转" forState: UIControlStateNormal];
+    [button setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(qqq) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
 }
 // 关闭
 - (void)close {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)qqq{
+    ViewController * vc = [[ViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
