@@ -16,6 +16,20 @@
 		780508281FAC1C9C0044754A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508271FAC1C9C0044754A /* main.m */; };
 		780508321FAC1C9C0044754A /* KSYLiveUIDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508311FAC1C9C0044754A /* KSYLiveUIDemoTests.m */; };
 		7805083D1FAC1C9C0044754A /* KSYLiveUIDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7805083C1FAC1C9C0044754A /* KSYLiveUIDemoUITests.m */; };
+		780508591FAC35780044754A /* KSYMainUIVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508581FAC35780044754A /* KSYMainUIVC.m */; };
+		7805085C1FAC36CC0044754A /* LocalString.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7805085B1FAC36CC0044754A /* LocalString.strings */; };
+		780508631FAC4EBC0044754A /* KSYCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508621FAC4EBC0044754A /* KSYCustomLabel.m */; };
+		780508661FAC584C0044754A /* KSYCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508651FAC584C0044754A /* KSYCustomButton.m */; };
+		786E0C481FAC6D8E005B499C /* KSYNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */; };
+		786E0C4B1FAC6DB5005B499C /* KSYTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C4A1FAC6DB5005B499C /* KSYTabBarViewController.m */; };
+		78F3C7801FAFF4AB00497D29 /* KSYDemandListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C77F1FAFF4AB00497D29 /* KSYDemandListViewController.m */; };
+		78F3C7831FAFF4BA00497D29 /* KSYLiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7821FAFF4BA00497D29 /* KSYLiveListViewController.m */; };
+		78F3C7871FB0064300497D29 /* KSYLiveOnFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7861FB0064300497D29 /* KSYLiveOnFlowViewController.m */; };
+		78F3C7A41FB015F200497D29 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7A21FB015F200497D29 /* UIView+Extension.m */; };
+		78F3C7AB1FB0166D00497D29 /* WXCustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7A51FB0166C00497D29 /* WXCustomTabBar.m */; };
+		78F3C7AC1FB0166D00497D29 /* UIImage+image.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7A71FB0166C00497D29 /* UIImage+image.m */; };
+		78F3C7AD1FB0166D00497D29 /* UIBarButtonItem+Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7A81FB0166D00497D29 /* UIBarButtonItem+Item.m */; };
+		78F3C7BF1FB04DBF00497D29 /* KSYTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7BE1FB04DBF00497D29 /* KSYTabBarButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +67,34 @@
 		780508381FAC1C9C0044754A /* KSYLiveUIDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSYLiveUIDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7805083C1FAC1C9C0044754A /* KSYLiveUIDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYLiveUIDemoUITests.m; sourceTree = "<group>"; };
 		7805083E1FAC1C9C0044754A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		780508571FAC35780044754A /* KSYMainUIVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYMainUIVC.h; sourceTree = "<group>"; };
+		780508581FAC35780044754A /* KSYMainUIVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYMainUIVC.m; sourceTree = "<group>"; };
+		7805085A1FAC35CC0044754A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		7805085B1FAC36CC0044754A /* LocalString.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalString.strings; sourceTree = "<group>"; };
+		780508611FAC4EBC0044754A /* KSYCustomLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYCustomLabel.h; sourceTree = "<group>"; };
+		780508621FAC4EBC0044754A /* KSYCustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYCustomLabel.m; sourceTree = "<group>"; };
+		780508641FAC584C0044754A /* KSYCustomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYCustomButton.h; sourceTree = "<group>"; };
+		780508651FAC584C0044754A /* KSYCustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYCustomButton.m; sourceTree = "<group>"; };
+		786E0C461FAC6D8E005B499C /* KSYNavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYNavigationViewController.h; sourceTree = "<group>"; };
+		786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYNavigationViewController.m; sourceTree = "<group>"; };
+		786E0C491FAC6DB5005B499C /* KSYTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYTabBarViewController.h; sourceTree = "<group>"; };
+		786E0C4A1FAC6DB5005B499C /* KSYTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYTabBarViewController.m; sourceTree = "<group>"; };
+		78F3C77E1FAFF4AB00497D29 /* KSYDemandListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYDemandListViewController.h; sourceTree = "<group>"; };
+		78F3C77F1FAFF4AB00497D29 /* KSYDemandListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYDemandListViewController.m; sourceTree = "<group>"; };
+		78F3C7811FAFF4BA00497D29 /* KSYLiveListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYLiveListViewController.h; sourceTree = "<group>"; };
+		78F3C7821FAFF4BA00497D29 /* KSYLiveListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYLiveListViewController.m; sourceTree = "<group>"; };
+		78F3C7851FB0064300497D29 /* KSYLiveOnFlowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYLiveOnFlowViewController.h; sourceTree = "<group>"; };
+		78F3C7861FB0064300497D29 /* KSYLiveOnFlowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYLiveOnFlowViewController.m; sourceTree = "<group>"; };
+		78F3C7A21FB015F200497D29 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		78F3C7A31FB015F200497D29 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		78F3C7A51FB0166C00497D29 /* WXCustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXCustomTabBar.m; sourceTree = "<group>"; };
+		78F3C7A61FB0166C00497D29 /* UIImage+image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+image.h"; sourceTree = "<group>"; };
+		78F3C7A71FB0166C00497D29 /* UIImage+image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+image.m"; sourceTree = "<group>"; };
+		78F3C7A81FB0166D00497D29 /* UIBarButtonItem+Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Item.m"; sourceTree = "<group>"; };
+		78F3C7A91FB0166D00497D29 /* WXCustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXCustomTabBar.h; sourceTree = "<group>"; };
+		78F3C7AA1FB0166D00497D29 /* UIBarButtonItem+Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Item.h"; sourceTree = "<group>"; };
+		78F3C7BD1FB04DBF00497D29 /* KSYTabBarButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYTabBarButton.h; sourceTree = "<group>"; };
+		78F3C7BE1FB04DBF00497D29 /* KSYTabBarButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYTabBarButton.m; sourceTree = "<group>"; };
 		853AAC30320CD54C7FF37E3E /* Pods-KSYLiveUIDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		A15EBA62A57CFC2D05FC5DCB /* Pods-KSYLiveUIDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,11 +163,19 @@
 				780508191FAC1C9C0044754A /* AppDelegate.m */,
 				7805081B1FAC1C9C0044754A /* ViewController.h */,
 				7805081C1FAC1C9C0044754A /* ViewController.m */,
+				78F3C7841FB0062200497D29 /* LiveOnFlow */,
+				788897571FAF38B9001CC789 /* DemandList */,
+				788897561FAF3880001CC789 /* LiveList */,
+				786E0C421FAC6C26005B499C /* MainFrame */,
+				780508561FAC35040044754A /* HomePage */,
 				7805081E1FAC1C9C0044754A /* Main.storyboard */,
 				780508211FAC1C9C0044754A /* Assets.xcassets */,
 				780508231FAC1C9C0044754A /* LaunchScreen.storyboard */,
 				780508261FAC1C9C0044754A /* Info.plist */,
 				780508271FAC1C9C0044754A /* main.m */,
+				7805085A1FAC35CC0044754A /* PrefixHeader.pch */,
+				7805085B1FAC36CC0044754A /* LocalString.strings */,
+				7805085D1FAC49400044754A /* KSYUIUtils */,
 			);
 			path = KSYLiveUIDemo;
 			sourceTree = "<group>";
@@ -146,6 +196,106 @@
 				7805083E1FAC1C9C0044754A /* Info.plist */,
 			);
 			path = KSYLiveUIDemoUITests;
+			sourceTree = "<group>";
+		};
+		780508561FAC35040044754A /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				780508571FAC35780044754A /* KSYMainUIVC.h */,
+				780508581FAC35780044754A /* KSYMainUIVC.m */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		7805085D1FAC49400044754A /* KSYUIUtils */ = {
+			isa = PBXGroup;
+			children = (
+				780508611FAC4EBC0044754A /* KSYCustomLabel.h */,
+				780508621FAC4EBC0044754A /* KSYCustomLabel.m */,
+				780508641FAC584C0044754A /* KSYCustomButton.h */,
+				780508651FAC584C0044754A /* KSYCustomButton.m */,
+			);
+			path = KSYUIUtils;
+			sourceTree = "<group>";
+		};
+		786E0C421FAC6C26005B499C /* MainFrame */ = {
+			isa = PBXGroup;
+			children = (
+				78F3C7951FB006DC00497D29 /* Category */,
+				786E0C451FAC6CCA005B499C /* View */,
+				786E0C441FAC6CB9005B499C /* ViewController */,
+				786E0C431FAC6CB1005B499C /* Model */,
+			);
+			path = MainFrame;
+			sourceTree = "<group>";
+		};
+		786E0C431FAC6CB1005B499C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		786E0C441FAC6CB9005B499C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				786E0C461FAC6D8E005B499C /* KSYNavigationViewController.h */,
+				786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */,
+				786E0C491FAC6DB5005B499C /* KSYTabBarViewController.h */,
+				786E0C4A1FAC6DB5005B499C /* KSYTabBarViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		786E0C451FAC6CCA005B499C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				78F3C7AA1FB0166D00497D29 /* UIBarButtonItem+Item.h */,
+				78F3C7A81FB0166D00497D29 /* UIBarButtonItem+Item.m */,
+				78F3C7A61FB0166C00497D29 /* UIImage+image.h */,
+				78F3C7A71FB0166C00497D29 /* UIImage+image.m */,
+				78F3C7A91FB0166D00497D29 /* WXCustomTabBar.h */,
+				78F3C7A51FB0166C00497D29 /* WXCustomTabBar.m */,
+				78F3C7BD1FB04DBF00497D29 /* KSYTabBarButton.h */,
+				78F3C7BE1FB04DBF00497D29 /* KSYTabBarButton.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		788897561FAF3880001CC789 /* LiveList */ = {
+			isa = PBXGroup;
+			children = (
+				78F3C7811FAFF4BA00497D29 /* KSYLiveListViewController.h */,
+				78F3C7821FAFF4BA00497D29 /* KSYLiveListViewController.m */,
+			);
+			path = LiveList;
+			sourceTree = "<group>";
+		};
+		788897571FAF38B9001CC789 /* DemandList */ = {
+			isa = PBXGroup;
+			children = (
+				78F3C77E1FAFF4AB00497D29 /* KSYDemandListViewController.h */,
+				78F3C77F1FAFF4AB00497D29 /* KSYDemandListViewController.m */,
+			);
+			path = DemandList;
+			sourceTree = "<group>";
+		};
+		78F3C7841FB0062200497D29 /* LiveOnFlow */ = {
+			isa = PBXGroup;
+			children = (
+				78F3C7851FB0064300497D29 /* KSYLiveOnFlowViewController.h */,
+				78F3C7861FB0064300497D29 /* KSYLiveOnFlowViewController.m */,
+			);
+			path = LiveOnFlow;
+			sourceTree = "<group>";
+		};
+		78F3C7951FB006DC00497D29 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				78F3C7A31FB015F200497D29 /* UIView+Extension.h */,
+				78F3C7A21FB015F200497D29 /* UIView+Extension.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		DC3DDC1ACB51C5328D7E4C65 /* Frameworks */ = {
@@ -266,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				780508251FAC1C9C0044754A /* LaunchScreen.storyboard in Resources */,
+				7805085C1FAC36CC0044754A /* LocalString.strings in Resources */,
 				780508221FAC1C9C0044754A /* Assets.xcassets in Resources */,
 				780508201FAC1C9C0044754A /* Main.storyboard in Resources */,
 			);
@@ -351,9 +502,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78F3C7A41FB015F200497D29 /* UIView+Extension.m in Sources */,
+				78F3C7AD1FB0166D00497D29 /* UIBarButtonItem+Item.m in Sources */,
+				78F3C7AC1FB0166D00497D29 /* UIImage+image.m in Sources */,
+				78F3C7831FAFF4BA00497D29 /* KSYLiveListViewController.m in Sources */,
+				786E0C481FAC6D8E005B499C /* KSYNavigationViewController.m in Sources */,
 				7805081D1FAC1C9C0044754A /* ViewController.m in Sources */,
+				78F3C7AB1FB0166D00497D29 /* WXCustomTabBar.m in Sources */,
 				780508281FAC1C9C0044754A /* main.m in Sources */,
+				780508661FAC584C0044754A /* KSYCustomButton.m in Sources */,
 				7805081A1FAC1C9C0044754A /* AppDelegate.m in Sources */,
+				780508591FAC35780044754A /* KSYMainUIVC.m in Sources */,
+				78F3C7BF1FB04DBF00497D29 /* KSYTabBarButton.m in Sources */,
+				786E0C4B1FAC6DB5005B499C /* KSYTabBarViewController.m in Sources */,
+				780508631FAC4EBC0044754A /* KSYCustomLabel.m in Sources */,
+				78F3C7871FB0064300497D29 /* KSYLiveOnFlowViewController.m in Sources */,
+				78F3C7801FAFF4AB00497D29 /* KSYDemandListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +610,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/KSYLiveUIDemo/PrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -499,6 +664,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/KSYLiveUIDemo/PrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -518,6 +684,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8Z3BCBA7P2;
 				INFOPLIST_FILE = KSYLiveUIDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wx.KSYLiveUIDemo;
@@ -532,6 +699,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8Z3BCBA7P2;
 				INFOPLIST_FILE = KSYLiveUIDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wx.KSYLiveUIDemo;

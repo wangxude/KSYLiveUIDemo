@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "KSYMainUIVC.h"
+
 @interface AppDelegate ()
 
 @end
@@ -16,6 +18,15 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    KSYMainUIVC* mainVC = [[KSYMainUIVC alloc]init];
+    UINavigationController* navVC = [[UINavigationController alloc]initWithRootViewController:mainVC];
+    self.window.rootViewController = navVC;
+    self.window.backgroundColor = [UIColor clearColor];
+      //可视化
+    [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }
