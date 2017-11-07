@@ -16,7 +16,7 @@
 #import "KSYDemandListViewController.h"
 #import "KSYNavigationViewController.h"
 
-#import "VideoListShowController.h"
+
 
 @interface KSYTabBarViewController (){
        WXCustomTabBar* tabBar;
@@ -68,8 +68,8 @@
 //设置自控制器
 -(void)setUpChildViewController{
     
-    VideoListShowController* listVC = [[VideoListShowController alloc]init];
-    listVC.showType = VideoListShowTypeLive;
+    KSYLiveListViewController* listVC = [[KSYLiveListViewController alloc]init];
+   // listVC.showType = VideoListShowTypeLive;
     KSYDemandListViewController* demandVC = [[KSYDemandListViewController alloc]init];
    
     
