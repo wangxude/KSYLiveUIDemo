@@ -79,6 +79,8 @@
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 -(void)jumpSetting{
+//    AViewController *a1= [[AViewController alloc]initWithNibName:@”AViewController” bundle:[NSBundle mainBundle]];
+//    [self.navigationController pushViewController:a1 animated:YES];
     SettingViewController* setttingVC = [[SettingViewController alloc]init];
     setttingVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:setttingVC animated:YES];

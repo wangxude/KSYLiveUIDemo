@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0D4ED4D73BABDA23BB53F633 /* libPods-KSYLiveUIDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE57DFBFECD40C7E13ED1F3 /* libPods-KSYLiveUIDemo.a */; };
 		7805081A1FAC1C9C0044754A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508191FAC1C9C0044754A /* AppDelegate.m */; };
-		780508201FAC1C9C0044754A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7805081E1FAC1C9C0044754A /* Main.storyboard */; };
 		780508221FAC1C9C0044754A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 780508211FAC1C9C0044754A /* Assets.xcassets */; };
 		780508251FAC1C9C0044754A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 780508231FAC1C9C0044754A /* LaunchScreen.storyboard */; };
 		780508281FAC1C9C0044754A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508271FAC1C9C0044754A /* main.m */; };
@@ -101,6 +100,7 @@
 		78F599661FB15589004C4C08 /* VodPlayControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F5993B1FB15589004C4C08 /* VodPlayControlView.m */; };
 		78F599671FB15589004C4C08 /* VodPlayControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78F5993C1FB15589004C4C08 /* VodPlayControlView.xib */; };
 		78F599681FB15589004C4C08 /* VodPlayOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F5993E1FB15589004C4C08 /* VodPlayOperationView.m */; };
+		78F599701FB1927C004C4C08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F5996F1FB1927C004C4C08 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,7 +125,6 @@
 		780508151FAC1C9C0044754A /* KSYLiveUIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSYLiveUIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		780508181FAC1C9C0044754A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		780508191FAC1C9C0044754A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7805081F1FAC1C9C0044754A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		780508211FAC1C9C0044754A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		780508241FAC1C9C0044754A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		780508261FAC1C9C0044754A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -294,6 +293,7 @@
 		78F5993C1FB15589004C4C08 /* VodPlayControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VodPlayControlView.xib; sourceTree = "<group>"; };
 		78F5993D1FB15589004C4C08 /* VodPlayOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VodPlayOperationView.h; sourceTree = "<group>"; };
 		78F5993E1FB15589004C4C08 /* VodPlayOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VodPlayOperationView.m; sourceTree = "<group>"; };
+		78F5996F1FB1927C004C4C08 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		853AAC30320CD54C7FF37E3E /* Pods-KSYLiveUIDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		A15EBA62A57CFC2D05FC5DCB /* Pods-KSYLiveUIDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -373,8 +373,8 @@
 				788897561FAF3880001CC789 /* LiveList */,
 				786E0C421FAC6C26005B499C /* MainFrame */,
 				780508561FAC35040044754A /* HomePage */,
-				7805081E1FAC1C9C0044754A /* Main.storyboard */,
 				780508211FAC1C9C0044754A /* Assets.xcassets */,
+				78F5996F1FB1927C004C4C08 /* Main.storyboard */,
 				780508231FAC1C9C0044754A /* LaunchScreen.storyboard */,
 				780508261FAC1C9C0044754A /* Info.plist */,
 				780508271FAC1C9C0044754A /* main.m */,
@@ -840,6 +840,7 @@
 				78F5995C1FB15589004C4C08 /* PlayerTableViewCell.xib in Resources */,
 				78F599631FB15589004C4C08 /* VideoCollectionHeaderView.xib in Resources */,
 				78F5995E1FB15589004C4C08 /* SpeedChoiceView.xib in Resources */,
+				78F599701FB1927C004C4C08 /* Main.storyboard in Resources */,
 				780508251FAC1C9C0044754A /* LaunchScreen.storyboard in Resources */,
 				7805085C1FAC36CC0044754A /* LocalString.strings in Resources */,
 				78F599671FB15589004C4C08 /* VodPlayControlView.xib in Resources */,
@@ -848,7 +849,6 @@
 				78F599601FB15589004C4C08 /* SuspendPlayView.xib in Resources */,
 				78F599561FB15589004C4C08 /* DefinitionMenuView.xib in Resources */,
 				780508221FAC1C9C0044754A /* Assets.xcassets in Resources */,
-				780508201FAC1C9C0044754A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1039,14 +1039,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7805081E1FAC1C9C0044754A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7805081F1FAC1C9C0044754A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		780508231FAC1C9C0044754A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
