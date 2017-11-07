@@ -16,6 +16,8 @@
 #import "KSYDemandListViewController.h"
 #import "KSYNavigationViewController.h"
 
+#import "VideoListShowController.h"
+
 @interface KSYTabBarViewController (){
        WXCustomTabBar* tabBar;
 }
@@ -66,17 +68,16 @@
 //设置自控制器
 -(void)setUpChildViewController{
     
-    KSYLiveListViewController* listVC = [[KSYLiveListViewController alloc]init];
+    VideoListShowController* listVC = [[VideoListShowController alloc]init];
+    listVC.showType = VideoListShowTypeLive;
     KSYDemandListViewController* demandVC = [[KSYDemandListViewController alloc]init];
    
     
-    [self setUpOneChildViewController:listVC image:[UIImage imageNamed:@"tabBar_icon_schedule_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_schedule"] title:@"首页"];
+    [self setUpOneChildViewController:listVC image:[UIImage imageNamed:@"tabBar_icon_schedule_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_schedule"] title:@"直播"];
     
+
     
-//    [self setUpOneChildViewController:demandVC image:[UIImage imageNamed:@"tabBar_icon_customer_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_customer"] title:@"搜索"];
-    
-    
-    [self setUpOneChildViewController:demandVC image:[UIImage imageNamed:@"tabBar_icon_contrast_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_contrast"] title:@"图库"];
+    [self setUpOneChildViewController:demandVC image:[UIImage imageNamed:@"tabBar_icon_contrast_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_contrast"] title:@"点播"];
     
    
     
@@ -85,22 +86,6 @@
 {
     [self setValue:[[WXCustomTabBar alloc] init] forKeyPath:@"tabBar"];
     
-    
-    //    // 自定义tabBar
-    //    tabBar = [[AXHTabBar alloc] initWithFrame:self.tabBar.bounds];
-    //    tabBar.backgroundColor = [UIColor clearColor];
-    //
-    //    // 设置代理
-    //    tabBar.delegate = self;
-    //
-    //    // 给tabBar传递tabBarItem模型
-    //    tabBar.items = self.items;
-    //    //    NSLog(@"tabBar.items == %@",tabBar.items);
-    //    // 添加自定义tabBar
-    //    [self.tabBar addSubview:tabBar];
-    
-    // 移除系统的tabBar
-    //    [self.tabBar removeFromSuperview];
 }
 
 

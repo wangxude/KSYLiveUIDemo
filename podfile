@@ -5,5 +5,8 @@ target “KSYLiveUIDemo” do
 pod 'libksygpulive/KSYGPUResource'
 pod 'libksygpulive/libksygpulive'
 pod ‘Masonry’
-
+pod ‘JSONModel’
+pod ‘SDWebImage’
+pod ‘Toast’
+pod ‘Bugly’
 end
