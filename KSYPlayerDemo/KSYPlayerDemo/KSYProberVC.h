@@ -6,7 +6,7 @@
 //  Copyright © 2016年 kingsoft. All rights reserved.
 //
 #import "KSYUIVC.h"
-#import <KSYMediaPlayer/KSYMediaInfoProber.h>
+#import <KSYMediaInfoProber.h>
 
 @interface KSYProberVC : KSYUIVC
 - (instancetype)initWithURL:(NSURL *)url;

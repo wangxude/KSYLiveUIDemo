@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <KSYMediaPlayer/KSYMoviePlayerDefines.h>
+#import <KSYMoviePlayerController.h>
 
 @interface SettingModel : NSObject
 

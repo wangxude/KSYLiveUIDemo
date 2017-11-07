@@ -1,9 +1,9 @@
 //
 //  UIBarButtonItem+Item.m
-//  传智微博
+//  KSYLiveUIDemo
 //
-//  Created by apple on 15-3-5.
-//  Copyright (c) 2015年 apple. All rights reserved.
+//  Created by 王旭 on 2017/11/6.
+//  Copyright © 2017年 王旭. All rights reserved.
 //
 
 #import "UIBarButtonItem+Item.h"

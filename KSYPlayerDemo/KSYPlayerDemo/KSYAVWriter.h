@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-#import <KSYMediaPlayer/KSYMoviePlayerController.h>
+#import <KSYMoviePlayerController.h>
 
 /**
  * status类型

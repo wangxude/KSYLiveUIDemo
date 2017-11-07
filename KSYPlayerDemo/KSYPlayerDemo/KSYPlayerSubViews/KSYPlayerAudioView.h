@@ -11,7 +11,7 @@
  */
 #import "KSYUIView.h"
 #import "KSYNameSlider.h"
- #import <KSYMediaPlayer/KSYMoviePlayerController.h> 
+ #import <KSYMoviePlayerController.h> 
 
 @interface KSYPlayerAudioView: KSYUIView
 

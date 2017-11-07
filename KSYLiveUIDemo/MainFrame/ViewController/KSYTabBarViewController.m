@@ -16,7 +16,7 @@
 #import "KSYDemandListViewController.h"
 #import "KSYNavigationViewController.h"
 
-
+#import "VideoListShowController.h"
 
 @interface KSYTabBarViewController (){
        WXCustomTabBar* tabBar;
@@ -68,15 +68,12 @@
 //设置自控制器
 -(void)setUpChildViewController{
     
-    KSYLiveListViewController* listVC = [[KSYLiveListViewController alloc]init];
-   // listVC.showType = VideoListShowTypeLive;
+    VideoListShowController * listVC = [[VideoListShowController alloc]init];
+    listVC.showType = VideoListShowTypeLive;
+     [self setUpOneChildViewController:listVC image:[UIImage imageNamed:@"tabBar_icon_schedule_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_schedule"] title:@"直播"];
+    
     KSYDemandListViewController* demandVC = [[KSYDemandListViewController alloc]init];
-   
-    
-    [self setUpOneChildViewController:listVC image:[UIImage imageNamed:@"tabBar_icon_schedule_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_schedule"] title:@"直播"];
-    
-
-    
+    demandVC.ksyShowType = VideoListShowTypeVod;
     [self setUpOneChildViewController:demandVC image:[UIImage imageNamed:@"tabBar_icon_contrast_default"] selectedImage:[UIImage imageWithOriginalName:@"tabBar_icon_contrast"] title:@"点播"];
     
    

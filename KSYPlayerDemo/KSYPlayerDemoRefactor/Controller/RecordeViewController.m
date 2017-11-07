@@ -9,7 +9,7 @@
 #import "RecordeViewController.h"
 #import "KSYPlayerCfgVC.h"
 #import "KSYAVWriter.h"
-#import <KSYMediaPlayer/KSYMoviePlayerController.h>
+#import <KSYMoviePlayerController.h>
 #import "AppDelegate.h"
 #import "UIView+Toast.h"
 #import "UIColor+Additions.h"

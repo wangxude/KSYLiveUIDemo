@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Constant.h"
+
 @interface KSYDemandListViewController : UIViewController
+
+@property (nonatomic, assign) BOOL ksyHasSuspendView;
+
+@property (nonatomic, assign) VideoListShowType ksyShowType;
 
 @end

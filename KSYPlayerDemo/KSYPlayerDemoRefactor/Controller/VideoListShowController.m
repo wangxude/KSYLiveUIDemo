@@ -20,6 +20,8 @@
 #import "VodListPlayController.h"
 #import "LivePlayController.h"
 #import "VodPlayController.h"
+//个人设置界面
+#import "SettingViewController.h"
 
 @interface VideoListShowController ()
 <UICollectionViewDataSource, UICollectionViewDelegate, FlowLayoutDelegate>
@@ -57,6 +59,30 @@
     }
     [self setupUI];
     [self fetchDatasource];
+    
+    
+    UIButton* leftButton = [[UIButton alloc]init];
+    leftButton.frame = CGRectMake(0, 0,30, 30);
+    [leftButton setBackgroundImage:[UIImage imageNamed:@"scan"] forState: UIControlStateNormal];
+    [leftButton setBackgroundColor:[UIColor blueColor]];
+    [leftButton addTarget:self action:@selector(scanQRCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem* leftItem = [[UIBarButtonItem alloc]initWithCustomView: leftButton];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    UIButton* rightButton = [[UIButton alloc]init];
+    rightButton.frame = CGRectMake(0, 0,30, 30);
+    [rightButton setBackgroundImage:[UIImage imageNamed:@"setting"] forState: UIControlStateNormal];
+    [rightButton setBackgroundColor:[UIColor blueColor]];
+    [rightButton addTarget:self action:@selector(jumpSetting) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem* rightItem = [[UIBarButtonItem alloc]initWithCustomView: rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+-(void)jumpSetting{
+    SettingViewController* setttingVC = [[SettingViewController alloc]init];
+    setttingVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:setttingVC animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -256,7 +282,7 @@
     
     UIViewController *desVC = nil;
     NSString *selectPlayUrl = videoModel.PlayURL[videoModel.definitation.integerValue];
-    
+   
     if (self.showType == VideoListShowTypeLive) {
         
         if (self.livePlayVC) {
@@ -315,6 +341,7 @@
         }
     }
     if (desVC) {
+        desVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:desVC animated:YES];
     }
 }

@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-#import <KSYMediaPlayer/KSYMoviePlayerController.h>
+#import <KSYMoviePlayerController.h>
 
 @class VideoModel;
 

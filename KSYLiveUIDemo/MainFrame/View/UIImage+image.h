@@ -1,9 +1,9 @@
 //
 //  UIImage+image.h
-//  爱心汇
+//  KSYLiveUIDemo
 //
-//  Created by kys-4 on 15/11/25.
-//  Copyright © 2015年 kys-4. All rights reserved.
+//  Created by 王旭 on 2017/11/6.
+//  Copyright © 2017年 王旭. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -7,7 +7,7 @@
 //
 
 #import "CustomLaunchController.h"
-#import <KSYMediaPlayer/KSYMoviePlayerController.h>
+#import <KSYMoviePlayerController.h>
 
 @interface CustomLaunchController ()
 @property (weak, nonatomic) IBOutlet UILabel *versionLab;

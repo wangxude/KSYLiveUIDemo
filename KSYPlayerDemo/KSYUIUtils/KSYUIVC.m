@@ -8,7 +8,7 @@
 
 #import "KSYUIVC.h"
 #import <mach/mach.h>
-#import <KSYMediaPlayer/KSYReachability.h>
+#import <KSYReachability.h>
 #import "KSYUIView.h"
 
 @interface KSYUIVC() {

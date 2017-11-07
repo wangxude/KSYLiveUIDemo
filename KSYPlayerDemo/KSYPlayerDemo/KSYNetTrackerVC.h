@@ -6,7 +6,7 @@
 //  Copyright © 2017年 kingsoft. All rights reserved.
 //
 #import "KSYUIVC.h"
-#import <KSYMediaPlayer/KSYNetTracker.h>
+#import <KSYNetTracker.h>
 
 @interface KSYNetTrackerVC : KSYUIVC
 

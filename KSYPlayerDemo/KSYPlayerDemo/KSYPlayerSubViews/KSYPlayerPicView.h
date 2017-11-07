@@ -10,7 +10,7 @@
  图像相关控制
  */
 #import "KSYUIView.h"
- #import <KSYMediaPlayer/KSYMoviePlayerController.h> 
+ #import <KSYMoviePlayerController.h> 
 
 @interface KSYPlayerPicView: KSYUIView
 

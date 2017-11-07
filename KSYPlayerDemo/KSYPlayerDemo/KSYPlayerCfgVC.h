@@ -6,7 +6,7 @@
 //  Copyright © 2017年 kingsoft. All rights reserved.
 //
 #import "KSYUIVC.h"
-#import <KSYMediaPlayer/KSYMoviePlayerController.h> 
+#import <KSYMoviePlayerController.h> 
 
 @interface KSYPlayerCfgVC : KSYUIVC
 
