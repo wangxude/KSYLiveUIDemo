@@ -18,6 +18,7 @@
 		7805085C1FAC36CC0044754A /* LocalString.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7805085B1FAC36CC0044754A /* LocalString.strings */; };
 		780508631FAC4EBC0044754A /* KSYCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508621FAC4EBC0044754A /* KSYCustomLabel.m */; };
 		7812B7D41FB2DBE50004E2FB /* u11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7812B7D31FB2DBE30004E2FB /* u11.jpg */; };
+		7816F4681FB2FFC1002DFFEB /* KSYQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */; };
 		786E0C481FAC6D8E005B499C /* KSYNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */; };
 		786E0C4B1FAC6DB5005B499C /* KSYTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C4A1FAC6DB5005B499C /* KSYTabBarViewController.m */; };
 		78F3C7801FAFF4AB00497D29 /* KSYDemandListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C77F1FAFF4AB00497D29 /* KSYDemandListViewController.m */; };
@@ -144,6 +145,8 @@
 		780508611FAC4EBC0044754A /* KSYCustomLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYCustomLabel.h; sourceTree = "<group>"; };
 		780508621FAC4EBC0044754A /* KSYCustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYCustomLabel.m; sourceTree = "<group>"; };
 		7812B7D31FB2DBE30004E2FB /* u11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = u11.jpg; sourceTree = "<group>"; };
+		7816F4661FB2FFC1002DFFEB /* KSYQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYQRViewController.h; sourceTree = "<group>"; };
+		7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYQRViewController.m; sourceTree = "<group>"; };
 		786E0C461FAC6D8E005B499C /* KSYNavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYNavigationViewController.h; sourceTree = "<group>"; };
 		786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYNavigationViewController.m; sourceTree = "<group>"; };
 		786E0C491FAC6DB5005B499C /* KSYTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYTabBarViewController.h; sourceTree = "<group>"; };
@@ -501,6 +504,8 @@
 		78F3C7841FB0062200497D29 /* LiveOnFlow */ = {
 			isa = PBXGroup;
 			children = (
+				7816F4661FB2FFC1002DFFEB /* KSYQRViewController.h */,
+				7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */,
 				78F3C7851FB0064300497D29 /* KSYLiveOnFlowViewController.h */,
 				78F3C7861FB0064300497D29 /* KSYLiveOnFlowViewController.m */,
 			);
@@ -1008,6 +1013,7 @@
 				78F598E81FB15580004C4C08 /* KSYProgressView.m in Sources */,
 				78F598E21FB15580004C4C08 /* KSYPlayerAudioView.m in Sources */,
 				780508591FAC35780044754A /* KSYMainUIVC.m in Sources */,
+				7816F4681FB2FFC1002DFFEB /* KSYQRViewController.m in Sources */,
 				78F598DD1FB15580004C4C08 /* KSYAVWriter.m in Sources */,
 				78F598E51FB15580004C4C08 /* KSYPlayerSubtitleView.m in Sources */,
 				78F599531FB15589004C4C08 /* FlowLayout.m in Sources */,

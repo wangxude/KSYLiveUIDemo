@@ -11,7 +11,8 @@
 #import "ViewController.h"
 //下拉列表
 #import "KSYDropDownMenu.h"
-
+//扫描二维码
+#import "KSYQRViewController.h"
 
 @interface KSYLiveOnFlowViewController ()<KSYDropDownMenuDelegate>
 
@@ -93,7 +94,26 @@
  @param sender 按钮
  */
 -(void)scanQRCodeAction:(UIButton*)sender{
-    
+    __weak __typeof(self)wself = self;
+    KSYQRViewController *QRview = [[KSYQRViewController alloc]init];
+    QRview.getQrCode = ^(NSString *stringQR){
+        //扫描完成后显示地址
+        NSString *QRUrl = stringQR;
+        //得到二维码扫描的地址添加到播放地址的数组中
+        //        if (_type == KSYDemoMenuType_PLAY) {
+        ////            [_arrayPlayAddress insertObject:QRUrl atIndex:0];
+        ////            _currentSelectUrl = _arrayPlayAddress[0];
+        //        }else if(_type == KSYDemoMenuType_STREAM){
+        ////            [_arrayStreamAddress insertObject:QRUrl atIndex:0];
+        ////            _currentSelectUrl = _arrayStreamAddress[0];
+        //        }else if(_type == KSYDemoMenuType_RECORD){
+        ////            [_arrayRecordFileName insertObject:QRUrl atIndex:0];
+        ////            _currentSelectUrl = _arrayRecordFileName[0];
+        //        }
+        
+        [wself dismissViewControllerAnimated:FALSE completion:nil];
+    };
+    [self presentViewController:QRview animated:YES completion:nil];
 }
 
 /**
