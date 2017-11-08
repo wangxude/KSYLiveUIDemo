@@ -15,12 +15,28 @@
 #import <UIKit/UIKit.h>
 //适配
 #import <Masonry.h>
+//按钮
+#import "UIButton+Extension.h"
+#import "UIBarButtonItem+Item.h"
 
 #endif
 //屏幕尺寸
 #define KSYScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define KSYScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define KSYScreen_Frame(x,y,w,h) CGRectMake(x,y,w,h)
+//屏幕中心
+#define KSYView_Center(view) ((view).center)
+#define KSYView_Center_X(view) ((view).center.x)
+#define KSYView_Center_Y(view) ((view).center.y)
+//控件宽高
+#define KSYViewFrame_Size_Width(view) ((view).frame.size.width)
+#define KSYViewFrame_Size_Height(view) ((view).frame.size.height)
+//控件原始坐标
+#define KSYViewFrame_Origin_X(view) ((view).frame.origin.x)
+#define KSYViewFramen_Origin_Y(view) ((view).frame.origin.y)
+
+
+
 //颜色
 #define KSYRGB(r, g, b) [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) /255.0) alpha:1.0]
 #define KSYRGBAlpha(r, g, b, a) [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:(a)]

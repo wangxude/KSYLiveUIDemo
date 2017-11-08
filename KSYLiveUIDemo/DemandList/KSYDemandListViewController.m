@@ -60,22 +60,12 @@
     [self setupUI];
     [self fetchDatasource];
     
-    UIButton* leftButton = [[UIButton alloc]init];
-    leftButton.frame = CGRectMake(0, 0,30, 30);
-    [leftButton setBackgroundImage:[UIImage imageNamed:@"scan"] forState: UIControlStateNormal];
-    [leftButton setBackgroundColor:[UIColor blueColor]];
-    [leftButton addTarget:self action:@selector(scanQRCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+
     
-    UIBarButtonItem* leftItem = [[UIBarButtonItem alloc]initWithCustomView: leftButton];
+    UIBarButtonItem* leftItem = [UIBarButtonItem barButtonItemWithImageName:@"scan" frame:KSYScreen_Frame(0, 0, 30, 30) target:self action:@selector(scanQRCodeAction:)];
     self.navigationItem.leftBarButtonItem = leftItem;
     
-    UIButton* rightButton = [[UIButton alloc]init];
-    rightButton.frame = CGRectMake(0, 0,30, 30);
-    [rightButton setBackgroundImage:[UIImage imageNamed:@"setting"] forState: UIControlStateNormal];
-    [rightButton setBackgroundColor:[UIColor blueColor]];
-    [rightButton addTarget:self action:@selector(jumpSetting) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem* rightItem = [[UIBarButtonItem alloc]initWithCustomView: rightButton];
+    UIBarButtonItem* rightItem = [UIBarButtonItem barButtonItemWithImageName:@"setting" frame:KSYScreen_Frame(0, 0, 30, 30) target:self action:@selector(jumpSetting)];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 -(void)jumpSetting{

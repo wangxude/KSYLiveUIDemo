@@ -21,7 +21,18 @@
     
     return  [[UIBarButtonItem alloc] initWithCustomView:btn];
     
+}
+
++(UIBarButtonItem *)barButtonItemWithImageName:(NSString*)imageName frame:(CGRect)frame target:(id)target action:(SEL)action{
+    UIButton* barButton = [[UIButton alloc]init];
+    barButton.frame = frame;
+    [barButton setBackgroundImage:[UIImage imageNamed:imageName] forState: UIControlStateNormal];
+    [barButton setBackgroundColor:[UIColor blueColor]];
+    [barButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     
+    UIBarButtonItem* item = [[UIBarButtonItem alloc]initWithCustomView:barButton];
+    
+    return item;
 }
 
 @end

@@ -13,4 +13,7 @@
 
 + (UIBarButtonItem *)barButtonItemWithImage:(UIImage *)image highImage:(UIImage *)highImage target:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 
++(UIBarButtonItem *)barButtonItemWithImageName:(NSString*)imageName frame:(CGRect)frame target:(id)target action:(SEL)action;
+
+
 @end
