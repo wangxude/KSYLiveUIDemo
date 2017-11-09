@@ -13,6 +13,10 @@
 "SDK_Version" = "SDK V1.0.0版本";
 "Open_A_Live" = "开启直播";
 "Begin_Live" = "开始直播";
+"input_CurrentAddress" = "请输入推流地址";
+"pushFlow_Resolution" = "推流分辨率";
+"live_Scene" = "直播场景";
+"performance_Model" = "性能模式";
 
 
 

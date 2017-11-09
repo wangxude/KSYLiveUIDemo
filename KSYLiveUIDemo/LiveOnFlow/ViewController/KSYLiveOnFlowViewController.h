@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+//推流的kit类
+#import <libksygpulive/KSYGPUStreamerKit.h>
 
 @interface KSYLiveOnFlowViewController : UIViewController
 

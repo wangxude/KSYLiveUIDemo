@@ -18,6 +18,8 @@
 //按钮
 #import "UIButton+Extension.h"
 #import "UIBarButtonItem+Item.h"
+//布局label
+#import "KSYCustomLabel.h"
 
 #endif
 //屏幕尺寸

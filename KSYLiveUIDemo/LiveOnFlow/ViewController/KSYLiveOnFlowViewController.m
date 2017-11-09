@@ -13,6 +13,8 @@
 #import "KSYDropDownMenu.h"
 //扫描二维码
 #import "KSYQRViewController.h"
+//推流设置界面
+#import "KSYParameterSettingVC.h"
 
 @interface KSYLiveOnFlowViewController ()<KSYDropDownMenuDelegate>
 
@@ -120,7 +122,8 @@
  设置界面
  */
 -(void)jumpSetting{
-    
+    KSYParameterSettingVC* settingVC = [[KSYParameterSettingVC alloc]init];
+    [self.navigationController pushViewController:settingVC animated:YES];
 }
 #pragma mark - KSYDropDownMenu delegate
 

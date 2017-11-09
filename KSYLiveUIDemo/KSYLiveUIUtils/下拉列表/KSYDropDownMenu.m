@@ -154,7 +154,7 @@
     if (dropListCell == nil) {
         //下拉选项样式
         dropListCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        dropListCell.textLabel.font          = [UIFont systemFontOfSize:11.f];
+        dropListCell.textLabel.font          = [UIFont systemFontOfSize:14.f];
         dropListCell.textLabel.textColor     = KSYRGB(239,69,84);
         dropListCell.selectionStyle          = UITableViewCellSelectionStyleNone;
         
