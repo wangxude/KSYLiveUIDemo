@@ -125,6 +125,8 @@
 //点击
 -(void)didSelectedRadioButton:(KSYRadioButton *)radioButton groupId:(NSString *)groupId{
     NSLog(@"%@,---%@",groupId,radioButton.titleLabel.text);
+    [[NSUserDefaults standardUserDefaults] setValue:radioButton.titleLabel.text forKey:groupId];
+    
     
 }
 

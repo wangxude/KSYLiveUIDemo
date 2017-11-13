@@ -114,6 +114,7 @@
 		78F781D91FB94939009DD5B1 /* KSYCustomCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F781D81FB94939009DD5B1 /* KSYCustomCollectView.m */; };
 		78F781E01FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F781DE1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m */; };
 		78F781E11FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78F781DF1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib */; };
+		78F781E31FB9A057009DD5B1 /* 头像.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78F781E21FB9A057009DD5B1 /* 头像.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -331,6 +332,7 @@
 		78F781DD1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYLabelCollectionViewCell.h; sourceTree = "<group>"; };
 		78F781DE1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYLabelCollectionViewCell.m; sourceTree = "<group>"; };
 		78F781DF1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KSYLabelCollectionViewCell.xib; sourceTree = "<group>"; };
+		78F781E21FB9A057009DD5B1 /* 头像.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "头像.jpg"; sourceTree = "<group>"; };
 		853AAC30320CD54C7FF37E3E /* Pods-KSYLiveUIDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		A15EBA62A57CFC2D05FC5DCB /* Pods-KSYLiveUIDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -463,6 +465,7 @@
 		7812B7D21FB2DBCA0004E2FB /* 图片资源 */ = {
 			isa = PBXGroup;
 			children = (
+				78F781E21FB9A057009DD5B1 /* 头像.jpg */,
 				7812B7D31FB2DBE30004E2FB /* u11.jpg */,
 			);
 			path = "图片资源";
@@ -957,6 +960,7 @@
 				78F599671FB15589004C4C08 /* VodPlayControlView.xib in Resources */,
 				78F599441FB15589004C4C08 /* CustomLaunchController.xib in Resources */,
 				78F599651FB15589004C4C08 /* VideoCollectionViewCell.xib in Resources */,
+				78F781E31FB9A057009DD5B1 /* 头像.jpg in Resources */,
 				78F599601FB15589004C4C08 /* SuspendPlayView.xib in Resources */,
 				78F781E11FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib in Resources */,
 				78F599561FB15589004C4C08 /* DefinitionMenuView.xib in Resources */,

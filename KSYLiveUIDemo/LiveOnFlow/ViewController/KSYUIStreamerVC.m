@@ -9,6 +9,8 @@
 #import "KSYUIStreamerVC.h"
 //九宫格View
 #import "KSYCustomCollectView.h"
+//头部的头像和名称
+#import "KSYHeadControl.h"
 
 @interface KSYUIStreamerVC ()
 
@@ -116,7 +118,45 @@
  添加顶部的按钮
  */
 -(void)addTopSubView{
+    KSYHeadControl* control = [[KSYHeadControl alloc]init];
+    [self.view addSubview:control];
+    [control mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(10);
+        make.top.equalTo(self.view).offset(30);
+        make.width.mas_equalTo(@120);
+        make.height.mas_equalTo(@40);
+    }];
     
+    
+    
+    UIButton* closeBtn = [[UIButton alloc]initButtonWithTitle:@"" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+        NSLog(@"%@",@"关闭");
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self removeObserver];
+        [_wxStreamerKit stopPreview];
+        _wxStreamerKit = nil;
+    }];
+    [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    [self.view addSubview:closeBtn];
+    
+    [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-10);
+        make.top.equalTo(control.mas_top);
+        make.width.mas_equalTo(@40);
+        make.height.equalTo(control.mas_height);
+    }];
+    
+    UIButton* flowAddressBtn = [[UIButton alloc]initButtonWithTitle:@"拉流地址" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+        NSLog(@"%@",@"拉流地址");
+    }];
+    [self.view addSubview:flowAddressBtn];
+    
+    [flowAddressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(closeBtn.mas_left).offset(-10);
+        make.top.equalTo(control.mas_top);
+        make.width.mas_equalTo(@80);
+        make.height.equalTo(control.mas_height);
+    }];
 }
 
 /**
@@ -145,23 +185,30 @@
     }];
     [self.view addSubview:caremaBtn];
     
-    
+    //录屏
     UIButton* recordBtn = [[UIButton alloc]initButtonWithTitle:@"录屏/截屏" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"录屏");
+        [_wxStreamerKit.streamerBase stopStream];
+        NSString *url = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/RecordAv.mp4"];
+        NSURL *hostURL =[[NSURL alloc] initFileURLWithPath:url];
+        
+        [_wxStreamerKit.streamerBase startStream:hostURL];
+        
+        
     }];
     [self.view addSubview:recordBtn];
   
     float buttonWidth = (KSYScreenWidth-20)/4;
-    
+    //功能
     UIButton* funcButton =[[UIButton alloc]initButtonWithTitle:@"功能" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"功能");
-        KSYCustomCollectView* collectView = [[KSYCustomCollectView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-        //collectView.backgroundColor = [UIColor redColor];
+        KSYCustomCollectView* collectView = [[KSYCustomCollectView alloc]init];
+        collectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
         [collectView showView];
     }];
     [self.view addSubview:funcButton];
 
-    
+    //布局代码
     [skinCareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(5);
         make.bottom.equalTo(self.view).offset(-10);
@@ -189,7 +236,7 @@
         make.bottom.equalTo(skinCareBtn.mas_bottom);
         make.height.equalTo(skinCareBtn.mas_height);
     }];
-//    
+  
 }
 
 - (void)didReceiveMemoryWarning {

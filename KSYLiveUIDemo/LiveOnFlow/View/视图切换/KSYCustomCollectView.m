@@ -19,25 +19,39 @@
 @implementation KSYCustomCollectView
 
 -(instancetype)init{
-    if (self = [super init]) {
+    self = [super initWithFrame:[UIScreen mainScreen].bounds];
+    if (self) {
         //添加布局
         [self addCollectView];
     }
     return self;
 }
 
+
 -(void)addCollectView{
     
     titleArray = @[@"镜像",@"闪光灯",@"静音",@"音效",@"背景音乐",@"LOGO",@"画中画",@"画笔/涂鸦",@"背景图"];
     //初始化布局类
-    UICollectionViewLayout *layout = [[UICollectionViewLayout alloc]init];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+   // layout.itemSize = CGSizeMake(KSYScreenWidth/3, 40);
     //初始化collectView
-    self.scratchableLatexView = [[UICollectionView alloc]initWithFrame:self.frame collectionViewLayout: layout];
+    self.scratchableLatexView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout: layout];
     [self.scratchableLatexView registerNib:[UINib nibWithNibName:@"KSYLabelCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     self.scratchableLatexView.delegate = self;
     self.scratchableLatexView.dataSource = self;
     [self addSubview:self.scratchableLatexView];
+    self.scratchableLatexView.backgroundColor = KSYRGBAlpha(0.5, 114, 105, 95);
+    //self.scratchableLatexView.opaque = NO;
     
+    
+    [self.scratchableLatexView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+        make.width.equalTo(self);
+        make.left.equalTo(self);
+        make.height.mas_equalTo(@120);
+        [self.scratchableLatexView reloadData];
+    }];
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -50,12 +64,25 @@
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString* identifier = @"cell";
     KSYLabelCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    cell.TextLabel = [KSYCustomLabel labelWithText:titleArray[indexPath.item] textColor:KSYRGB(121, 121, 121) font:KSYUIFont(15) textAlignment:NSTextAlignmentCenter backgroundColor:[UIColor whiteColor]];
+    cell.TextLabel.text = [NSString stringWithFormat:@"%@",titleArray[indexPath.item]];
     return cell;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake(KSYScreenWidth/3, 40);
 }
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+
+//设置每个item垂直间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"collectionView");
 }
@@ -64,6 +91,17 @@
     UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self];
     
+    self.scratchableLatexView.transform = CGAffineTransformMakeScale(1.21, 1.21);
+    self.scratchableLatexView.alpha = 0;
+//    [UIView animateWithDuration:0.7 animations:^{
+//        self.scratchableLatexView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+//        self.scratchableLatexView.alpha = 1.0;
+//    }];
+    [UIView animateWithDuration:.7f delay:0.f usingSpringWithDamping:.7f initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       
+        self.scratchableLatexView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+        self.scratchableLatexView.alpha = 1.0;
+    } completion:nil];
 }
 
 /*
