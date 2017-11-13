@@ -18,12 +18,15 @@
 		7805085C1FAC36CC0044754A /* LocalString.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7805085B1FAC36CC0044754A /* LocalString.strings */; };
 		780508631FAC4EBC0044754A /* KSYCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 780508621FAC4EBC0044754A /* KSYCustomLabel.m */; };
 		7806CC4D1FB4073600B68364 /* KSYSettingPartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7806CC4C1FB4073600B68364 /* KSYSettingPartView.m */; };
+		7806CC501FB44FD000B68364 /* KSYUIStreamerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7806CC4F1FB44FD000B68364 /* KSYUIStreamerVC.m */; };
+		7806CC531FB4516200B68364 /* KSYSimplestStreamerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7806CC511FB4516100B68364 /* KSYSimplestStreamerVC.m */; };
 		7812B7D41FB2DBE50004E2FB /* u11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7812B7D31FB2DBE30004E2FB /* u11.jpg */; };
 		7816F4681FB2FFC1002DFFEB /* KSYQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */; };
 		7816F46B1FB301EF002DFFEB /* KSYParameterSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7816F46A1FB301EF002DFFEB /* KSYParameterSettingVC.m */; };
 		7816F4B21FB32488002DFFEB /* KSYRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7816F4B11FB32488002DFFEB /* KSYRadioButton.m */; };
 		786E0C481FAC6D8E005B499C /* KSYNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */; };
 		786E0C4B1FAC6DB5005B499C /* KSYTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C4A1FAC6DB5005B499C /* KSYTabBarViewController.m */; };
+		78AF45F81FB8690600E4B78A /* KSYTransViewAfterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AF45F71FB8690600E4B78A /* KSYTransViewAfterView.m */; };
 		78F3C7801FAFF4AB00497D29 /* KSYDemandListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C77F1FAFF4AB00497D29 /* KSYDemandListViewController.m */; };
 		78F3C7831FAFF4BA00497D29 /* KSYLiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7821FAFF4BA00497D29 /* KSYLiveListViewController.m */; };
 		78F3C7871FB0064300497D29 /* KSYLiveOnFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F3C7861FB0064300497D29 /* KSYLiveOnFlowViewController.m */; };
@@ -107,6 +110,10 @@
 		78F599701FB1927C004C4C08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F5996F1FB1927C004C4C08 /* Main.storyboard */; };
 		78F599741FB19E3E004C4C08 /* KSYDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F599731FB19E3E004C4C08 /* KSYDropDownMenu.m */; };
 		78F599771FB1AA09004C4C08 /* UIButton+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F599761FB1AA09004C4C08 /* UIButton+Extension.m */; };
+		78F781D51FB938A5009DD5B1 /* KSYHeadControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F781D41FB938A5009DD5B1 /* KSYHeadControl.m */; };
+		78F781D91FB94939009DD5B1 /* KSYCustomCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F781D81FB94939009DD5B1 /* KSYCustomCollectView.m */; };
+		78F781E01FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F781DE1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m */; };
+		78F781E11FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78F781DF1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +156,10 @@
 		780508621FAC4EBC0044754A /* KSYCustomLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYCustomLabel.m; sourceTree = "<group>"; };
 		7806CC4B1FB4073600B68364 /* KSYSettingPartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYSettingPartView.h; sourceTree = "<group>"; };
 		7806CC4C1FB4073600B68364 /* KSYSettingPartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYSettingPartView.m; sourceTree = "<group>"; };
+		7806CC4E1FB44FD000B68364 /* KSYUIStreamerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYUIStreamerVC.h; sourceTree = "<group>"; };
+		7806CC4F1FB44FD000B68364 /* KSYUIStreamerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYUIStreamerVC.m; sourceTree = "<group>"; };
+		7806CC511FB4516100B68364 /* KSYSimplestStreamerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYSimplestStreamerVC.m; sourceTree = "<group>"; };
+		7806CC521FB4516200B68364 /* KSYSimplestStreamerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYSimplestStreamerVC.h; sourceTree = "<group>"; };
 		7812B7D31FB2DBE30004E2FB /* u11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = u11.jpg; sourceTree = "<group>"; };
 		7816F4661FB2FFC1002DFFEB /* KSYQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYQRViewController.h; sourceTree = "<group>"; };
 		7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYQRViewController.m; sourceTree = "<group>"; };
@@ -160,6 +171,8 @@
 		786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYNavigationViewController.m; sourceTree = "<group>"; };
 		786E0C491FAC6DB5005B499C /* KSYTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYTabBarViewController.h; sourceTree = "<group>"; };
 		786E0C4A1FAC6DB5005B499C /* KSYTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYTabBarViewController.m; sourceTree = "<group>"; };
+		78AF45F61FB8690600E4B78A /* KSYTransViewAfterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYTransViewAfterView.h; sourceTree = "<group>"; };
+		78AF45F71FB8690600E4B78A /* KSYTransViewAfterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYTransViewAfterView.m; sourceTree = "<group>"; };
 		78F3C77E1FAFF4AB00497D29 /* KSYDemandListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYDemandListViewController.h; sourceTree = "<group>"; };
 		78F3C77F1FAFF4AB00497D29 /* KSYDemandListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYDemandListViewController.m; sourceTree = "<group>"; };
 		78F3C7811FAFF4BA00497D29 /* KSYLiveListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYLiveListViewController.h; sourceTree = "<group>"; };
@@ -311,6 +324,13 @@
 		78F599731FB19E3E004C4C08 /* KSYDropDownMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYDropDownMenu.m; sourceTree = "<group>"; };
 		78F599751FB1AA09004C4C08 /* UIButton+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extension.h"; sourceTree = "<group>"; };
 		78F599761FB1AA09004C4C08 /* UIButton+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extension.m"; sourceTree = "<group>"; };
+		78F781D31FB938A5009DD5B1 /* KSYHeadControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYHeadControl.h; sourceTree = "<group>"; };
+		78F781D41FB938A5009DD5B1 /* KSYHeadControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYHeadControl.m; sourceTree = "<group>"; };
+		78F781D71FB94939009DD5B1 /* KSYCustomCollectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYCustomCollectView.h; sourceTree = "<group>"; };
+		78F781D81FB94939009DD5B1 /* KSYCustomCollectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYCustomCollectView.m; sourceTree = "<group>"; };
+		78F781DD1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYLabelCollectionViewCell.h; sourceTree = "<group>"; };
+		78F781DE1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYLabelCollectionViewCell.m; sourceTree = "<group>"; };
+		78F781DF1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KSYLabelCollectionViewCell.xib; sourceTree = "<group>"; };
 		853AAC30320CD54C7FF37E3E /* Pods-KSYLiveUIDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		A15EBA62A57CFC2D05FC5DCB /* Pods-KSYLiveUIDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KSYLiveUIDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-KSYLiveUIDemo/Pods-KSYLiveUIDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -462,6 +482,9 @@
 				7816F4B11FB32488002DFFEB /* KSYRadioButton.m */,
 				7806CC4B1FB4073600B68364 /* KSYSettingPartView.h */,
 				7806CC4C1FB4073600B68364 /* KSYSettingPartView.m */,
+				78F781D31FB938A5009DD5B1 /* KSYHeadControl.h */,
+				78F781D41FB938A5009DD5B1 /* KSYHeadControl.m */,
+				78F781D61FB948A9009DD5B1 /* 视图切换 */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -475,6 +498,10 @@
 				7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */,
 				7816F4691FB301EF002DFFEB /* KSYParameterSettingVC.h */,
 				7816F46A1FB301EF002DFFEB /* KSYParameterSettingVC.m */,
+				7806CC4E1FB44FD000B68364 /* KSYUIStreamerVC.h */,
+				7806CC4F1FB44FD000B68364 /* KSYUIStreamerVC.m */,
+				7806CC521FB4516200B68364 /* KSYSimplestStreamerVC.h */,
+				7806CC511FB4516100B68364 /* KSYSimplestStreamerVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -781,6 +808,20 @@
 			path = "下拉列表";
 			sourceTree = "<group>";
 		};
+		78F781D61FB948A9009DD5B1 /* 视图切换 */ = {
+			isa = PBXGroup;
+			children = (
+				78AF45F61FB8690600E4B78A /* KSYTransViewAfterView.h */,
+				78AF45F71FB8690600E4B78A /* KSYTransViewAfterView.m */,
+				78F781D71FB94939009DD5B1 /* KSYCustomCollectView.h */,
+				78F781D81FB94939009DD5B1 /* KSYCustomCollectView.m */,
+				78F781DD1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.h */,
+				78F781DE1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m */,
+				78F781DF1FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib */,
+			);
+			path = "视图切换";
+			sourceTree = "<group>";
+		};
 		DC3DDC1ACB51C5328D7E4C65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -861,6 +902,7 @@
 		7805080D1FAC1C9C0044754A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = KSY;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "王旭";
 				TargetAttributes = {
@@ -916,6 +958,7 @@
 				78F599441FB15589004C4C08 /* CustomLaunchController.xib in Resources */,
 				78F599651FB15589004C4C08 /* VideoCollectionViewCell.xib in Resources */,
 				78F599601FB15589004C4C08 /* SuspendPlayView.xib in Resources */,
+				78F781E11FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.xib in Resources */,
 				78F599561FB15589004C4C08 /* DefinitionMenuView.xib in Resources */,
 				780508221FAC1C9C0044754A /* Assets.xcassets in Resources */,
 			);
@@ -1008,6 +1051,7 @@
 				78F599681FB15589004C4C08 /* VodPlayOperationView.m in Sources */,
 				78F3C7A41FB015F200497D29 /* UIView+Extension.m in Sources */,
 				7806CC4D1FB4073600B68364 /* KSYSettingPartView.m in Sources */,
+				78F781E01FB94D3F009DD5B1 /* KSYLabelCollectionViewCell.m in Sources */,
 				78F599611FB15589004C4C08 /* UpdateVolumeAndBrightView.m in Sources */,
 				78F599541FB15589004C4C08 /* UIColor+Additions.m in Sources */,
 				78F599621FB15589004C4C08 /* VideoCollectionHeaderView.m in Sources */,
@@ -1018,6 +1062,7 @@
 				78F5993F1FB15589004C4C08 /* BaseNavigationController.m in Sources */,
 				78F599431FB15589004C4C08 /* CustomLaunchController.m in Sources */,
 				78F599771FB1AA09004C4C08 /* UIButton+Extension.m in Sources */,
+				7806CC531FB4516200B68364 /* KSYSimplestStreamerVC.m in Sources */,
 				78F599741FB19E3E004C4C08 /* KSYDropDownMenu.m in Sources */,
 				78F598D61FB15580004C4C08 /* KSYDBCreater.m in Sources */,
 				78F5994D1FB15589004C4C08 /* SettingDataHandler.m in Sources */,
@@ -1041,6 +1086,7 @@
 				78F5995A1FB15589004C4C08 /* NemoFavourView.m in Sources */,
 				78F599521FB15589004C4C08 /* VideoModel.m in Sources */,
 				78F5994E1FB15589004C4C08 /* VersionSwitchHandler.m in Sources */,
+				78AF45F81FB8690600E4B78A /* KSYTransViewAfterView.m in Sources */,
 				780508281FAC1C9C0044754A /* main.m in Sources */,
 				78F599461FB15589004C4C08 /* PlayController.m in Sources */,
 				78F598E31FB15580004C4C08 /* KSYPlayerOtherView.m in Sources */,
@@ -1053,6 +1099,7 @@
 				78F5994A1FB15589004C4C08 /* VideoListShowController.m in Sources */,
 				78F598E81FB15580004C4C08 /* KSYProgressView.m in Sources */,
 				78F598E21FB15580004C4C08 /* KSYPlayerAudioView.m in Sources */,
+				78F781D91FB94939009DD5B1 /* KSYCustomCollectView.m in Sources */,
 				780508591FAC35780044754A /* KSYMainUIVC.m in Sources */,
 				7816F4681FB2FFC1002DFFEB /* KSYQRViewController.m in Sources */,
 				78F598DD1FB15580004C4C08 /* KSYAVWriter.m in Sources */,
@@ -1074,6 +1121,8 @@
 				78F3C7871FB0064300497D29 /* KSYLiveOnFlowViewController.m in Sources */,
 				78F598E41FB15580004C4C08 /* KSYPlayerPicView.m in Sources */,
 				78F3C7801FAFF4AB00497D29 /* KSYDemandListViewController.m in Sources */,
+				7806CC501FB44FD000B68364 /* KSYUIStreamerVC.m in Sources */,
+				78F781D51FB938A5009DD5B1 /* KSYHeadControl.m in Sources */,
 				78F599581FB15589004C4C08 /* LiveVolumeView.m in Sources */,
 				78F599421FB15589004C4C08 /* ChoiceViewController.m in Sources */,
 				7816F46B1FB301EF002DFFEB /* KSYParameterSettingVC.m in Sources */,

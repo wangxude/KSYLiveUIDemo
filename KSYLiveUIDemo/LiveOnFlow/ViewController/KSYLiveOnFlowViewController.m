@@ -15,7 +15,10 @@
 #import "KSYQRViewController.h"
 //推流设置界面
 #import "KSYParameterSettingVC.h"
-
+//测试推流
+#import "KSYSimplestStreamerVC.h"
+//推流功能界面
+#import "KSYUIStreamerVC.h"
 @interface KSYLiveOnFlowViewController ()<KSYDropDownMenuDelegate>
 
 @property(nonatomic,strong) KSYDropDownMenu* dropDownMenu;
@@ -32,13 +35,7 @@
     
     [self setUpChildView];
     
-//    UIButton* button = [[UIButton alloc]init];
-//    button.frame = CGRectMake(0, 100, 100, 100);
-//    [button setTitle:@"跳转" forState: UIControlStateNormal];
-//    [button setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(qqq) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:button];
-    
+   
    
 }
 
@@ -83,7 +80,15 @@
  开始直播
  */
 -(void)beginLiveToEvent{
-    
+    NSString * uuidStr =[[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *devCode  = [[uuidStr substringToIndex:3] lowercaseString];
+    NSLog(@"%@",devCode);
+    //推流地址
+    NSString *streamSrv  = @"rtmp://test.uplive.ks-cdn.com/live";
+    NSString *streamUrl      = [ NSString stringWithFormat:@"%@/%@", streamSrv, devCode];
+    NSURL* rtmpUrl = [NSURL URLWithString:streamUrl];
+    KSYUIStreamerVC* vc =  [[KSYUIStreamerVC alloc] initWithUrl:rtmpUrl];
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 // 关闭
 - (void)close {

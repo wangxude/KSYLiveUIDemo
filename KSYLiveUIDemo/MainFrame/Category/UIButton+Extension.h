@@ -71,4 +71,17 @@
  */
 + (instancetype)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font backGroundColor:(UIColor*)color target:(id)target action:(SEL)action backImageName:(NSString *)backImageName;
 
+/**
+ 便利按钮
+
+ @param title 文字
+ @param titleColor 字体颜色
+ @param font 字体
+ @param color 背景颜色
+ @return UIButton
+ */
+-(instancetype)initButtonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font backGroundColor:(UIColor*)color callBack:(void(^)(UIButton*))callback;
+
+
+
 @end

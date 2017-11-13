@@ -7,8 +7,60 @@
 //
 
 #import "UIButton+Extension.h"
+#import <objc/runtime.h>
+
+@interface UIButton ()
+
+@property (nonatomic, copy) void (^callbackBlock)(UIButton * button);
+
+
+@end
 
 @implementation UIButton (Extension)
+
+
+
+#pragma mark -有文字，有颜色，有字体，有背景颜色
+-(instancetype)initButtonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font backGroundColor:(UIColor*)color callBack:(void(^)(UIButton*))callBlock{
+    if (self = [super init]) {
+        [self setTitle:title forState:UIControlStateNormal];
+        [self setTitleColor:titleColor forState:UIControlStateNormal];
+        self.titleLabel.font = font;
+        self.adjustsImageWhenHighlighted = NO;
+        self.callbackBlock = callBlock;
+        [self addTarget:self action:@selector(didClickAction:) forControlEvents:UIControlEventTouchUpInside];
+       // [self setBackgroundColor:color];
+    }
+
+    return self;
+}
+
+/**
+ 按钮的响应事件
+ */
+-(void)didClickAction:(UIButton*)button{
+    if (self.callbackBlock) {
+        self.callbackBlock(button);
+    }
+}
+//- (void (^)(UIButton *))callbackBlock {
+//    return objc_getAssociatedObject(self, @selector(callbackBlock));
+//}
+//
+//- (void)setCallbackBlock:(void (^)(UIButton *))callbackBlock {
+//    objc_setAssociatedObject(self, @selector(callbackBlock), callbackBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+//}
+//关联属性
+-(void)setCallbackBlock:(void (^)(UIButton *))callbackBlock{
+    objc_setAssociatedObject(self, @selector(callbackBlock), callbackBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+-(void (^)(UIButton *))callbackBlock{
+    return objc_getAssociatedObject(self, @selector(callbackBlock));
+}
+
+
+
+
 
 #pragma mark --- 创建默认按钮--有字体、颜色--有图片---有背景
 + (instancetype)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font imageName:(NSString *)imageName backGroundColor:(UIColor*)color target:(id)target action:(SEL)action backImageName:(NSString *)backImageName  {
@@ -65,7 +117,6 @@
 + (instancetype)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font backGroundColor:(UIColor*)color target:(id)target action:(SEL)action backImageName:(NSString *)backImageName{
         return [self buttonWithTitle:title titleColor:titleColor font:font imageName:nil backGroundColor:color target:target action:action backImageName:backImageName];
 }
-
 
 
 @end
