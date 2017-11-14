@@ -15,6 +15,7 @@
  */
 @property(nonatomic,strong)UICollectionView*  scratchableLatexView;
 
+
 /**
  展现视图
  */

@@ -20,7 +20,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    [self judgeFirstBegin];
    //bugly
     BuglyConfig *cfg = [[BuglyConfig alloc] init];
     cfg.channel = @"public";
@@ -37,6 +37,30 @@
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
+}
+-(void)judgeFirstBegin{
+    //判断程序是不是第一次启动
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]){
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+        //推流分辨率
+        [[NSUserDefaults standardUserDefaults] setValue:@"360P" forKey:@"resolutionGroup"];
+        //直播场景
+        [[NSUserDefaults standardUserDefaults] setValue:@"秀场" forKey:@"liveGroup"];
+        //性能模式
+        [[NSUserDefaults standardUserDefaults] setValue:@"均衡" forKey:@"performanceGroup"];
+        //采集分辨率
+        [[NSUserDefaults standardUserDefaults] setValue:@"480P" forKey:@"collectGroup"];
+        //视频编码器
+        [[NSUserDefaults standardUserDefaults] setValue:@"自动" forKey:@"videoGroup"];
+        //音频编码器
+        [[NSUserDefaults standardUserDefaults] setValue:@"AAC LC" forKey:@"audioGroup"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+       
+        //第一次启动
+    }else{
+        //不是第一次启动了
+    }
 }
 
 

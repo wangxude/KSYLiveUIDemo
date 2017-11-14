@@ -11,10 +11,13 @@
 #import "KSYCustomCollectView.h"
 //头部的头像和名称
 #import "KSYHeadControl.h"
-
+//数据模型
+#import "KSYSettingModel.h"
 @interface KSYUIStreamerVC ()
 
 @property(nonatomic,copy)NSURL* rtmpUrl;
+
+@property(nonatomic,strong)NSDictionary* modelSenderDic;
 
 @end
 
@@ -28,6 +31,14 @@
     return self;
 }
 
+-(NSDictionary*)modelSenderDic{
+    if (_modelSenderDic) {
+         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _modelSenderDic = [NSDictionary dictionaryWithObjectsAndKeys:[defaults objectForKey:@"resolutionGroup"],@"resolutionGroup",[defaults objectForKey:@"liveGroup"],@"liveGroup",[defaults objectForKey:@"performanceGroup"],@"performanceGroup",[defaults objectForKey:@"collectGroup"],@"collectGroup",[defaults objectForKey:@"videoGroup"],@"videoGroup",[defaults objectForKey:@"audioGroup"],@"audioGroup",nil];
+    }
+    return _modelSenderDic;
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -37,6 +48,21 @@
     if (!_wxStreamerKit) {
         _wxStreamerKit = [[KSYGPUStreamerKit alloc]init];
     }
+    
+    KSYSettingModel* model = [KSYSettingModel modelWithDictionary:self.modelSenderDic];
+    //音频编码器类型
+    _wxStreamerKit.streamerBase.audioCodec = model.audioCodecType;
+    //视频编码器类型
+    _wxStreamerKit.streamerBase.videoCodec = model.videoCodecTpye;
+
+//    //推流分辨率和
+//    _wxStreamerKit.previewDimension = model.strResolutionSize;
+    _wxStreamerKit.streamDimension = model.strResolutionSize;
+    //性能模式
+    _wxStreamerKit.streamerBase.videoEncodePerf = model.performanceModel;
+    //直播场景
+    _wxStreamerKit.streamerBase.liveScene = model.liveSence;
+
     //扩展增强美颜滤镜
     _currentFilter = [[KSYGPUBeautifyExtFilter alloc]init];
     //摄像头的位置

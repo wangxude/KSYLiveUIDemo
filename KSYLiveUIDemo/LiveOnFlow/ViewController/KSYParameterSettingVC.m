@@ -82,7 +82,7 @@
     //采集分辨率"collect_Resolution" = "采集分辨率";
 //    "video_encoder" = "视频编码器"
 //    "audio_encoder" = "音频编码器";
-    NSArray* collectTitleArray = @[@"360P",@"480P",@"720P"];
+    NSArray* collectTitleArray = @[@"480P",@"540P",@"720P"];
     KSYSettingPartView* collectView = [[KSYSettingPartView alloc]initWithFrame:KSYScreen_Frame(0, CGRectGetMaxY(performanceView.frame), KSYScreenWidth, 90)];
     [collectView setUptitleLabel:LocalString(@"collect_Resolution") withRadioTitleArray:collectTitleArray radioGroupId:@"collectGroup" delegate:self];
     collectView.layer.borderWidth = 0.5;
@@ -120,7 +120,7 @@
  确认配置
  */
 -(void)determineButtonEvent{
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //点击
 -(void)didSelectedRadioButton:(KSYRadioButton *)radioButton groupId:(NSString *)groupId{

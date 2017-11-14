@@ -9,6 +9,8 @@
 #import "KSYSettingPartView.h"
 #import "KSYRadioButton.h"
 
+#define radioTag 4000
+
 #define TitleLabelHeight 30
 #define Radio_margin 5
 @interface KSYSettingPartView()
@@ -36,7 +38,12 @@
     
     for (int i = 0; i<titleArray.count; i++) {
             KSYRadioButton* radioButton = [[KSYRadioButton alloc]initWithFrame:KSYScreen_Frame(Radio_margin*(1+i)+buttonWidth*i,CGRectGetMaxY(pushFlowLabel.frame)+ Radio_margin,buttonWidth,40) title:titleArray[i] titleColor:[UIColor blackColor] font:KSYUIFont(16) delegate:delegate groupId:groudId];
-        if (i == 1) {
+        radioButton.tag = radioTag + i;
+//        if (i == 1) {
+//            [radioButton setChecked:YES];
+//        }
+        NSString* title = [[NSUserDefaults standardUserDefaults] objectForKey:groudId];
+        if ([titleArray[i] isEqual:title]) {
             [radioButton setChecked:YES];
         }
         [self addSubview:radioButton];
