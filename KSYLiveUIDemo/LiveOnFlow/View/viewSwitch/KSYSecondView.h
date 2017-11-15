@@ -24,7 +24,7 @@ typedef void (^returnBlock) (UIButton* sender);
 //底部按钮视图
 @property(nonatomic,strong)KSYSecondVCBottomView* bottomButtonView;
 
--(void)setUpSubView:(NSArray*)titleArray;
+-(void)setUpSubView:(NSArray*)titleArray viewHeight:(CGFloat)height;
 
 -(void)showSecondView;
 

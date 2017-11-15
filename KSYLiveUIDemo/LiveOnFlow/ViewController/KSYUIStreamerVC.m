@@ -225,7 +225,8 @@
         self.skinCareView = [[KSYSecondView alloc]init];
         self.skinCareView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
         NSArray* titleArray = @[@"美颜",@"滤镜",@"贴纸"];
-        [self.skinCareView setUpSubView:titleArray];
+        
+        [self.skinCareView setUpSubView:titleArray viewHeight:200];
         self.skinCareView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil];
         [self.skinCareView showSecondView];
         //隐藏底部视图

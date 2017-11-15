@@ -62,7 +62,7 @@
     }
     return self;
 }
--(void)setUpSubView:(NSArray*)titleArray{
+-(void)setUpSubView:(NSArray*)titleArray viewHeight:(CGFloat)height{
    
     self.bottomButtonView = [[KSYSecondVCBottomView alloc]init];
     [self.bottomButtonView setUpRadioTitleArray:titleArray radioGroupId:@"lujing" delegate:self];

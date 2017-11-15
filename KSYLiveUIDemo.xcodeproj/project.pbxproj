@@ -506,7 +506,7 @@
 				7806CC4C1FB4073600B68364 /* KSYSettingPartView.m */,
 				78F781D31FB938A5009DD5B1 /* KSYHeadControl.h */,
 				78F781D41FB938A5009DD5B1 /* KSYHeadControl.m */,
-				78F781D61FB948A9009DD5B1 /* 视图切换 */,
+				78F781D61FB948A9009DD5B1 /* viewSwitch */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -830,7 +830,7 @@
 			path = "下拉列表";
 			sourceTree = "<group>";
 		};
-		78F781D61FB948A9009DD5B1 /* 视图切换 */ = {
+		78F781D61FB948A9009DD5B1 /* viewSwitch */ = {
 			isa = PBXGroup;
 			children = (
 				78AF45F61FB8690600E4B78A /* KSYTransViewAfterView.h */,
@@ -850,7 +850,7 @@
 				78304DF91FBC0B5800868AC4 /* KSYPictureAndLabelCell.m */,
 				78304DFA1FBC0B5800868AC4 /* KSYPictureAndLabelCell.xib */,
 			);
-			path = "视图切换";
+			path = viewSwitch;
 			sourceTree = "<group>";
 		};
 		DC3DDC1ACB51C5328D7E4C65 /* Frameworks */ = {
