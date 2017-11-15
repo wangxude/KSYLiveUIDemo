@@ -8,6 +8,9 @@
 
 #import "KSYTransViewAfterView.h"
 
+#import "KSYSecondView.h"
+
+
 @interface KSYCustomCollectView : KSYTransViewAfterView<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 /**
@@ -15,6 +18,7 @@
  */
 @property(nonatomic,strong)UICollectionView*  scratchableLatexView;
 
+@property(nonatomic,strong)KSYSecondView* secondView;
 
 /**
  展现视图

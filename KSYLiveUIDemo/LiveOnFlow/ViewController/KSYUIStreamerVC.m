@@ -18,6 +18,12 @@
 @property(nonatomic,copy)NSURL* rtmpUrl;
 
 @property(nonatomic,strong)NSDictionary* modelSenderDic;
+//底部bottomView
+@property(nonatomic,strong)UIView* bottomView;
+
+@property(nonatomic,strong)KSYCustomCollectView * collectView;
+
+
 
 @end
 
@@ -54,9 +60,8 @@
     _wxStreamerKit.streamerBase.audioCodec = model.audioCodecType;
     //视频编码器类型
     _wxStreamerKit.streamerBase.videoCodec = model.videoCodecTpye;
-
-//    //推流分辨率和
-//    _wxStreamerKit.previewDimension = model.strResolutionSize;
+    //推流分辨率
+    //_wxStreamerKit.previewDimension = model.strResolutionSize;
     _wxStreamerKit.streamDimension = model.strResolutionSize;
     //性能模式
     _wxStreamerKit.streamerBase.videoEncodePerf = model.performanceModel;
@@ -79,9 +84,12 @@
     [self addCenterView];
     [self addBottomSubView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayBottom:) name:@"displayBottomView" object:nil];
     // Do any additional setup after loading the view.
 }
-
+-(void)displayBottom:(NSNotification*)notice{
+    self.bottomView.alpha = 1;
+}
 #pragma mark - 自定义的方法
 /**
 添加观察者,监听推流状态改变的通知
@@ -157,6 +165,8 @@
     
     UIButton* closeBtn = [[UIButton alloc]initButtonWithTitle:@"" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"关闭");
+        //从父视图中移除
+        [self.collectView removeFromSuperview];
         [self dismissViewControllerAnimated:YES completion:nil];
         [self removeObserver];
         [_wxStreamerKit stopPreview];
@@ -196,11 +206,19 @@
  */
 -(void)addBottomSubView{
     
+    self.bottomView = [[UIView alloc]init];
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+        make.height.mas_equalTo(50);
+    }];
     //美颜按钮
     UIButton* skinCareBtn = [[UIButton alloc]initButtonWithTitle:@"美颜" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"美颜");
     }];
-    [self.view addSubview:skinCareBtn];
+    [self.bottomView addSubview:skinCareBtn];
     
     
     //摄像头切换
@@ -209,7 +227,7 @@
         [_wxStreamerKit switchCamera];
         
     }];
-    [self.view addSubview:caremaBtn];
+    [self.bottomView addSubview:caremaBtn];
     
     //录屏
     UIButton* recordBtn = [[UIButton alloc]initButtonWithTitle:@"录屏/截屏" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
@@ -222,22 +240,25 @@
         
         
     }];
-    [self.view addSubview:recordBtn];
+    [self.bottomView addSubview:recordBtn];
   
     float buttonWidth = (KSYScreenWidth-20)/4;
     //功能
     UIButton* funcButton =[[UIButton alloc]initButtonWithTitle:@"功能" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"功能");
-        KSYCustomCollectView* collectView = [[KSYCustomCollectView alloc]init];
-        collectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
-        [collectView showView];
+        //隐藏   底部按钮
+      self.bottomView.alpha = 0;
+      
+      self.collectView = [[KSYCustomCollectView alloc]init];
+      self.collectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
+      [self.collectView showView];
     }];
-    [self.view addSubview:funcButton];
+    [self.bottomView addSubview:funcButton];
 
     //布局代码
     [skinCareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(5);
-        make.bottom.equalTo(self.view).offset(-10);
+        make.left.equalTo(self.bottomView).offset(5);
+        make.bottom.equalTo(self.bottomView).offset(-10);
         make.width.mas_equalTo(buttonWidth);
         make.height.mas_equalTo(@40);
     }];
@@ -270,6 +291,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.collectView removeFromSuperview];
+    self.bottomView.alpha = 1;
+}
 /*
 #pragma mark - Navigation
 

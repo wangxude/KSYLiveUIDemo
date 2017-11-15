@@ -19,7 +19,7 @@
 @implementation KSYCustomCollectView
 
 -(instancetype)init{
-    self = [super initWithFrame:[UIScreen mainScreen].bounds];
+    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-120,KSYScreenWidth , 120)];
     if (self) {
         //添加布局
         [self addCollectView];
@@ -29,6 +29,32 @@
 
 
 -(void)addCollectView{
+    //UIButton
+    
+    //弱引用
+    __weak typeof(self)weakSelf = self;
+    
+    self.secondView = [[KSYSecondView alloc]init];
+    self.secondView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
+    self.secondView.alpha = 0;
+    self.secondView.returnBtnBlock = ^(UIButton *sender) {
+        if ([sender.titleLabel.text isEqualToString: @"返回"]) {
+            [weakSelf transformDirection:NO withCurrentView:weakSelf.secondView withLastView:weakSelf.scratchableLatexView];
+        }
+        else{
+            [weakSelf dismissWithCurrentView:weakSelf.secondView];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"displayBottomView" object:nil];
+        }
+    };
+    [self addSubview:self.secondView];
+    
+    [self.secondView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+        make.width.equalTo(self);
+        make.left.equalTo(self);
+        make.height.mas_equalTo(@160);
+        //[self.scratchableLatexView reloadData];
+    }];
     
     titleArray = @[@"镜像",@"闪光灯",@"静音",@"音效",@"背景音乐",@"LOGO",@"画中画",@"画笔/涂鸦",@"背景图"];
     //初始化布局类
@@ -41,9 +67,25 @@
     self.scratchableLatexView.delegate = self;
     self.scratchableLatexView.dataSource = self;
     [self addSubview:self.scratchableLatexView];
-    self.scratchableLatexView.backgroundColor = KSYRGBAlpha(0.5, 114, 105, 95);
+//    self.scratchableLatexView.backgroundColor = KSYRGBAlpha(0.5, 114, 105, 95);
+    self.scratchableLatexView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
     //self.scratchableLatexView.opaque = NO;
+  
+//    //取消按钮
+//    UIButton* cancelButton =[[UIButton alloc]initButtonWithTitle:@"关闭" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+//
+//        [weakSelf dismissWithCurrentView:self.scratchableLatexView];
+//
+//    }];
+//    [self addSubview:cancelButton];
     
+//    //控件布局
+//    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.scratchableLatexView.mas_top);
+//        make.width.mas_equalTo(@50);
+//        make.right.equalTo(self).offset(-10);
+//        make.height.mas_equalTo(@40);
+//    }];
     
     [self.scratchableLatexView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self);
@@ -65,6 +107,7 @@
     static NSString* identifier = @"cell";
     KSYLabelCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     cell.TextLabel.text = [NSString stringWithFormat:@"%@",titleArray[indexPath.item]];
+    cell.TextLabel.textColor = [UIColor whiteColor];
     return cell;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -85,6 +128,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"collectionView");
+    
+    self.secondView.alpha = 1;
+    [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
 }
 
 -(void)showView{
