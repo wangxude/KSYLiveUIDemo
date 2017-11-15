@@ -23,7 +23,7 @@
 
 @property(nonatomic,strong)KSYCustomCollectView * collectView;
 
-
+@property(nonatomic,strong)KSYSecondView* skinCareView;
 
 @end
 
@@ -206,6 +206,10 @@
  */
 -(void)addBottomSubView{
     
+   
+   
+    
+    
     self.bottomView = [[UIView alloc]init];
     [self.view addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -215,8 +219,18 @@
         make.height.mas_equalTo(50);
     }];
     //美颜按钮
+    
     UIButton* skinCareBtn = [[UIButton alloc]initButtonWithTitle:@"美颜" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"美颜");
+        self.skinCareView = [[KSYSecondView alloc]init];
+        self.skinCareView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
+        NSArray* titleArray = @[@"美颜",@"滤镜",@"贴纸"];
+        [self.skinCareView setUpSubView:titleArray];
+        self.skinCareView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil];
+        [self.skinCareView showSecondView];
+        //隐藏底部视图
+        self.bottomView.alpha = 0;
+
     }];
     [self.bottomView addSubview:skinCareBtn];
     
@@ -294,6 +308,7 @@
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.collectView removeFromSuperview];
+    [self.skinCareView removeFromSuperview];
     self.bottomView.alpha = 1;
 }
 /*

@@ -35,6 +35,7 @@
     __weak typeof(self)weakSelf = self;
     
     self.secondView = [[KSYSecondView alloc]init];
+    
     self.secondView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
     self.secondView.alpha = 0;
     self.secondView.returnBtnBlock = ^(UIButton *sender) {
@@ -129,8 +130,48 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"collectionView");
     
-    self.secondView.alpha = 1;
-    [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
+   
+    //点击切换
+    KSYLabelCollectionViewCell* collectCell = (KSYLabelCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    NSString* title = collectCell.TextLabel.text;
+
+   if ([title isEqualToString:@"镜像"]) {
+        
+    }
+   else if ([title isEqualToString:@"闪光灯"]) {
+        
+    }
+   else if ([title isEqualToString:@"静音"]) {
+       
+   }
+   else if ([title isEqualToString:@"音效"]) {
+      NSArray* array = @[@"混响",@"变声"];
+      [self.secondView setUpSubView:array];
+       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
+       self.secondView.alpha = 1;
+       [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
+   }
+   else if ([title isEqualToString:@"背景音乐"]) {
+       NSArray* array = @[@"背景音乐"];
+       [self.secondView setUpSubView:array];
+       self.secondView.alpha = 1;
+       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"music1",@"music2",@"music3",@"music4",nil];
+       [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
+   }
+   else if ([title isEqualToString:@"LOGO"]) {
+       NSArray* array = @[@"LOGO"];
+       [self.secondView setUpSubView:array];
+       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"静态LOGO",@"动态LOGO",nil];
+       self.secondView.alpha = 1;
+       [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
+   }
+   else if ([title isEqualToString:@"画中画"]) {
+       
+   }
+   else if ([title isEqualToString:@"背景图"]) {
+       
+   }
+    
 }
 
 -(void)showView{
@@ -149,6 +190,10 @@
         self.scratchableLatexView.alpha = 1.0;
     } completion:nil];
 }
+
+
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

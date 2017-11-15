@@ -24,6 +24,11 @@ typedef void (^returnBlock) (UIButton* sender);
 //底部按钮视图
 @property(nonatomic,strong)KSYSecondVCBottomView* bottomButtonView;
 
+-(void)setUpSubView:(NSArray*)titleArray;
 
+-(void)showSecondView;
+
+//数据来源
+@property(nonatomic,strong)NSArray* voiceArray;
 
 @end
