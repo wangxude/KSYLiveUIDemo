@@ -10,6 +10,8 @@
 
 #import "KSYSecondView.h"
 
+typedef void(^collectViewBlock)(NSString* title);
+
 
 @interface KSYCustomCollectView : KSYTransViewAfterView<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -24,5 +26,7 @@
  展现视图
  */
 -(void)showView;
+
+@property(nonatomic,copy)collectViewBlock titleBlock;
 
 @end

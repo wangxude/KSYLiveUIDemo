@@ -112,6 +112,7 @@
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString* identifier = @"cell";
     KSYPictureAndLabelCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    collectionView.allowsMultipleSelection = NO;
     cell.titleNameLabel.text = self.voiceArray[indexPath.item];
 
     return cell;
@@ -133,6 +134,7 @@
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     KSYPictureAndLabelCell* cell=(KSYPictureAndLabelCell*)[collectionView cellForItemAtIndexPath:indexPath];
     
     cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];

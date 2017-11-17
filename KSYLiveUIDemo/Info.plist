@@ -47,12 +47,14 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>YES</string>
+	<string>应用需要调用你的相机</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>YES</string>
+	<string>应用需要访问你的相册</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>YES</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>YES</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>应用需要为您添加图片</string>
 </dict>
 </plist>

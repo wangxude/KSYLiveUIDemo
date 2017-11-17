@@ -13,6 +13,11 @@
 #import "KSYHeadControl.h"
 //数据模型
 #import "KSYSettingModel.h"
+//点击空白视图
+#import "KSYSubBlackView.h"
+//截图提示框
+#import "KSYToolTipsView.h"
+
 @interface KSYUIStreamerVC ()
 
 @property(nonatomic,copy)NSURL* rtmpUrl;
@@ -20,11 +25,22 @@
 @property(nonatomic,strong)NSDictionary* modelSenderDic;
 //底部bottomView
 @property(nonatomic,strong)UIView* bottomView;
-
+//底部的录屏按钮的view
+@property(nonatomic,strong)KSYSubBlackView* recordView;
+//功能视图的view
 @property(nonatomic,strong)KSYCustomCollectView * collectView;
-
+//美颜的二级视图的view
 @property(nonatomic,strong)KSYSecondView* skinCareView;
+//顶部视图的view
+@property(nonatomic,strong)UIView* topView;
 
+//旁路录像文件的路径
+@property(nonatomic,copy)NSString* byPassFilePath;
+
+//镜像状态
+@property(nonatomic,assign)BOOL mirrorState;
+//静音状态
+@property(nonatomic,assign)BOOL muteState;
 @end
 
 @implementation KSYUIStreamerVC
@@ -38,7 +54,7 @@
 }
 
 -(NSDictionary*)modelSenderDic{
-    if (_modelSenderDic) {
+    if (!_modelSenderDic) {
          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         _modelSenderDic = [NSDictionary dictionaryWithObjectsAndKeys:[defaults objectForKey:@"resolutionGroup"],@"resolutionGroup",[defaults objectForKey:@"liveGroup"],@"liveGroup",[defaults objectForKey:@"performanceGroup"],@"performanceGroup",[defaults objectForKey:@"collectGroup"],@"collectGroup",[defaults objectForKey:@"videoGroup"],@"videoGroup",[defaults objectForKey:@"audioGroup"],@"audioGroup",nil];
     }
@@ -62,12 +78,14 @@
     _wxStreamerKit.streamerBase.videoCodec = model.videoCodecTpye;
     //推流分辨率
     //_wxStreamerKit.previewDimension = model.strResolutionSize;
-    _wxStreamerKit.streamDimension = model.strResolutionSize;
+    _wxStreamerKit.streamDimension =  model.strResolutionSize;;
     //性能模式
     _wxStreamerKit.streamerBase.videoEncodePerf = model.performanceModel;
     //直播场景
     _wxStreamerKit.streamerBase.liveScene = model.liveSence;
 
+    //videoFPS (测试)
+    _wxStreamerKit.streamerBase.videoFPS = 20;
     //扩展增强美颜滤镜
     _currentFilter = [[KSYGPUBeautifyExtFilter alloc]init];
     //摄像头的位置
@@ -76,16 +94,31 @@
     _wxStreamerKit.gpuOutputPixelFormat = kCVPixelFormatType_32BGRA;
     //采集格式
     _wxStreamerKit.capturePixelFormat = kCVPixelFormatType_32BGRA;
+    
+    //
+    _wxStreamerKit.streamerBase.videoInitBitrate =  800;
+    _wxStreamerKit.streamerBase.videoMaxBitrate  = 1000;
+    _wxStreamerKit.streamerBase.videoMinBitrate  =    0;
+    _wxStreamerKit.streamerBase.audiokBPS        =   48;
+    // 设置编码码率控制
+    _wxStreamerKit.streamerBase.recScene     = KSYRecScene_ConstantQuality;
+    //旁路录制会回调该block
+    
+    self.byPassFilePath =[NSHomeDirectory() stringByAppendingString:@"/Library/Caches/rec.mp4"];
+    weakObj(self);
+    _wxStreamerKit.streamerBase.bypassRecordStateChange = ^(KSYRecordState recordState) {
+        [selfWeak onBypassRecordStateChange:recordState];
+    };
+    //开始采集的代码
     [self beginCapture];
     //开始推流
     [self streamFunc];
     
+    //添加布局的代码
     [self addTopSubView];
     [self addCenterView];
     [self addBottomSubView];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayBottom:) name:@"displayBottomView" object:nil];
-    // Do any additional setup after loading the view.
 }
 -(void)displayBottom:(NSNotification*)notice{
     self.bottomView.alpha = 1;
@@ -95,16 +128,25 @@
 添加观察者,监听推流状态改变的通知
  */
 -(void)addObserver{
+    
+    //监听底部按钮的view
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayBottom:) name:@"displayBottomView" object:nil];
+    //监听推流状态
     NSNotificationCenter* notification = [NSNotificationCenter defaultCenter];
-    [notification addObserver:self selector:@selector(streamStateChange) name:KSYStreamStateDidChangeNotification object:nil];
+    [notification addObserver:self selector:@selector(streamStateChange:) name:KSYStreamStateDidChangeNotification object:nil];
+    //监听采集状态的改变
+//    [notification addObserver:self selector:@selector(onCaptureStateChange:) name:KSYCaptureStateDidChangeNotification object:nil];
+
+}
 /**
  移除观察者
  */
-}
+
 -(void)removeObserver{
     [[NSNotificationCenter defaultCenter]removeObserver: self];
 }
--(void)streamStateChange{
+
+-(void)streamStateChange:(NSNotification*)notice{
     switch (_wxStreamerKit.streamerBase.streamState) {
         case KSYStreamStateIdle:
             NSLog(@"-----%@",@"空闲状态");
@@ -120,6 +162,41 @@
     }
 }
 
+#pragma mark - 旁路录制状态的改变
+- (void) onBypassRecordStateChange: (KSYRecordState) newState {
+    if (newState == KSYRecordStateRecording){
+        NSLog(@"start bypass record");
+    }
+    else if (newState == KSYRecordStateStopped) {
+        NSLog(@"stop bypass record");
+        [self saveVideoToAlbum:_byPassFilePath];
+       // _miscView.swBypassRec.on = NO;
+    }
+    else if (newState == KSYRecordStateError) {
+        NSLog(@"bypass record error %@", _wxStreamerKit.streamerBase.bypassRecordErrorName);
+    }
+}
+#pragma mark - bypass record & record
+-(void) onBypassRecord:(BOOL)selectState{
+    BOOL bRec = _wxStreamerKit.streamerBase.bypassRecordState == KSYRecordStateRecording;
+    if (selectState){
+        if ( _wxStreamerKit.streamerBase.isStreaming && !bRec){
+            // 如果启动录像时使用和上次相同的路径,则会覆盖掉上一次录像的文件内容
+            [KSYUIStreamerVC deleteFile:_byPassFilePath];
+            NSURL *url =[[NSURL alloc] initFileURLWithPath:self.byPassFilePath];
+            [_wxStreamerKit.streamerBase startBypassRecord:url];
+            [[KSYToolTipsView shareInstance] showLabelLongTime:@"00:00"];
+        }
+        else {
+            NSString * msg = @"推流过程中才能旁路录像";
+            [self toast:msg time:1];
+        }
+    }
+    else{
+        [[KSYToolTipsView shareInstance] stopTimer];
+        [_wxStreamerKit.streamerBase stopBypassRecord];
+    }
+}
 /**
  开始预览
  */
@@ -147,16 +224,25 @@
         [_wxStreamerKit stopPreview];
     }
 }
-
-/**
- 添加顶部的按钮
- */
+#pragma mark - 添加顶部视图
+/** 添加顶部的按钮*/
 -(void)addTopSubView{
-    KSYHeadControl* control = [[KSYHeadControl alloc]init];
-    [self.view addSubview:control];
-    [control mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    self.topView = [[UIView alloc]initWithFrame:KSYScreen_Frame(0, 0, KSYScreenWidth, KSYScreenHeight)];
+    [self.view addSubview:self.topView];
+    
+    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(10);
         make.top.equalTo(self.view).offset(30);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@40);
+    }];
+    
+    KSYHeadControl* control = [[KSYHeadControl alloc]init];
+    [self.topView addSubview:control];
+    [control mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.topView).offset(10);
+        make.top.equalTo(self.topView);
         make.width.mas_equalTo(@120);
         make.height.mas_equalTo(@40);
     }];
@@ -167,16 +253,19 @@
         NSLog(@"%@",@"关闭");
         //从父视图中移除
         [self.collectView removeFromSuperview];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        //移除美颜的二级视图
+        [self.skinCareView removeFromSuperview];
         [self removeObserver];
         [_wxStreamerKit stopPreview];
         _wxStreamerKit = nil;
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [[KSYToolTipsView shareInstance]removeSubView];
     }];
     [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-    [self.view addSubview:closeBtn];
+    [self.topView addSubview:closeBtn];
     
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(-10);
+        make.right.equalTo(self.topView).offset(-10);
         make.top.equalTo(control.mas_top);
         make.width.mas_equalTo(@40);
         make.height.equalTo(control.mas_height);
@@ -185,7 +274,7 @@
     UIButton* flowAddressBtn = [[UIButton alloc]initButtonWithTitle:@"拉流地址" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"拉流地址");
     }];
-    [self.view addSubview:flowAddressBtn];
+    [self.topView addSubview:flowAddressBtn];
     
     [flowAddressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(closeBtn.mas_left).offset(-10);
@@ -195,20 +284,86 @@
     }];
 }
 
-/**
- 添加中间的按钮
- */
+/** 添加中间的按钮 */
 -(void)addCenterView{
     
 }
-/**
- 添加底部的按钮
- */
+
+#pragma mark -  添加底部的按钮
 -(void)addBottomSubView{
+#pragma mark - 录屏的view
+   //录屏的view
+   self.recordView = [[KSYSubBlackView alloc]initWithFrame:KSYScreen_Frame(0, 0, KSYScreenWidth, KSYScreenHeight)];
+    [self.view addSubview:self.recordView];
+
+    //摄像头切换
+    UIButton* screenShotBtn = [[UIButton alloc]initButtonWithTitle:@"截屏" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+        
+        //  如果有美颜滤镜, 可以从滤镜上获取截图(UIImage) 不带水印
+        //GPUImageOutput * filter = self.ksyFilterView.curFilter;
+        //  直接从预览mixer上获取截图(UIImage) 带水印
+        GPUImageOutput * filter = _wxStreamerKit.vPreviewMixer;
+        if (filter){
+            [filter useNextFrameForImageCapture];
+            UIImage * img =  filter.imageFromCurrentFramebuffer;
+            [KSYUIBaseViewController saveImage: img
+                            to: @"snap2.png" ];
+            UIImageWriteToSavedPhotosAlbum(img,nil,nil,nil);
+            [[KSYToolTipsView shareInstance] showLabelWithString:@"截图已保存至手机相册"];
+        }
+    }];
+    [self.recordView addSubview:screenShotBtn];
+    
     
    
-   
     
+    weakObj(self);
+    UIButton* recordScreenBtn = [[UIButton alloc]initButtonWithTitle:@"" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+        // 省略了部分非关键代码
+       sender.selected = !sender.selected;
+        if (sender.selected) {
+            [selfWeak onBypassRecord:YES];
+        }
+        else{
+            [selfWeak onBypassRecord:NO];
+        }
+    }];
+    
+    [recordScreenBtn setImage:[UIImage imageNamed:@"录屏白"] forState:UIControlStateNormal];
+    [recordScreenBtn setImage:[UIImage imageNamed:@"录屏红"] forState:UIControlStateSelected];
+    [self.recordView addSubview:recordScreenBtn];
+    
+    UIButton* cancelBtn = [[UIButton alloc]initButtonWithTitle:@"返回" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+        recordScreenBtn.selected = NO;
+        [[KSYToolTipsView shareInstance] stopTimer];
+        self.recordView.alpha = 0;
+        self.topView.alpha = 1;
+        self.bottomView.alpha = 1;
+    }];
+    [self.recordView addSubview:cancelBtn];
+    
+    [screenShotBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.recordView).offset(10);
+        make.width.mas_equalTo(@80);
+        make.bottom.equalTo(self.recordView.mas_bottom).offset(-10);
+        make.height.mas_equalTo(@40);
+    }];
+    [recordScreenBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.recordView);
+        make.width.mas_equalTo(@80);
+        make.bottom.equalTo(screenShotBtn.mas_bottom);
+        make.height.equalTo(screenShotBtn.mas_height);
+    }];
+    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-10);
+        
+        make.width.mas_equalTo(@80);
+        make.bottom.equalTo(screenShotBtn.mas_bottom);
+        make.height.equalTo(screenShotBtn.mas_height);
+    }];
+    
+    self.recordView.alpha = 0;
+ #pragma 底部视图
     
     self.bottomView = [[UIView alloc]init];
     [self.view addSubview:self.bottomView];
@@ -247,13 +402,10 @@
     //录屏
     UIButton* recordBtn = [[UIButton alloc]initButtonWithTitle:@"录屏/截屏" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"录屏");
-        [_wxStreamerKit.streamerBase stopStream];
-        NSString *url = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/RecordAv.mp4"];
-        NSURL *hostURL =[[NSURL alloc] initFileURLWithPath:url];
-        
-        [_wxStreamerKit.streamerBase startStream:hostURL];
-        
-        
+        //隐藏底部的视图和顶部的视图  显示录屏界面
+        self.bottomView.alpha = 0;
+        self.topView.alpha = 0;
+        self.recordView.alpha = 1;
     }];
     [self.bottomView addSubview:recordBtn];
   
@@ -261,10 +413,30 @@
     //功能
     UIButton* funcButton =[[UIButton alloc]initButtonWithTitle:@"功能" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"功能");
-        //隐藏   底部按钮
+        //隐藏  底部按钮
       self.bottomView.alpha = 0;
-      
+      //镜像状态
+      self.mirrorState = NO;
+      //静音状态
+        self.muteState = NO;
       self.collectView = [[KSYCustomCollectView alloc]init];
+      self.collectView.titleBlock = ^(NSString *title) {
+          if ([title isEqualToString:@"镜像"]) {
+              selfWeak.mirrorState = !selfWeak.mirrorState;
+              selfWeak.wxStreamerKit.streamerMirrored = selfWeak.mirrorState;
+          }
+          else if ([title isEqualToString:@"闪光灯"]){
+              [selfWeak.wxStreamerKit toggleTorch];
+          }
+          else if([title isEqualToString:@"静音"]){
+              selfWeak.muteState = !selfWeak.muteState;
+              [selfWeak.wxStreamerKit.streamerBase muteStream:selfWeak.muteState];
+          }
+          else if ([title isEqualToString:@"背景图"]){
+             // [selfWeak ]
+          }
+        };
+        
       self.collectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
       [self.collectView showView];
     }];
@@ -279,7 +451,6 @@
     }];
     [caremaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(skinCareBtn.mas_right).offset(5);
-        
         make.width.mas_equalTo(buttonWidth);
         make.bottom.equalTo(skinCareBtn.mas_bottom);
         make.height.equalTo(skinCareBtn.mas_height);
@@ -301,25 +472,26 @@
   
 }
 
+#pragma mark - 点击当前view视图的touch事件
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    //判断当前视图是不是录屏视图
+    if (self.recordView.alpha == 1) {
+        
+    }
+    else{
+    [self.collectView removeFromSuperview];
+    [self.skinCareView removeFromSuperview];
+    self.bottomView.alpha = 1;
+    self.recordView.alpha = 0;
+    self.topView.alpha = 1;
+   }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.collectView removeFromSuperview];
-    [self.skinCareView removeFromSuperview];
-    self.bottomView.alpha = 1;
-}
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

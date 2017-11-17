@@ -136,13 +136,19 @@
     NSString* title = collectCell.TextLabel.text;
 
    if ([title isEqualToString:@"镜像"]) {
-        
+       if (self.titleBlock) {
+           self.titleBlock(title);
+       }
     }
    else if ([title isEqualToString:@"闪光灯"]) {
-        
+       if (self.titleBlock) {
+           self.titleBlock(title);
+       }
     }
    else if ([title isEqualToString:@"静音"]) {
-       
+       if (self.titleBlock) {
+           self.titleBlock(title);
+       }
    }
    else if ([title isEqualToString:@"音效"]) {
       NSArray* array = @[@"混响",@"变声"];

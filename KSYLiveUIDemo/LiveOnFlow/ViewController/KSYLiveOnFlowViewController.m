@@ -15,8 +15,7 @@
 #import "KSYQRViewController.h"
 //推流设置界面
 #import "KSYParameterSettingVC.h"
-//测试推流
-#import "KSYSimplestStreamerVC.h"
+
 //推流功能界面
 #import "KSYUIStreamerVC.h"
 @interface KSYLiveOnFlowViewController ()<KSYDropDownMenuDelegate>
@@ -54,8 +53,8 @@
     //设置导航栏的按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStyleDone target:self action:@selector(close)];
     
-    self.dropDownMenu= [[KSYDropDownMenu alloc]initWithFrame:KSYScreen_Frame(20, 350, 100, 40)];
-    NSArray* titleArray = @[@"横屏推流",@"竖屏推流"];
+    self.dropDownMenu= [[KSYDropDownMenu alloc]initWithFrame:KSYScreen_Frame(20, 350, 110, 40)];
+    NSArray* titleArray = @[@"普通直播",@"画中画直播",@"涂鸦直播",@"背景图直播"];
     [self.dropDownMenu setMenuTitles:titleArray rowHeight:40];
     self.dropDownMenu.delegate = self;
     [self.view addSubview:self.dropDownMenu];

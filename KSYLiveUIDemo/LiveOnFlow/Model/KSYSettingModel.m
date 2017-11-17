@@ -9,19 +9,7 @@
 #import "KSYSettingModel.h"
 
 @implementation KSYSettingModel
-////推流分辨率
-//[[NSUserDefaults standardUserDefaults] setValue:@"360P" forKey:@"resolutionGroup"];
-////直播场景
-//[[NSUserDefaults standardUserDefaults] setValue:@"秀场" forKey:@"liveGroup"];
-////性能模式
-//[[NSUserDefaults standardUserDefaults] setValue:@"均衡" forKey:@"performanceGroup"];
-////采集分辨率
-//[[NSUserDefaults standardUserDefaults] setValue:@"360P" forKey:@"collectGroup"];
-////视频编码器
-//[[NSUserDefaults standardUserDefaults] setValue:@"自动" forKey:@"videoGroup"];
-////音频编码器
-//[[NSUserDefaults standardUserDefaults] setValue:@"AAC LC" forKey:@"audioGroup"];
-//[[NSUserDefaults standardUserDefaults]synchronize];
+
 +(KSYSettingModel*)modelWithDictionary:(NSDictionary *)dic{
     KSYSettingModel* model = [[self alloc]initWithDictionary:dic];
     return model;

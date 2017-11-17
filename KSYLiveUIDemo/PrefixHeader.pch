@@ -22,6 +22,10 @@
 #import "KSYCustomLabel.h"
 
 #endif
+
+//弱引用
+#define WeakObj(o) try{}@finally{} __weak typeof(o) o##Weak = o;
+#define weakObj(o) __weak typeof(o) o##Weak = o;
 //屏幕尺寸
 #define KSYScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define KSYScreenWidth [[UIScreen mainScreen] bounds].size.width

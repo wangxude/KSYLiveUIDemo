@@ -44,7 +44,7 @@
     
     //主按钮 显示在界面上的点击按钮
     //样式可以自定义
-    _mainBtn = [UIButton buttonWithTitle:@"竖屏推流" titleColor:KSYRGB(239,69,84) font:KSYUIFont(20) target:self action:nil];
+    _mainBtn = [UIButton buttonWithTitle:@"普通直播" titleColor:KSYRGB(239,69,84) font:KSYUIFont(20) target:self action:nil];
     _mainBtn.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
     [_mainBtn addTarget:self action:@selector(clickMainBtn:) forControlEvents:UIControlEventTouchUpInside];
     _mainBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -83,7 +83,9 @@
     _dropDownTableView.delegate = self;
     _dropDownTableView.dataSource = self;
     _dropDownTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _dropDownTableView.bounces = NO;
+    _dropDownTableView.bounces = YES;
+    _dropDownTableView.scrollEnabled = YES;
+    _dropDownTableView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
     [_listView addSubview:_dropDownTableView];
 }
 
