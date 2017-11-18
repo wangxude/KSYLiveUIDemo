@@ -67,9 +67,25 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if (!_wxStreamerKit) {
-        _wxStreamerKit = [[KSYGPUStreamerKit alloc]init];
-    }
+        if (!_wxStreamerKit) {
+            _wxStreamerKit = [[KSYGPUStreamerKit alloc]init];
+        }
+//    if (!_wxStreamerKit) {
+//        if ([self.pushTypeTitle isEqualToString:@"普通直播"]) {
+//           _wxStreamerKit = [[KSYGPUStreamerKit alloc]init];
+//        }
+//        else if ([self.pushTypeTitle isEqualToString:@"画中画直播"]){
+//         _wxStreamerKit = [[KSYGPUBrushStreamerKit alloc]init];
+//         //[_wxStreamerKit.drawPic stop]
+//        }
+//        else if ([self.pushTypeTitle isEqualToString:@"涂鸦直播"]){
+//
+//        }
+//        else{
+//
+//        }
+//
+//    }
     
     KSYSettingModel* model = [KSYSettingModel modelWithDictionary:self.modelSenderDic];
     //音频编码器类型

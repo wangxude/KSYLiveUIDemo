@@ -30,6 +30,7 @@
 		78304E081FBC1DC800868AC4 /* KSYSecondVCBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78304E071FBC1DC800868AC4 /* KSYSecondVCBottomView.m */; };
 		78304E0B1FBC632300868AC4 /* KSYUIBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78304E0A1FBC632300868AC4 /* KSYUIBaseViewController.m */; };
 		78304E0E1FBC6DA700868AC4 /* KSYSubBlackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78304E0D1FBC6DA700868AC4 /* KSYSubBlackView.m */; };
+		783F406A1FBED98300FAEAA2 /* KSYBackgroundPushVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 783F40691FBED98300FAEAA2 /* KSYBackgroundPushVC.m */; };
 		786E0C481FAC6D8E005B499C /* KSYNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */; };
 		786E0C4B1FAC6DB5005B499C /* KSYTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 786E0C4A1FAC6DB5005B499C /* KSYTabBarViewController.m */; };
 		78AF45F81FB8690600E4B78A /* KSYTransViewAfterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78AF45F71FB8690600E4B78A /* KSYTransViewAfterView.m */; };
@@ -187,6 +188,8 @@
 		78304E0A1FBC632300868AC4 /* KSYUIBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYUIBaseViewController.m; sourceTree = "<group>"; };
 		78304E0C1FBC6DA700868AC4 /* KSYSubBlackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYSubBlackView.h; sourceTree = "<group>"; };
 		78304E0D1FBC6DA700868AC4 /* KSYSubBlackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYSubBlackView.m; sourceTree = "<group>"; };
+		783F40681FBED98300FAEAA2 /* KSYBackgroundPushVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYBackgroundPushVC.h; sourceTree = "<group>"; };
+		783F40691FBED98300FAEAA2 /* KSYBackgroundPushVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYBackgroundPushVC.m; sourceTree = "<group>"; };
 		786E0C461FAC6D8E005B499C /* KSYNavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYNavigationViewController.h; sourceTree = "<group>"; };
 		786E0C471FAC6D8E005B499C /* KSYNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYNavigationViewController.m; sourceTree = "<group>"; };
 		786E0C491FAC6DB5005B499C /* KSYTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYTabBarViewController.h; sourceTree = "<group>"; };
@@ -532,6 +535,8 @@
 				7816F46A1FB301EF002DFFEB /* KSYParameterSettingVC.m */,
 				7806CC4E1FB44FD000B68364 /* KSYUIStreamerVC.h */,
 				7806CC4F1FB44FD000B68364 /* KSYUIStreamerVC.m */,
+				783F40681FBED98300FAEAA2 /* KSYBackgroundPushVC.h */,
+				783F40691FBED98300FAEAA2 /* KSYBackgroundPushVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1101,6 +1106,7 @@
 				78F3C7AD1FB0166D00497D29 /* UIBarButtonItem+Item.m in Sources */,
 				78F5995F1FB15589004C4C08 /* SuspendPlayView.m in Sources */,
 				78F599661FB15589004C4C08 /* VodPlayControlView.m in Sources */,
+				783F406A1FBED98300FAEAA2 /* KSYBackgroundPushVC.m in Sources */,
 				78304E081FBC1DC800868AC4 /* KSYSecondVCBottomView.m in Sources */,
 				78F599471FB15589004C4C08 /* RecordeViewController.m in Sources */,
 				78304DFB1FBC0B5800868AC4 /* KSYPictureAndLabelCell.m in Sources */,

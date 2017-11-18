@@ -11,14 +11,19 @@
 typedef void(^buttonBlock)(UIButton* sender);
 
 #import <libksygpulive/KSYGPUStreamerKit.h>
+#import <libksygpulive/KSYGPUBrushStreamerKit.h>
 
 @interface KSYUIStreamerVC : KSYUIBaseViewController
 //推流工具类
 @property(nonatomic,strong)KSYGPUStreamerKit* wxStreamerKit;
+
+
 //当前滤镜
 @property(nonatomic,strong)GPUImageOutput<GPUImageInput>* currentFilter;
 //初始化推流地址
 -(id)initWithUrl:(NSURL*)rtmpUrl;
+
+@property(nonatomic,copy)NSString* pushTypeTitle;
 
 
 

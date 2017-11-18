@@ -18,13 +18,28 @@
 
 //推流功能界面
 #import "KSYUIStreamerVC.h"
+//背景推流
+#import "KSYBackgroundPushVC.h"
+
 @interface KSYLiveOnFlowViewController ()<KSYDropDownMenuDelegate>
 
 @property(nonatomic,strong) KSYDropDownMenu* dropDownMenu;
 
+@property(nonatomic,copy)NSString* pushFlowType;
+//标题数组
+@property(nonatomic,strong)NSArray* titleArray;
+
 @end
 
 @implementation KSYLiveOnFlowViewController
+
+-(NSArray*)titleArray{
+    
+    if (!_titleArray) {
+        _titleArray = [[NSArray alloc]initWithObjects:@"普通直播",@"画中画直播",@"涂鸦直播",@"背景图直播", nil];
+    }
+    return _titleArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,10 +69,12 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStyleDone target:self action:@selector(close)];
     
     self.dropDownMenu= [[KSYDropDownMenu alloc]initWithFrame:KSYScreen_Frame(20, 350, 110, 40)];
-    NSArray* titleArray = @[@"普通直播",@"画中画直播",@"涂鸦直播",@"背景图直播"];
-    [self.dropDownMenu setMenuTitles:titleArray rowHeight:40];
+    
+    [self.dropDownMenu setMenuTitles:self.titleArray rowHeight:40];
     self.dropDownMenu.delegate = self;
     [self.view addSubview:self.dropDownMenu];
+    //推流功能
+    self.pushFlowType = @"普通直播";
     
     UIButton * beginLiveBtn = [UIButton buttonWithTitle:LocalString(@"Begin_Live") titleColor:[UIColor whiteColor] font:KSYUIFont(15) backGroundColor:KSYRGB(236, 69, 84) target:self action:@selector(beginLiveToEvent) backImageName:nil];
     [self.view addSubview:beginLiveBtn];
@@ -86,9 +103,26 @@
     NSString *streamSrv  = @"rtmp://test.uplive.ks-cdn.com/live";
     NSString *streamUrl      = [ NSString stringWithFormat:@"%@/%@", streamSrv, devCode];
     NSURL* rtmpUrl = [NSURL URLWithString:streamUrl];
-    KSYUIStreamerVC* vc =  [[KSYUIStreamerVC alloc] initWithUrl:rtmpUrl];
-    [self.navigationController presentViewController:vc animated:YES completion:nil];
+   // if ([self.pushFlowType isEqualToString:_titleArray[0]]) {
+       
+        KSYUIStreamerVC* vc =  [[KSYUIStreamerVC alloc] initWithUrl:rtmpUrl];
+        //vc.pushTypeTitle = self.pushFlowType;
+        [self.navigationController presentViewController:vc animated:YES completion:nil];
+   // }
+  //  else if ([self.pushFlowType isEqualToString:_titleArray[1]]){
+//
+//        KSYBackgroundPushVC * vc =  [[KSYBackgroundPushVC alloc] initWithUrl:rtmpUrl];
+//        vc.pushTypeTitle = self.pushFlowType;
+//        [self.navigationController presentViewController:vc animated:YES completion:nil];
+//    }
+//    else if ([self.pushFlowType isEqualToString:_titleArray[2]]){
+//
+//    }
+//    else{
+//
+//    }
 }
+    
 // 关闭
 - (void)close {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -133,6 +167,7 @@
 
 -(void)dropDownMenu:(KSYDropDownMenu *)menu selectedCellNumber:(NSInteger)number{
      NSLog(@"你选择了：%ld",number);
+    self.pushFlowType = _titleArray[number];
 }
 
 - (void)didReceiveMemoryWarning {
