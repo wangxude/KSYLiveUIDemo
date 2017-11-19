@@ -14,7 +14,7 @@
 
 @interface KSYSecondView()<KSYSelectBottomButtonDelegate>
 
-
+@property(nonatomic,assign)NSInteger selectItemIndex;
 
 @end
 
@@ -23,6 +23,8 @@
 
 
 -(void)didSelectedBottomButton:(KSYSelectBottomButton *)button groupId:(NSString *)groupId{
+     self.selectItemIndex = 1000;
+//    [self.secondCollectView]
     if ([button.titleLabel.text isEqualToString:@"变声"]) {
         self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
         [self.secondCollectView reloadData];
@@ -55,8 +57,10 @@
 }
 
 -(instancetype)init{
-    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-160,KSYScreenWidth , 160)];
+    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-120,KSYScreenWidth , 120)];
     if (self) {
+        
+       self.selectItemIndex = 1000;
         //默认是变声
        //self.voiceArray = @[@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台"];
     }
@@ -79,6 +83,8 @@
     self.secondCollectView.delegate = self;
     self.secondCollectView.dataSource = self;
     self.secondCollectView.allowsMultipleSelection = NO;
+    //选中的cell
+    self.selectItemIndex = 1000;
     [self addSubview:self.secondCollectView];
     //    self.scratchableLatexView.backgroundColor = KSYRGBAlpha(0.5, 114, 105, 95);
     self.secondCollectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
@@ -95,7 +101,7 @@
         make.bottom.equalTo(self.bottomButtonView.mas_top);
         make.width.equalTo(self);
         make.left.equalTo(self);
-        make.height.mas_equalTo(@120);
+        make.height.mas_equalTo(@80);
         [self.secondCollectView reloadData];
     }];
     
@@ -113,12 +119,28 @@
     static NSString* identifier = @"cell";
     KSYPictureAndLabelCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     collectionView.allowsMultipleSelection = NO;
-    cell.titleNameLabel.text = self.voiceArray[indexPath.item];
+    
+//  
+//    if (indexPath.item == 0) {
+//        if (_selectItemIndex == 1000) {
+//            cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];
+//            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+//        }
+//    }
 
+
+    cell.backGroundImageView.image=[UIImage imageNamed:@"白色图标"];
+    cell.titleNameLabel.text = self.voiceArray[indexPath.item];
+    
+    if (self.selectItemIndex == indexPath.item) {
+      cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];
+    }
+  
+    
     return cell;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(self.frame.size.width/3,self.frame.size.width/3+10);
+    return CGSizeMake(60,70);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -135,15 +157,22 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    self.selectItemIndex = indexPath.item;
+    
     KSYPictureAndLabelCell* cell=(KSYPictureAndLabelCell*)[collectionView cellForItemAtIndexPath:indexPath];
     
     cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];
+    [self.secondCollectView reloadData];
+    
 }
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+
     KSYPictureAndLabelCell* cell=(KSYPictureAndLabelCell*)[collectionView cellForItemAtIndexPath:indexPath];
     
     cell.backGroundImageView.image=[UIImage imageNamed:@"白色图标"];
+    [self.secondCollectView reloadData];
+
 }
 
 

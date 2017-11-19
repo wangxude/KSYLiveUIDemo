@@ -1,29 +1,25 @@
 //
-//  KSYUIStreamerVC.h
+//  KSYPictureInPictureVC.h
 //  KSYLiveUIDemo
 //
-//  Created by 王旭 on 2017/11/9.
+//  Created by 王旭 on 2017/11/19.
 //  Copyright © 2017年 王旭. All rights reserved.
 //
 
-//#import <UIKit/UIKit.h>
 #import "KSYUIBaseViewController.h"
+
 typedef void(^buttonBlock)(UIButton* sender);
 
-#import <libksygpulive/KSYGPUStreamerKit.h>
+#import <libksygpulive/KSYGPUPipStreamerKit.h>
 
-@interface KSYUIStreamerVC : KSYUIBaseViewController
+@interface KSYPictureInPictureVC : KSYUIBaseViewController
 //推流工具类
-@property(nonatomic,strong)KSYGPUStreamerKit* wxStreamerKit;
+@property(nonatomic,strong)KSYGPUPipStreamerKit* wxStreamerKit;
 
 
 //当前滤镜
 @property(nonatomic,strong)GPUImageOutput<GPUImageInput>* currentFilter;
 //初始化推流地址
 -(id)initWithUrl:(NSURL*)rtmpUrl;
-
-
-
-
 
 @end

@@ -20,6 +20,10 @@
 #import "KSYUIStreamerVC.h"
 //背景推流
 #import "KSYBackgroundPushVC.h"
+//画中画推流
+#import "KSYPictureInPictureVC.h"
+//画笔推流
+#import "KSYBrushLiveVC.h"
 
 @interface KSYLiveOnFlowViewController ()<KSYDropDownMenuDelegate>
 
@@ -45,12 +49,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //设置背景图片
-   self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"u11.jpg"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"u11.jpg"]];
     
     [self setUpChildView];
     
-   
-   
+    
+    
 }
 
 /**
@@ -61,9 +65,9 @@
     UIBarButtonItem* fixButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixButtonItem.width = 10;
     
-    UIBarButtonItem* scanButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"scan" frame:KSYScreen_Frame(0, 0, 30, 30) target:self action:@selector(scanQRCodeAction:)];
-
-    UIBarButtonItem* settingButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"setting" frame:KSYScreen_Frame(0, 0, 30, 30) target:self action:@selector(jumpSetting)];
+    UIBarButtonItem* scanButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"scan" frame:KSYScreen_Frame(0, 0, 35, 35) target:self action:@selector(scanQRCodeAction:)];
+    
+    UIBarButtonItem* settingButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"setting" frame:KSYScreen_Frame(0, 0, 35, 35) target:self action:@selector(jumpSetting)];
     self.navigationItem.rightBarButtonItems = @[settingButtonItem,fixButtonItem,scanButtonItem];
     //设置导航栏的按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStyleDone target:self action:@selector(close)];
@@ -79,10 +83,10 @@
     UIButton * beginLiveBtn = [UIButton buttonWithTitle:LocalString(@"Begin_Live") titleColor:[UIColor whiteColor] font:KSYUIFont(15) backGroundColor:KSYRGB(236, 69, 84) target:self action:@selector(beginLiveToEvent) backImageName:nil];
     [self.view addSubview:beginLiveBtn];
     
-//    [self.dropDownMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view).offset(50);
-//        make.bottom.equalTo(self.view).offset(-100);
-//    }];
+    //    [self.dropDownMenu mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.left.equalTo(self.view).offset(50);
+    //        make.bottom.equalTo(self.view).offset(-100);
+    //    }];
     
     [beginLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-30);
@@ -103,26 +107,27 @@
     NSString *streamSrv  = @"rtmp://test.uplive.ks-cdn.com/live";
     NSString *streamUrl      = [ NSString stringWithFormat:@"%@/%@", streamSrv, devCode];
     NSURL* rtmpUrl = [NSURL URLWithString:streamUrl];
-   // if ([self.pushFlowType isEqualToString:_titleArray[0]]) {
-       
+    if ([self.pushFlowType isEqualToString:_titleArray[0]]) {
+        //普通直播推流
         KSYUIStreamerVC* vc =  [[KSYUIStreamerVC alloc] initWithUrl:rtmpUrl];
-        //vc.pushTypeTitle = self.pushFlowType;
         [self.navigationController presentViewController:vc animated:YES completion:nil];
-   // }
-  //  else if ([self.pushFlowType isEqualToString:_titleArray[1]]){
-//
-//        KSYBackgroundPushVC * vc =  [[KSYBackgroundPushVC alloc] initWithUrl:rtmpUrl];
-//        vc.pushTypeTitle = self.pushFlowType;
-//        [self.navigationController presentViewController:vc animated:YES completion:nil];
-//    }
-//    else if ([self.pushFlowType isEqualToString:_titleArray[2]]){
-//
-//    }
-//    else{
-//
-//    }
+    }
+    else if ([self.pushFlowType isEqualToString:_titleArray[1]]){
+        
+        KSYPictureInPictureVC * vc =  [[KSYPictureInPictureVC alloc] initWithUrl:rtmpUrl];
+        [self.navigationController presentViewController:vc animated:YES completion:nil];
+    }
+    else if ([self.pushFlowType isEqualToString:_titleArray[2]]){
+        
+        KSYBrushLiveVC * vc =  [[KSYBrushLiveVC alloc] initWithUrl:rtmpUrl];
+        [self.navigationController presentViewController:vc animated:YES completion:nil];
+    }
+    else{
+        KSYBackgroundPushVC * vc =  [[KSYBackgroundPushVC alloc] initWithUrl:rtmpUrl];
+        [self.navigationController presentViewController:vc animated:YES completion:nil];
+    }
 }
-    
+
 // 关闭
 - (void)close {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -130,7 +135,7 @@
 
 /**
  扫描二维码
-
+ 
  @param sender 按钮
  */
 -(void)scanQRCodeAction:(UIButton*)sender{
@@ -166,7 +171,7 @@
 #pragma mark - KSYDropDownMenu delegate
 
 -(void)dropDownMenu:(KSYDropDownMenu *)menu selectedCellNumber:(NSInteger)number{
-     NSLog(@"你选择了：%ld",number);
+    NSLog(@"你选择了：%ld",number);
     self.pushFlowType = _titleArray[number];
 }
 
@@ -181,13 +186,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
+

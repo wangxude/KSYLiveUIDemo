@@ -53,11 +53,11 @@
         make.bottom.equalTo(self);
         make.width.equalTo(self);
         make.left.equalTo(self);
-        make.height.mas_equalTo(@160);
+        make.height.mas_equalTo(@120);
         //[self.scratchableLatexView reloadData];
     }];
     
-    titleArray = @[@"镜像",@"闪光灯",@"静音",@"音效",@"背景音乐",@"LOGO",@"画中画",@"画笔/涂鸦",@"背景图"];
+    titleArray = @[@"镜像",@"闪光灯",@"静音",@"音效",@"背景音乐",@"LOGO"];
     //初始化布局类
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -98,7 +98,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 9;
+    return 6;
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -112,7 +112,7 @@
     return cell;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(KSYScreenWidth/3, 40);
+    return CGSizeMake(KSYScreenWidth/3, 60);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {

@@ -56,6 +56,10 @@
  *  弱引用
  */
 #define KSYWeakSelf __weak typeof(self) weakSelf = self;
+
+//通知
+//背景音乐改变的通知
+#define KSYStreamBackgroundMusicChange @"streamBackGroundMusicChange"
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
