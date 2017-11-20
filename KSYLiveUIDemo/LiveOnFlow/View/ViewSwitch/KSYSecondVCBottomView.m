@@ -27,7 +27,7 @@
             [self addSubview:lineView];
         }
 //        NSString* title = [[NSUserDefaults standardUserDefaults] objectForKey:groudId];
-        if (i==1) {
+        if (i==0) {
             [radioButton setChecked:YES];
         }
         [self addSubview:radioButton];

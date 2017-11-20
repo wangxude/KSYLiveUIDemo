@@ -299,7 +299,7 @@
 //
 //        }
     }];
-//    backGroundPicBtn.titleLabel.lineBreakMode = 0;
+    backGroundPicBtn.titleLabel.lineBreakMode = 0;
 //    [backGroundPicBtn setTitle:@"  关闭\n背景图" forState:UIControlStateSelected];
 //    backGroundPicBtn.selected = YES;
     [self.view addSubview:backGroundPicBtn];

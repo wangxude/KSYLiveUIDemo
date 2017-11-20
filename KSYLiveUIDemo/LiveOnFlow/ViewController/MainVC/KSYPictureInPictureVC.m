@@ -291,6 +291,7 @@
     
 }
 
+
 #pragma mark -  添加底部的按钮
 -(void)addBottomSubView{
 #pragma mark - 录屏的view

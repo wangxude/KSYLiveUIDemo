@@ -56,5 +56,7 @@
 	<string>YES</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>应用需要为您添加图片</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 </dict>
 </plist>

@@ -31,4 +31,6 @@ typedef void (^returnBlock) (UIButton* sender);
 //数据来源
 @property(nonatomic,strong)NSArray* voiceArray;
 
+@property(nonatomic,copy)NSString* selectedTitle;
+
 @end

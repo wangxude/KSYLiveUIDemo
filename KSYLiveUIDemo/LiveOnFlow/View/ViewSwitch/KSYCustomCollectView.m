@@ -152,31 +152,26 @@
    }
    else if ([title isEqualToString:@"音效"]) {
       NSArray* array = @[@"混响",@"变声"];
-      [self.secondView setUpSubView:array viewHeight:160];
+      [self.secondView setUpSubView:array viewHeight:120];
        self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
        self.secondView.alpha = 1;
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
    else if ([title isEqualToString:@"背景音乐"]) {
        NSArray* array = @[@"背景音乐"];
-       [self.secondView setUpSubView:array viewHeight:1200];
+       [self.secondView setUpSubView:array viewHeight:160];
        self.secondView.alpha = 1;
        self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"music1",@"music2",@"music3",@"music4",nil];
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
    else if ([title isEqualToString:@"LOGO"]) {
        NSArray* array = @[@"LOGO"];
-       [self.secondView setUpSubView:array viewHeight:160];
+       [self.secondView setUpSubView:array viewHeight:120];
        self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"静态LOGO",@"动态LOGO",nil];
        self.secondView.alpha = 1;
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
-   else if ([title isEqualToString:@"画中画"]) {
-       
-   }
-   else if ([title isEqualToString:@"背景图"]) {
-       
-   }
+ 
     
 }
 

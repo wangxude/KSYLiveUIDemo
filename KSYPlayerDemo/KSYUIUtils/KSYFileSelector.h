@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, KSYSelectType){
  调用下个时,返回下一个文件的路径
  维护一个状态信息字符串,格式如下
  "文件名(index/满足条件的文件总数)"
-
+ 
  */
 @interface KSYFileSelector : NSObject
 
@@ -68,4 +68,14 @@ typedef NS_ENUM(NSInteger, KSYSelectType){
  @abstract   获取一个文件
  */
 - (BOOL) selectFileWithType:(KSYSelectType)type;
+
+/**
+ 下载一个文件到filesDir对应的目录
+ 
+ @param urlStr 文件的网址
+ @param name 保存本地的文件名称
+ */
+- (void) downloadFile:(NSString*)urlStr
+                 name:(NSString*)name;
 @end
+

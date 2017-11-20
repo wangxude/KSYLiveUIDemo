@@ -1,12 +1,12 @@
 //
-//  KSYBrushLiveVC.m
+//  KSYUIStreamerVC.m
 //  KSYLiveUIDemo
 //
-//  Created by 王旭 on 2017/11/19.
+//  Created by 王旭 on 2017/11/9.
 //  Copyright © 2017年 王旭. All rights reserved.
 //
 
-#import "KSYBrushLiveVC.h"
+#import "KSYUIStreamerVC.h"
 //九宫格View
 #import "KSYCustomCollectView.h"
 //头部的头像和名称
@@ -17,8 +17,14 @@
 #import "KSYSubBlackView.h"
 //截图提示框
 #import "KSYToolTipsView.h"
+//文件下载 工具
+#import "KSYFileSelector.h"
 
-@interface KSYBrushLiveVC ()
+@interface KSYUIStreamerVC (){
+    KSYFileSelector * fileDownLoadTool;
+}
+
+@property(nonatomic,strong)NSArray* filePathArray;
 
 @property(nonatomic,copy)NSURL* rtmpUrl;
 
@@ -43,19 +49,19 @@
 @property(nonatomic,assign)BOOL muteState;
 @end
 
-@implementation KSYBrushLiveVC
+@implementation KSYUIStreamerVC
 
 -(id)initWithUrl:(NSURL *)rtmpUrl{
     if (self = [super init]) {
         self.rtmpUrl = rtmpUrl;
-        
+       
     }
     return self;
 }
 
 -(NSDictionary*)modelSenderDic{
     if (!_modelSenderDic) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         _modelSenderDic = [NSDictionary dictionaryWithObjectsAndKeys:[defaults objectForKey:@"resolutionGroup"],@"resolutionGroup",[defaults objectForKey:@"liveGroup"],@"liveGroup",[defaults objectForKey:@"performanceGroup"],@"performanceGroup",[defaults objectForKey:@"collectGroup"],@"collectGroup",[defaults objectForKey:@"videoGroup"],@"videoGroup",[defaults objectForKey:@"audioGroup"],@"audioGroup",nil];
     }
     return _modelSenderDic;
@@ -70,7 +76,7 @@
     if (!_wxStreamerKit) {
         _wxStreamerKit = [[KSYGPUStreamerKit alloc]init];
     }
-    
+ 
     
     KSYSettingModel* model = [KSYSettingModel modelWithDictionary:self.modelSenderDic];
     //音频编码器类型
@@ -84,7 +90,7 @@
     _wxStreamerKit.streamerBase.videoEncodePerf = model.performanceModel;
     //直播场景
     _wxStreamerKit.streamerBase.liveScene = model.liveSence;
-    
+
     //videoFPS (测试)
     _wxStreamerKit.streamerBase.videoFPS = 20;
     //扩展增强美颜滤镜
@@ -120,13 +126,34 @@
     [self addCenterView];
     [self addBottomSubView];
     
+    [self addObserver];
+    
+    NSArray* bgmPatternArray  = @[@".mp3", @".m4a", @".aac"];
+    fileDownLoadTool  = [[KSYFileSelector alloc] initWithDir:@"/Documents/bgms/"
+                                             andSuffix:bgmPatternArray];
+    //下载背景音乐
+    //NSString* path = fileDownLoadTool.filePath;
+    self.filePathArray = fileDownLoadTool.fileList;
+    NSLog(@"%@",self.filePathArray);
+    if (self.filePathArray.count == 0) {
+        NSString *urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/bgm.aac";
+        [fileDownLoadTool downloadFile:urlStr name:@"bgm.aac" ];
+        urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/test1.mp3";
+        [fileDownLoadTool downloadFile:urlStr name:@"test1.mp3"];
+        [fileDownLoadTool downloadFile:urlStr name:@"test2.mp3"];
+        [fileDownLoadTool downloadFile:urlStr name:@"test3.mp3"];
+       
+        
+    }
+    
+    
 }
 -(void)displayBottom:(NSNotification*)notice{
     self.bottomView.alpha = 1;
 }
 #pragma mark - 自定义的方法
 /**
- 添加观察者,监听推流状态改变的通知
+添加观察者,监听推流状态改变的通知
  */
 -(void)addObserver{
     
@@ -136,8 +163,12 @@
     NSNotificationCenter* notification = [NSNotificationCenter defaultCenter];
     [notification addObserver:self selector:@selector(streamStateChange:) name:KSYStreamStateDidChangeNotification object:nil];
     //监听采集状态的改变
-    //    [notification addObserver:self selector:@selector(onCaptureStateChange:) name:KSYCaptureStateDidChangeNotification object:nil];
-    
+//    [notification addObserver:self selector:@selector(onCaptureStateChange:) name:KSYCaptureStateDidChangeNotification object:nil];
+    //监听背景音乐改变
+     [notification addObserver:self selector:@selector(streamStateChange:) name:KSYStreamBackgroundMusicChangeNotice object:nil];
+    //监听变声的通知
+    [notification addObserver:self selector:@selector(streamVoiceChange:) name:KSYStreamVoiceNotice object:nil];
+
 }
 /**
  移除观察者
@@ -162,6 +193,43 @@
             break;
     }
 }
+#pragma mark - 监听变声的通知
+-(void)streamVoiceChange:(NSNotification*)notice{
+//    reverbType＝ 0;//关闭
+//    reverbType ＝1;//录音棚
+//    reverbType ＝2;//演唱会
+//    reverbType ＝3;//KTV
+//    reverbType ＝4;//小舞台
+    
+    KSYWeakSelf;
+    NSDictionary* dic =notice.userInfo;
+    for (NSString* string in [dic allKeys]) {
+        if ([string isEqualToString:@"混响"]) {
+            int  number = [[dic valueForKey:string] intValue];
+            _wxStreamerKit.aCapDev.reverbType = number;
+            
+        }
+        else if ([string isEqualToString:@"变声"]){
+            int number = [[dic valueForKey:string] intValue];
+            _wxStreamerKit.aCapDev.effectType = number;
+        }
+        else if ([string isEqualToString:@"背景音乐"]){
+            int number = [[dic valueForKey:string] intValue];
+            //停止播放背景音乐
+            [_wxStreamerKit.bgmPlayer stopPlayBgm];
+            if (number == 0) {
+                return;
+            }
+            NSString* path = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/bgms/%@",self.filePathArray[number-1]]];
+           
+            if (!path) {
+                return;
+            }
+            [_wxStreamerKit.bgmPlayer startPlayBgm:path isLoop:NO];
+            
+        }
+    }
+}
 
 #pragma mark - 旁路录制状态的改变
 - (void) onBypassRecordStateChange: (KSYRecordState) newState {
@@ -171,7 +239,7 @@
     else if (newState == KSYRecordStateStopped) {
         NSLog(@"stop bypass record");
         [self saveVideoToAlbum:_byPassFilePath];
-        // _miscView.swBypassRec.on = NO;
+       // _miscView.swBypassRec.on = NO;
     }
     else if (newState == KSYRecordStateError) {
         NSLog(@"bypass record error %@", _wxStreamerKit.streamerBase.bypassRecordErrorName);
@@ -183,7 +251,7 @@
     if (selectState){
         if ( _wxStreamerKit.streamerBase.isStreaming && !bRec){
             // 如果启动录像时使用和上次相同的路径,则会覆盖掉上一次录像的文件内容
-            [KSYBrushLiveVC deleteFile:_byPassFilePath];
+            [KSYUIStreamerVC deleteFile:_byPassFilePath];
             NSURL *url =[[NSURL alloc] initFileURLWithPath:self.byPassFilePath];
             [_wxStreamerKit.streamerBase startBypassRecord:url];
             [[KSYToolTipsView shareInstance] showLabelLongTime:@"00:00"];
@@ -293,10 +361,10 @@
 #pragma mark -  添加底部的按钮
 -(void)addBottomSubView{
 #pragma mark - 录屏的view
-    //录屏的view
-    self.recordView = [[KSYSubBlackView alloc]initWithFrame:KSYScreen_Frame(0, 0, KSYScreenWidth, KSYScreenHeight)];
+   //录屏的view
+   self.recordView = [[KSYSubBlackView alloc]initWithFrame:KSYScreen_Frame(0, 0, KSYScreenWidth, KSYScreenHeight)];
     [self.view addSubview:self.recordView];
-    
+
     //摄像头切换
     UIButton* screenShotBtn = [[UIButton alloc]initButtonWithTitle:@"截屏" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         
@@ -308,7 +376,7 @@
             [filter useNextFrameForImageCapture];
             UIImage * img =  filter.imageFromCurrentFramebuffer;
             [KSYUIBaseViewController saveImage: img
-                                            to: @"snap2.png" ];
+                            to: @"snap2.png" ];
             UIImageWriteToSavedPhotosAlbum(img,nil,nil,nil);
             [[KSYToolTipsView shareInstance] showLabelWithString:@"截图已保存至手机相册"];
         }
@@ -316,12 +384,12 @@
     [self.recordView addSubview:screenShotBtn];
     
     
-    
+   
     
     weakObj(self);
     UIButton* recordScreenBtn = [[UIButton alloc]initButtonWithTitle:@"" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         // 省略了部分非关键代码
-        sender.selected = !sender.selected;
+       sender.selected = !sender.selected;
         if (sender.selected) {
             [selfWeak onBypassRecord:YES];
         }
@@ -364,7 +432,7 @@
     }];
     
     self.recordView.alpha = 0;
-#pragma 底部视图
+ #pragma 底部视图
     
     self.bottomView = [[UIView alloc]init];
     [self.view addSubview:self.bottomView];
@@ -387,7 +455,7 @@
         [self.skinCareView showSecondView];
         //隐藏底部视图
         self.bottomView.alpha = 0;
-        
+
     }];
     [self.bottomView addSubview:skinCareBtn];
     
@@ -409,40 +477,43 @@
         self.recordView.alpha = 1;
     }];
     [self.bottomView addSubview:recordBtn];
-    
+  
     float buttonWidth = (KSYScreenWidth-20)/4;
     //功能
     UIButton* funcButton =[[UIButton alloc]initButtonWithTitle:@"功能" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"功能");
         //隐藏  底部按钮
-        self.bottomView.alpha = 0;
-        //镜像状态
-        self.mirrorState = NO;
-        //静音状态
+      self.bottomView.alpha = 0;
+      //镜像状态
+      self.mirrorState = NO;
+      //静音状态
         self.muteState = NO;
-        self.collectView = [[KSYCustomCollectView alloc]init];
-        self.collectView.titleBlock = ^(NSString *title) {
-            if ([title isEqualToString:@"镜像"]) {
-                selfWeak.mirrorState = !selfWeak.mirrorState;
-                selfWeak.wxStreamerKit.streamerMirrored = selfWeak.mirrorState;
-            }
-            else if ([title isEqualToString:@"闪光灯"]){
-                [selfWeak.wxStreamerKit toggleTorch];
-            }
-            else if([title isEqualToString:@"静音"]){
-                selfWeak.muteState = !selfWeak.muteState;
-                [selfWeak.wxStreamerKit.streamerBase muteStream:selfWeak.muteState];
-            }
-            else if ([title isEqualToString:@"背景图"]){
-                // [selfWeak ]
-            }
+      self.collectView = [[KSYCustomCollectView alloc]init];
+      self.collectView.titleBlock = ^(NSString *title) {
+          if ([title isEqualToString:@"镜像"]) {
+              selfWeak.mirrorState = !selfWeak.mirrorState;
+              selfWeak.wxStreamerKit.streamerMirrored = selfWeak.mirrorState;
+              selfWeak.wxStreamerKit.previewMirrored = selfWeak.mirrorState;
+          }
+          else if ([title isEqualToString:@"闪光灯"]){
+              [selfWeak.wxStreamerKit toggleTorch];
+          }
+          else if([title isEqualToString:@"静音"]){
+              selfWeak.muteState = !selfWeak.muteState;
+              [selfWeak.wxStreamerKit.streamerBase muteStream:selfWeak.muteState];
+          }
+          else if ([title isEqualToString:@"背景图"]){
+             // [selfWeak ]
+          }
+          
+          
         };
         
-        self.collectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
-        [self.collectView showView];
+      self.collectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
+      [self.collectView showView];
     }];
     [self.bottomView addSubview:funcButton];
-    
+
     //布局代码
     [skinCareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bottomView).offset(5);
@@ -470,7 +541,7 @@
         make.bottom.equalTo(skinCareBtn.mas_bottom);
         make.height.equalTo(skinCareBtn.mas_height);
     }];
-    
+  
 }
 
 #pragma mark - 点击当前view视图的touch事件
@@ -480,18 +551,19 @@
         
     }
     else{
-        [self.collectView removeFromSuperview];
-        [self.skinCareView removeFromSuperview];
-        self.bottomView.alpha = 1;
-        self.recordView.alpha = 0;
-        self.topView.alpha = 1;
-    }
+    [self.collectView removeFromSuperview];
+    [self.skinCareView removeFromSuperview];
+    self.bottomView.alpha = 1;
+    self.recordView.alpha = 0;
+    self.topView.alpha = 1;
+   }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 @end
