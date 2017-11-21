@@ -154,6 +154,7 @@
       NSArray* array = @[@"混响",@"变声"];
       [self.secondView setUpSubView:array viewHeight:120];
        self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
+       self.secondView.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"record_audio_effect_recording_room",@"record_audio_effect_vocal_concert",@"record_audio_effect_KTV",@"record_audio_effect_stage",nil];
        self.secondView.alpha = 1;
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
@@ -167,7 +168,7 @@
    else if ([title isEqualToString:@"LOGO"]) {
        NSArray* array = @[@"LOGO"];
        [self.secondView setUpSubView:array viewHeight:120];
-       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"静态LOGO",@"动态LOGO",nil];
+       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"静态logo",@"动态logo",nil];
        self.secondView.alpha = 1;
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }

@@ -28,6 +28,7 @@
 		78089F6D1FC1ABBC00F79445 /* KSYDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F6C1FC1ABBB00F79445 /* KSYDrawingView.m */; };
 		7810AC861FBA8B1200424040 /* KSYSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AC851FBA8B1200424040 /* KSYSettingModel.m */; };
 		7811E8711FC2F86D00AB88CD /* KSYSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7811E8701FC2F86D00AB88CD /* KSYSliderView.m */; };
+		7811E8741FC300BA00AB88CD /* RecordAv.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7811E8731FC300BA00AB88CD /* RecordAv.mp4 */; };
 		7812B7D41FB2DBE50004E2FB /* u11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7812B7D31FB2DBE30004E2FB /* u11.jpg */; };
 		7816F4681FB2FFC1002DFFEB /* KSYQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */; };
 		7816F46B1FB301EF002DFFEB /* KSYParameterSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7816F46A1FB301EF002DFFEB /* KSYParameterSettingVC.m */; };
@@ -190,6 +191,7 @@
 		7810AC851FBA8B1200424040 /* KSYSettingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYSettingModel.m; sourceTree = "<group>"; };
 		7811E86F1FC2F86D00AB88CD /* KSYSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYSliderView.h; sourceTree = "<group>"; };
 		7811E8701FC2F86D00AB88CD /* KSYSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYSliderView.m; sourceTree = "<group>"; };
+		7811E8731FC300BA00AB88CD /* RecordAv.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = RecordAv.mp4; sourceTree = "<group>"; };
 		7812B7D31FB2DBE30004E2FB /* u11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = u11.jpg; sourceTree = "<group>"; };
 		7816F4661FB2FFC1002DFFEB /* KSYQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYQRViewController.h; sourceTree = "<group>"; };
 		7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYQRViewController.m; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 		7812B7D21FB2DBCA0004E2FB /* 图片资源 */ = {
 			isa = PBXGroup;
 			children = (
+				7811E8731FC300BA00AB88CD /* RecordAv.mp4 */,
 				78089F691FC1A77300F79445 /* 背景图片.jpg */,
 				78F781E21FB9A057009DD5B1 /* 头像.jpg */,
 				7812B7D31FB2DBE30004E2FB /* u11.jpg */,
@@ -1029,6 +1032,7 @@
 				78F599631FB15589004C4C08 /* VideoCollectionHeaderView.xib in Resources */,
 				78F5995E1FB15589004C4C08 /* SpeedChoiceView.xib in Resources */,
 				78F599701FB1927C004C4C08 /* Main.storyboard in Resources */,
+				7811E8741FC300BA00AB88CD /* RecordAv.mp4 in Resources */,
 				780508251FAC1C9C0044754A /* LaunchScreen.storyboard in Resources */,
 				7805085C1FAC36CC0044754A /* LocalString.strings in Resources */,
 				7812B7D41FB2DBE50004E2FB /* u11.jpg in Resources */,

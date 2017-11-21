@@ -1111,53 +1111,6 @@
             endingLineNumber = "514"
             landmarkName = "-addBottomSubView"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__35-[KSYUIStreamerVC addBottomSubView]_block_invoke.496"
-                  moduleName = "KSYLiveUIDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/KSYUIStreamerVC.m"
-                  timestampString = "532859357.360801"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "505"
-                  endingLineNumber = "505"
-                  offsetFromSymbolStart = "688">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.532"
-                  moduleName = "KSYLiveUIDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/KSYUIStreamerVC.m"
-                  timestampString = "532859357.366156"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "505"
-                  endingLineNumber = "505"
-                  offsetFromSymbolStart = "108">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.533"
-                  moduleName = "KSYLiveUIDemo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/KSYUIStreamerVC.m"
-                  timestampString = "532859357.369053"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "505"
-                  endingLineNumber = "505"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1445,6 +1398,54 @@
             startingLineNumber = "226"
             endingLineNumber = "226"
             landmarkName = "-streamVoiceChange:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
+            timestampString = "532938608.395918"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "-addCenterView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
+            timestampString = "532938608.395993"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "-addCenterView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
+            timestampString = "532938608.396051"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

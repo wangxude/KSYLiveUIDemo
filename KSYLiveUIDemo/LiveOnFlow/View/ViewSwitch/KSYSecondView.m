@@ -32,10 +32,12 @@
     if ([button.titleLabel.text isEqualToString:@"变声"]) {
      
         self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"大叔",@"萝莉",@"庄严",@"机器人",nil];
+        self.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"record_audio_effect_uncle",@"record_audio_effect_lolita",@"record_audio_effect_serious",@"record_audio_effect_robort",nil];
         [self.secondCollectView reloadData];
     }
     else if([button.titleLabel.text isEqualToString:@"混响"]){
          self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
+        self.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"record_audio_effect_recording_room",@"record_audio_effect_vocal_concert",@"record_audio_effect_KTV",@"record_audio_effect_stage",nil];
         [self.secondCollectView reloadData];
     }
     else if([button.titleLabel.text isEqualToString:@"背景音乐"]){
@@ -126,24 +128,23 @@
     KSYPictureAndLabelCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     collectionView.allowsMultipleSelection = NO;
     
+   
+    cell.backGroundImageView.image = [UIImage imageNamed:self.pictureArray[indexPath.item]];
+    cell.backGroundImageView.contentMode = UIViewContentModeScaleToFill;
     cell.titleNameLabel.text = self.voiceArray[indexPath.item];
-    
-//    if (indexPath.item == 0) {
-//        if (_selectItemIndex == 1000) {
-//            cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];
-//            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-//        }
-//        else{
-//          cell.backGroundImageView.image=[UIImage imageNamed:@"白色图标"];
-//        }
-//    }
- if (indexPath.item == self.selectItemIndex){
-         cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];
+   
+    cell.backGroundImageView.layer.borderWidth = 1;
+   if (indexPath.item == self.selectItemIndex){
+     
+     cell.backGroundImageView.layer.borderColor = [UIColor purpleColor].CGColor;
+     
+         //cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];
      NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)indexPath.item],[NSString stringWithFormat:@"%@",self.selectedTitle],nil];
      [[NSNotificationCenter defaultCenter]postNotificationName:KSYStreamVoiceNotice object:self userInfo:dic];
     }
     else{
-        cell.backGroundImageView.image=[UIImage imageNamed:@"白色图标"];
+        cell.backGroundImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        //cell.backGroundImageView.image=[UIImage imageNamed:@"白色图标"];
     }
   
    
@@ -151,7 +152,7 @@
     return cell;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(60,70);
+    return CGSizeMake(70,80);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -172,7 +173,8 @@
     
     KSYPictureAndLabelCell* cell=(KSYPictureAndLabelCell*)[collectionView cellForItemAtIndexPath:indexPath];
     
-    cell.backGroundImageView.image=[UIImage imageNamed:@"红色图标"];
+   cell.backGroundImageView.layer.borderColor = [UIColor purpleColor].CGColor;
+    
    
     //发送通知
 //    NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)indexPath.item],[NSString stringWithFormat:@"%@",self.selectedTitle],nil];

@@ -20,6 +20,11 @@
 #import "KSYToolTipsView.h"
 
 @interface KSYPictureInPictureVC ()
+//播放视频的url
+@property(nonatomic,copy)NSURL* videoUrl;
+//背景图片的url
+@property(nonatomic,copy)NSURL* backgroundPicUrl;
+
 
 @property(nonatomic,copy)NSURL* rtmpUrl;
 
@@ -66,10 +71,17 @@
     
     [super viewDidLoad];
     
+    //资源路径
+    NSURL*url=  [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"RecordAv" ofType:@"mp4"]];
+    self.videoUrl = url;
+    
+    NSURL* bgUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"背景图片" ofType:@"jpg"]];
+    self.backgroundPicUrl = bgUrl;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     if (!_wxStreamerKit) {
-        _wxStreamerKit = [[KSYGPUStreamerKit alloc]init];
+        _wxStreamerKit = [[KSYGPUPipStreamerKit alloc]init];
     }
     
     
@@ -220,11 +232,12 @@
 -(void)streamFunc{
     if (_wxStreamerKit.streamerBase.streamState == KSYStreamStateIdle || _wxStreamerKit.streamerBase.streamState == KSYStreamStateError) {
         //启动推流
-        [_wxStreamerKit.streamerBase startStream:_rtmpUrl];
+       [_wxStreamerKit.streamerBase startStream:_rtmpUrl];
     }
     else{
         [_wxStreamerKit stopPreview];
     }
+    
 }
 #pragma mark - 添加顶部视图
 /** 添加顶部的按钮*/
@@ -254,6 +267,7 @@
     UIButton* closeBtn = [[UIButton alloc]initButtonWithTitle:@"" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"关闭");
         //从父视图中移除
+        
         [self.collectView removeFromSuperview];
         //移除美颜的二级视图
         [self.skinCareView removeFromSuperview];
@@ -288,6 +302,38 @@
 
 /** 添加中间的按钮 */
 -(void)addCenterView{
+    UIButton* backGroundPicBtn = [[UIButton alloc]initButtonWithTitle:@"画中画\n直播" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+       sender.selected = !sender.selected;
+        if (sender.selected) {
+            [self beginPictureInPictureLive];
+        }
+        else{
+            [self closePictureInPictureLive];
+        }
+    }];
+    backGroundPicBtn.titleLabel.lineBreakMode = 0;
+    [backGroundPicBtn setTitle:@"画中画\n关闭" forState:UIControlStateSelected];
+    [self.view addSubview:backGroundPicBtn];
+    
+    [backGroundPicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-10);
+        make.centerY.equalTo(self.view);
+        make.width.mas_equalTo(@50);
+        make.height.mas_equalTo(@40);
+    }];
+}
+
+//开启画中画直播
+-(void)beginPictureInPictureLive{
+    [_wxStreamerKit startPipWithPlayerUrl:self.videoUrl
+                                        bgPic:self.backgroundPicUrl];
+    [_wxStreamerKit.player play];
+    
+}
+//关闭画中画直播
+-(void)closePictureInPictureLive{
+    //[_wxStreamerKit.player stop];
+    [_wxStreamerKit stopPip];
     
 }
 

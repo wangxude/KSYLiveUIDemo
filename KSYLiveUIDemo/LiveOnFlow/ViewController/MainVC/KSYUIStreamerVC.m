@@ -22,6 +22,12 @@
 
 @interface KSYUIStreamerVC (){
     KSYFileSelector * fileDownLoadTool;
+    
+    KSYFileSelector* logoFileDownLoadTool;
+    //静态图标
+    GPUImagePicture *_logoPicure;
+    //图片的方向
+    UIImageOrientation _logoOrientation;
 }
 
 @property(nonatomic,strong)NSArray* filePathArray;
@@ -146,7 +152,19 @@
         
     }
     
+    //下载logo图片
+    logoFileDownLoadTool = [[KSYFileSelector alloc] initWithDir:@"/Documents/logo/"
+                                      andSuffix:@[@".gif", @".png", @".apng"]];
+    if (logoFileDownLoadTool.fileList.count < 3) {
+        NSArray *names = @[@"ksyun.gif",@"elephant.png", @"horse.gif"];
+        for (NSString* name in names ) {
+            NSString * host = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/picture/animateLogo/";
+            NSString * url = [host stringByAppendingString:name];
+            [logoFileDownLoadTool downloadFile:url name:name];
+        }
+    }
     
+    [self setUpLogo];
 }
 -(void)displayBottom:(NSNotification*)notice{
     self.bottomView.alpha = 1;
@@ -204,15 +222,18 @@
     KSYWeakSelf;
     NSDictionary* dic =notice.userInfo;
     for (NSString* string in [dic allKeys]) {
+        //混响设置
         if ([string isEqualToString:@"混响"]) {
             int  number = [[dic valueForKey:string] intValue];
             _wxStreamerKit.aCapDev.reverbType = number;
             
         }
+        //变声设置
         else if ([string isEqualToString:@"变声"]){
             int number = [[dic valueForKey:string] intValue];
             _wxStreamerKit.aCapDev.effectType = number;
         }
+        //背景音乐设置
         else if ([string isEqualToString:@"背景音乐"]){
             int number = [[dic valueForKey:string] intValue];
             //停止播放背景音乐
@@ -228,7 +249,39 @@
             [_wxStreamerKit.bgmPlayer startPlayBgm:path isLoop:NO];
             
         }
+        //logo设置
+        else if ([string isEqualToString:@"LOGO"]){
+            int number = [[dic valueForKey:string] intValue];
+            if (number == 0) {
+                //清除logo
+                _wxStreamerKit.logoPic = nil;
+            }
+            else if (number == 1){
+                //设置静态logo
+                [self setUpLogo];
+            }
+            else{
+                //设置动态logo
+                _wxStreamerKit.logoPic = nil;
+            }
+        }
     }
+}
+-(void)setUpLogo{
+    
+    CGFloat yPos = 0.15;
+    // 预览视图的scale
+    CGFloat scale = MAX(self.view.frame.size.width, self.view.frame.size.height) / self.view.frame.size.height;
+    CGFloat hgt  = 0.1 * scale; // logo图片的高度是预览画面的十分之一
+    UIImage * logoImg = [UIImage imageNamed:@"ksvc"];
+    _logoPicure   =  [[GPUImagePicture alloc] initWithImage:logoImg];
+    _wxStreamerKit.logoPic  = _logoPicure;
+    _logoOrientation = logoImg.imageOrientation;
+    [_wxStreamerKit setLogoOrientaion: _logoOrientation];
+    //设置大小
+    _wxStreamerKit.logoRect = CGRectMake(0.05, yPos, 0, hgt);
+    //设置透明度
+    _wxStreamerKit.logoAlpha= 0.5;
 }
 
 #pragma mark - 旁路录制状态的改变
