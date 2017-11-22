@@ -10,16 +10,29 @@
 //cell
 #import "KSYLabelCollectionViewCell.h"
 
+#import "KSYPictureAndLabelModel.h"
+
+
 @interface KSYCustomCollectView (){
     NSArray* titleArray;
 }
+
+@property(nonatomic,strong)NSDictionary* allModelDic;
 
 @end
 
 @implementation KSYCustomCollectView
 
+-(NSDictionary*)allModelDic{
+    if (!_allModelDic) {
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"ArrayResourceList.plist" ofType:nil];
+        _allModelDic = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:path]];
+    }
+    return _allModelDic;
+}
+
 -(instancetype)init{
-    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-180,KSYScreenWidth , 180)];
+    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-130,KSYScreenWidth , 130)];
     if (self) {
         //添加布局
         [self addCollectView];
@@ -53,7 +66,7 @@
         make.bottom.equalTo(self);
         make.width.equalTo(self);
         make.left.equalTo(self);
-        make.height.mas_equalTo(@180);
+        make.height.mas_equalTo(@130);
         //[self.scratchableLatexView reloadData];
     }];
     
@@ -92,7 +105,7 @@
         make.bottom.equalTo(self);
         make.width.equalTo(self);
         make.left.equalTo(self);
-        make.height.mas_equalTo(@120);
+        make.height.mas_equalTo(@130);
         [self.scratchableLatexView reloadData];
     }];
 }
@@ -129,8 +142,6 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"collectionView");
-    
-   
     //点击切换
     KSYLabelCollectionViewCell* collectCell = (KSYLabelCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSString* title = collectCell.TextLabel.text;
@@ -153,8 +164,8 @@
    else if ([title isEqualToString:@"音效"]) {
       NSArray* array = @[@"混响",@"变声"];
       [self.secondView setUpSubView:array viewHeight:130];
-       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
-       self.secondView.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"record_audio_effect_recording_room",@"record_audio_effect_vocal_concert",@"record_audio_effect_KTV",@"record_audio_effect_stage",nil];
+     
+     
        self.secondView.alpha = 1;
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
@@ -162,15 +173,17 @@
        NSArray* array = @[@"背景音乐"];
        [self.secondView setUpSubView:array viewHeight:170];
        self.secondView.alpha = 1;
-       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"CA_hotel",@"Faded",@"Immortals",nil];
-       self.secondView.pictureArray = [[NSArray alloc]initWithObjects:@"关闭效果",@"CA_hotel",@"Faded",@"Immortals",nil];
+       
+       if (self.titleBlock) {
+           self.titleBlock(title);
+       }
+       
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
    else if ([title isEqualToString:@"LOGO"]) {
        NSArray* array = @[@"LOGO"];
        [self.secondView setUpSubView:array viewHeight:130];
-       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"静态logo",@"动态logo",nil];
-       self.secondView.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"ksvc",@"elephant",nil];
+      
        self.secondView.alpha = 1;
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
@@ -196,15 +209,5 @@
 }
 
 
-
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

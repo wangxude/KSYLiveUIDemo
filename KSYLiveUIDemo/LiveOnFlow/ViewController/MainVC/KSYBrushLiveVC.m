@@ -27,6 +27,13 @@
 //解码gif图片需要的库
 #import <YYImage/YYImage.h>
 
+//滑块的view视图
+#import "KSYSliderView.h"
+
+#import "ZipArchive.h"
+
+#import "KSYDecalBGView.h"
+
 @interface KSYBrushLiveVC (){
     KSYFileSelector * fileDownLoadTool;
     
@@ -44,6 +51,9 @@
     CADisplayLink   *_displayLink;
     //动画的索引
     int _animateIdx;
+    
+    //GPUResource资源的存储路径
+    NSString *_gpuResourceDir;
 }
 
 @property(nonatomic,strong)NSArray* filePathArray;
@@ -72,9 +82,135 @@
 //画笔视图
 @property(nonatomic,strong)KSYDrawingView *drawView;
 
+//滤镜贴纸数组
+@property(nonatomic,strong)NSArray* filterImageArray;
+
+@property(nonatomic,strong)UIView* decalBackGroundView;
+
+@property(nonatomic,readonly) KSYDecalBGView *decalBGView;
+
+//贴纸图片数组
+@property(nonatomic,strong)NSArray* tiezhiArray;
+
+
+//创建5个全局的模块
+//美颜slider  view视图
+@property(nonatomic,strong)UIView* skinSliderView;
+@property(nonatomic,strong)UIView* backgroundSliderView;
+
+//音量
+@property(nonatomic,strong)KSYSliderView* volumnSlider;
+//音调
+@property(nonatomic,strong)KSYSliderView* voiceSlider;
+//磨皮
+@property(nonatomic,strong)KSYSliderView* exfoliatingSlider;
+//美白滑块
+@property(nonatomic,strong)KSYSliderView* whiteSlider;
+//红润
+@property(nonatomic,strong)KSYSliderView* hongrunSlider;
+
+@property(nonatomic,strong)KSYToolTipsView * topTipView;
+
 @end
 
 @implementation KSYBrushLiveVC
+
+-(KSYToolTipsView*)topTipView{
+    if (!_topTipView) {
+        _topTipView = [[KSYToolTipsView alloc]init];
+    }
+    return _topTipView;
+}
+
+/**
+ 添加贴纸图层
+ */
+-(void)addStickerView{
+    //贴纸页面(贴纸列表view在贴纸页面创建的时候就会添加到这个图层上)
+    _decalBackGroundView = [[UIView alloc] init];
+    //  _decalBackGroundView.frame = self.view.frame;
+    //贴纸组合view
+    _decalBGView = [[KSYDecalBGView alloc] init];
+    // _decalBGView.frame = self.view.frame;
+    
+    //添加视图
+    [_decalBackGroundView addSubview:_decalBGView];
+    [self.view addSubview:self.decalBackGroundView];
+    
+    [self.decalBackGroundView sendSubviewToBack:_decalBGView];
+    //单个贴纸view
+    [_decalBackGroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@400);
+    }];
+    [_decalBGView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@400);
+    }];
+}
+
+-(void)addSliderView{
+    self.backgroundSliderView = [[UIView alloc]init];
+    self.backgroundSliderView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.2];
+    [self.view addSubview:self.backgroundSliderView];
+    
+    
+    self.volumnSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 0, KSYScreenWidth, 20) leftTitle:@"音量" rightTitle:100 minimumValue:0 maxValue:100];
+    [self.backgroundSliderView addSubview: self.volumnSlider];
+    self.volumnSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    self.voiceSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 30, KSYScreenWidth, 20) leftTitle:@"音调" rightTitle:100 minimumValue:0 maxValue:100];
+    [self.backgroundSliderView addSubview: self.voiceSlider];
+    self.voiceSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    
+    [self.backgroundSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@60);
+    }];
+    self.backgroundSliderView.hidden = YES;
+    
+    
+    self.skinSliderView = [[UIView alloc]init];
+    self.skinSliderView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.2];
+    [self.view addSubview:self.skinSliderView];
+    
+    
+    self.whiteSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 0, KSYScreenWidth, 20) leftTitle:@"美白" rightTitle:1 minimumValue:0 maxValue:1];
+    [self.skinSliderView addSubview: self.whiteSlider];
+    self.whiteSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    self.hongrunSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 30, KSYScreenWidth, 20) leftTitle:@"红润" rightTitle:1 minimumValue:-1 maxValue:1];
+    [self.skinSliderView addSubview: self.hongrunSlider];
+    self.hongrunSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    
+    self.exfoliatingSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 60, KSYScreenWidth, 20) leftTitle:@"磨皮" rightTitle:1 minimumValue:0 maxValue:1];
+    [self.skinSliderView addSubview: self.exfoliatingSlider];
+    self.exfoliatingSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    
+    [self.skinSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@90);
+    }];
+    self.skinSliderView.hidden = YES;
+    
+    
+}
 
 -(id)initWithUrl:(NSURL *)rtmpUrl{
     if (self = [super init]) {
@@ -153,7 +289,13 @@
     
     [self addSubDrawView];
     
+    //添加滑块的view视图
+    [self addSliderView];
+    
     [self addObserver];
+    
+    //添加贴纸视图
+   // [self addStickerView];
     
     NSArray* bgmPatternArray  = @[@".mp3", @".m4a", @".aac"];
     fileDownLoadTool  = [[KSYFileSelector alloc] initWithDir:@"/Documents/bgms/"
@@ -216,8 +358,10 @@
     //监听采集状态的改变
     //    [notification addObserver:self selector:@selector(onCaptureStateChange:) name:KSYCaptureStateDidChangeNotification object:nil];
     [notification addObserver:self selector:@selector(streamVolumnChangeState:) name:KSYStreamVoiceVolumeChangeNotice object:nil];
-    //监听音量 、音调、等参数的改变
+    //监听配置改变
     [notification addObserver:self selector:@selector(streamConfigChange:) name:KYSStreamChangeNotice object:nil];
+    
+     [notification addObserver:self selector:@selector(hideOrDisplaySliderView:) name: KSYSliderHideNotice object:nil];
     
 }
 /**
@@ -261,7 +405,7 @@
     }
 }
 
-#pragma mark - 监听变声的通知
+#pragma mark - 监听配置改变的通知
 -(void)streamConfigChange:(NSNotification*)notice{
     //    reverbType＝ 0;//关闭
     //    reverbType ＝1;//录音棚
@@ -285,6 +429,8 @@
         }
         //背景音乐设置
         else if ([string isEqualToString:@"背景音乐"]){
+            
+            //self.backgroundSliderView.hidden = NO;
             int number = [[dic valueForKey:string] intValue];
             //停止播放背景音乐
             [_wxStreamerKit.bgmPlayer stopPlayBgm];
@@ -326,7 +472,119 @@
                 
             }
         }
-        
+        else if ([string isEqualToString:@"滤镜"]){
+            self.skinSliderView.hidden = YES;
+            int number = [[dic valueForKey:string] intValue];
+            if (number == 0) {
+                _currentFilter = nil;
+                [_wxStreamerKit setupFilter: _currentFilter];//取消滤镜只要将_filter置为nil就行
+            }
+            else {
+                KSYBeautifyProFilter * filter = [[KSYBeautifyProFilter alloc] initWithIdx:number];
+                filter.grindRatio  = self.exfoliatingSlider.sldier.value;
+                filter.whitenRatio = self.whiteSlider.sldier.value;
+                filter.ruddyRatio  = self.hongrunSlider.sldier.value;
+                _currentFilter    = filter;
+                [_wxStreamerKit setupFilter: _currentFilter];
+                
+            }
+        }
+        else if ([string isEqualToString:@"美颜"]){
+            int number = [[dic valueForKey:string] intValue];
+            self.skinSliderView.hidden = NO;
+            //            NSString *imgPath=[_gpuResourceDir stringByAppendingString:@"3_tianmeikeren.png"];
+            //            UIImage *rubbyMat=[[UIImage alloc]initWithContentsOfFile:imgPath];
+            //            if (rubbyMat == nil) {
+            //                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+            //                                                                message:@"特效资源正在下载，请稍后重试"
+            //                                                               delegate:nil
+            //                                                      cancelButtonTitle:nil
+            //                                                      otherButtonTitles:@"确定", nil];
+            //                alert.alertViewStyle = UIAlertViewStyleDefault;
+            //                [alert show];
+            //            }
+            //            KSYBeautifyFaceFilter *bf = [[KSYBeautifyFaceFilter alloc] initWithRubbyMaterial:rubbyMat];
+            if (! [_currentFilter isMemberOfClass:[GPUImageFilterGroup class]]){
+                return;
+            }
+            GPUImageFilterGroup * fg = (GPUImageFilterGroup *)_currentFilter;
+            if (![fg.terminalFilter isMemberOfClass:[KSYBuildInSpecialEffects class]]) {
+                return;
+            }
+            KSYBuildInSpecialEffects * sf = (KSYBuildInSpecialEffects *)fg.terminalFilter;
+            [sf setSpecialEffectsIdx:number];
+            
+            [_wxStreamerKit setupFilter: sf];
+            
+        }
+        else if ([string isEqualToString:@"贴纸"]){
+            self.skinSliderView.hidden = YES;
+            
+            _decalBGView.interactionEnabled = YES;
+            int number = [[dic valueForKey:string] intValue];
+            
+            [_decalBGView genDecalViewWithImgName:self.tiezhiArray[number]];
+            [self updateAePicView];
+        }
+    }
+}
+
+-(void)downloadGPUResource{ // 下载资源文件
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    _gpuResourceDir=[NSHomeDirectory() stringByAppendingString:@"/Documents/GPUResource/"];
+    // 判断文件夹是否存在，如果不存在，则创建
+    if (![[NSFileManager defaultManager] fileExistsAtPath:_gpuResourceDir]) {
+        [fileManager createDirectoryAtPath:_gpuResourceDir
+               withIntermediateDirectories:YES
+                                attributes:nil
+                                     error:nil];
+    }
+    NSString *zipPath = [_gpuResourceDir stringByAppendingString:@"KSYGPUResource.zip"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:zipPath]) {
+        return; // already downloaded
+    }
+    NSString *zipUrl = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/KSYLive_iOS_Resource/KSYGPUResource.zip";
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSURL *url =[NSURL URLWithString:zipUrl];
+        NSData *data =[NSData dataWithContentsOfURL:url];
+        [data writeToFile:zipPath atomically:YES];
+        ZipArchive *zipArchive = [[ZipArchive alloc] init];
+        [zipArchive UnzipOpenFile:zipPath ];
+        [zipArchive UnzipFileTo:_gpuResourceDir overWrite:YES];
+        [zipArchive UnzipCloseFile];
+    });
+}
+
+#pragma mark - 监听 滑块视图是否显示
+-(void)hideOrDisplaySliderView:(NSNotification*)notice{
+    NSDictionary* dic =notice.userInfo;
+    for (NSString* string in [dic allKeys]) {
+        if ([string isEqualToString:@"滤镜"]){
+            self.skinSliderView.hidden = YES;
+        }
+        else if ([string isEqualToString:@"美颜"]){
+            self.skinSliderView.hidden = NO;
+        }
+        else if ([string isEqualToString:@"贴纸"]){
+            self.skinSliderView.hidden = YES;
+            
+        }
+    }
+}
+
+#pragma mark - Decal 相关
+- (void)genDecalViewWithImgName:(NSString *)imgName{
+    [_decalBGView genDecalViewWithImgName:imgName];
+}
+
+//刷新贴纸view
+- (void) updateAePicView{
+    if (_decalBGView){
+        _wxStreamerKit.aePic = [[GPUImageUIElement alloc] initWithView:_decalBGView];
+        //        [_wxStreamerKit.vStreamMixer  clearPicOfLayer:_aeLayer];
+        //        [_wxStreamerKit.aePic removeAllTargets];
+        //        [_wxStreamerKit.aePic addTarget:_wxStreamerKit.vStreamMixer atTextureLocation:_aeLayer];
+        [_wxStreamerKit.streamerBase startStream:self.rtmpUrl];
     }
 }
 
@@ -424,10 +682,12 @@
     if (selectState){
         if ( _wxStreamerKit.streamerBase.isStreaming && !bRec){
             // 如果启动录像时使用和上次相同的路径,则会覆盖掉上一次录像的文件内容
-            [KSYBrushLiveVC deleteFile:_byPassFilePath];
+            [KSYUIBaseViewController deleteFile:_byPassFilePath];
             NSURL *url =[[NSURL alloc] initFileURLWithPath:self.byPassFilePath];
             [_wxStreamerKit.streamerBase startBypassRecord:url];
-            [[KSYToolTipsView shareInstance] showLabelLongTime:@"00:00"];
+            
+            [self.topTipView showLabelLongTime:@"00:01"];
+            // [[KSYToolTipsView shareInstance] showLabelLongTime:@"00:00"];
         }
         else {
             NSString * msg = @"推流过程中才能旁路录像";
@@ -435,7 +695,8 @@
         }
     }
     else{
-        [[KSYToolTipsView shareInstance] stopTimer];
+        [self.topTipView stopTimer];
+        //[[KSYToolTipsView shareInstance] stopTimer];
         [_wxStreamerKit.streamerBase stopBypassRecord];
     }
 }
@@ -501,7 +762,7 @@
         [_wxStreamerKit stopPreview];
         _wxStreamerKit = nil;
         [self dismissViewControllerAnimated:YES completion:nil];
-        [[KSYToolTipsView shareInstance]removeSubView];
+        //[[KSYToolTipsView shareInstance]removeSubView];
     }];
     [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [self.topView addSubview:closeBtn];
@@ -577,7 +838,7 @@
             [KSYUIBaseViewController saveImage: img
                                             to: @"snap2.png" ];
             UIImageWriteToSavedPhotosAlbum(img,nil,nil,nil);
-            [[KSYToolTipsView shareInstance] showLabelWithString:@"截图已保存至手机相册"];
+          [self.topTipView showLabelWithString:@"截图已保存至手机相册"];
         }
     }];
     [self.recordView addSubview:screenShotBtn];
@@ -603,7 +864,7 @@
     
     UIButton* cancelBtn = [[UIButton alloc]initButtonWithTitle:@"返回" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         recordScreenBtn.selected = NO;
-        [[KSYToolTipsView shareInstance] stopTimer];
+       // [[KSYToolTipsView shareInstance] stopTimer];
         self.recordView.alpha = 0;
         self.topView.alpha = 1;
         self.bottomView.alpha = 1;
@@ -644,16 +905,18 @@
     //美颜按钮
     
     UIButton* skinCareBtn = [[UIButton alloc]initButtonWithTitle:@"美颜" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
-        NSLog(@"%@",@"美颜");
         self.skinCareView = [[KSYSecondView alloc]init];
         self.skinCareView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
         NSArray* titleArray = @[@"美颜",@"滤镜",@"贴纸"];
         
-        [self.skinCareView setUpSubView:titleArray viewHeight:200];
-        self.skinCareView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil];
+        [self.skinCareView setUpSubView:titleArray viewHeight:210];
+        
+        self.skinCareView.voiceArray =  [[NSArray alloc]initWithObjects:@"无",@"粉嫩",@"自然",@"白皙",nil];
+        self.skinCareView.pictureArray =  [[NSArray alloc]initWithObjects:@"ksy_media_edit_record_beauty_origin",@"ksy_media_edit_record_beauty_NaturalFitler_fennen",@"ksy_media_edit_record_beauty_ExtTilter_ziran",@"ksy_media_edit_record_beauty_ProFitler_baixi",nil];
         [self.skinCareView showSecondView];
         //隐藏底部视图
         self.bottomView.alpha = 0;
+
         
     }];
     [self.bottomView addSubview:skinCareBtn];
@@ -753,8 +1016,12 @@
         self.bottomView.alpha = 1;
         self.recordView.alpha = 0;
         self.topView.alpha = 1;
+        
+        self.backgroundSliderView.hidden = YES;
+        self.skinSliderView.hidden = YES;
     }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

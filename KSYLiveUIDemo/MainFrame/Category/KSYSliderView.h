@@ -14,6 +14,8 @@ typedef void(^sliderBlock)(UISlider* slider);
 
 @property(nonatomic,copy)sliderBlock sliderBlockEvent;
 
+@property(nonatomic,strong)UISlider* sldier;
+
 -(instancetype)initWithFrame:(CGRect)frame leftTitle:(NSString*)title rightTitle:(NSInteger)number minimumValue:(float)minValue maxValue:(float)maxValue;
 
 @property(nonatomic,strong)UILabel* rightLabel;

@@ -11,7 +11,7 @@
 @interface KSYToolTipsView : NSObject
 
 
-+(instancetype)shareInstance;
+//+(instancetype)shareInstance;
 
 //@property(nonatomic,strong)UIWindow* window;
 //提示条的label

@@ -189,7 +189,7 @@
             [KSYBackgroundPushVC deleteFile:_byPassFilePath];
             NSURL *url =[[NSURL alloc] initFileURLWithPath:self.byPassFilePath];
             [_wxStreamerKit.streamerBase startBypassRecord:url];
-            [[KSYToolTipsView shareInstance] showLabelLongTime:@"00:00"];
+           // [[KSYToolTipsView shareInstance] showLabelLongTime:@"00:00"];
         }
         else {
             NSString * msg = @"推流过程中才能旁路录像";
@@ -197,7 +197,7 @@
         }
     }
     else{
-        [[KSYToolTipsView shareInstance] stopTimer];
+       // [[KSYToolTipsView shareInstance] stopTimer];
         [_wxStreamerKit.streamerBase stopBypassRecord];
     }
 }
@@ -263,7 +263,7 @@
         [_wxStreamerKit stopPreview];
         _wxStreamerKit = nil;
         [self dismissViewControllerAnimated:YES completion:nil];
-        [[KSYToolTipsView shareInstance]removeSubView];
+      //  [[KSYToolTipsView shareInstance]removeSubView];
     }];
     [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [self.topView addSubview:closeBtn];
@@ -358,7 +358,7 @@
     
     UIButton* cancelBtn = [[UIButton alloc]initButtonWithTitle:@"返回" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         recordScreenBtn.selected = NO;
-        [[KSYToolTipsView shareInstance] stopTimer];
+        //[[KSYToolTipsView shareInstance] stopTimer];
         self.recordView.alpha = 0;
         self.topView.alpha = 1;
         self.bottomView.alpha = 1;

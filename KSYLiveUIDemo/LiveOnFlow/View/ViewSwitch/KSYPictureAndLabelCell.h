@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "KSYPictureAndLabelModel.h"
+
 @interface KSYPictureAndLabelCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleNameLabel;
+
+@property(nonatomic,strong)KSYPictureAndLabelModel* model;
 
 @end

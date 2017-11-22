@@ -12,11 +12,15 @@
 
 #import <Bugly/Bugly.h>
 
+
 @interface AppDelegate ()
+
 
 @end
 
 @implementation AppDelegate
+
+
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -56,12 +60,15 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"AAC LC" forKey:@"audioGroup"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
+        
+      
        
         //第一次启动
     }else{
         //不是第一次启动了
     }
 }
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

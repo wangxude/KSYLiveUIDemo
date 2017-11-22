@@ -95,6 +95,8 @@
         currentView.transform = CGAffineTransformMakeScale(1.21, 1.21);
         currentView.alpha = 0;
     } completion:^(BOOL finished) {
+        
+        
         [self removeFromSuperview];
     }];
    

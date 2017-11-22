@@ -12,75 +12,64 @@
 
 #import "KSYSelectBottomButton.h"
 
-#import "KSYSliderView.h"
+
+
+#import "KSYPictureAndLabelModel.h"
 
 @interface KSYSecondView()<KSYSelectBottomButtonDelegate>
 
 @property(nonatomic,assign)NSInteger selectItemIndex;
-//音量
-@property(nonatomic,strong)KSYSliderView* volumnSlider;
-//音调
-@property(nonatomic,strong)KSYSliderView* voiceSlider;
+
+@property(nonatomic,strong)NSDictionary* allModelDic;
+
+@property(nonatomic,strong)NSMutableArray* dataArray;
 
 @end
 
 @implementation KSYSecondView
 
+-(NSDictionary*)allModelDic{
+    if (!_allModelDic) {
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"ArrayResourceList.plist" ofType:nil];
+        _allModelDic = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:path]];
+    }
+    return _allModelDic;
+}
+
 
 
 -(void)didSelectedBottomButton:(KSYSelectBottomButton *)button groupId:(NSString *)groupId{
+    
+     self.selectedTitle = button.titleLabel.text;
+    
+    //发送隐藏滑块的通知
+    NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0",[NSString stringWithFormat:@"%@",self.selectedTitle],nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:KSYSliderHideNotice object:self userInfo:dic];
+    
     //选中的cell的索引
-     self.selectItemIndex = 0;
+    YYCache* cache = [YYCache cacheWithName:@"mydb"];
+    KSYPictureAndLabelModel* model = (KSYPictureAndLabelModel*)[cache objectForKey:self.selectedTitle];
+    self.selectItemIndex = model.selectIndex;
     
-    self.selectedTitle = button.titleLabel.text;
+    self.dataArray = [[NSMutableArray alloc]init];
+    NSArray* dataArray = [self.allModelDic valueForKey:self.selectedTitle];
     
-//    [self.secondCollectView]
-    if ([button.titleLabel.text isEqualToString:@"变声"]) {
-     
-        self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"大叔",@"萝莉",@"庄严",@"机器人",nil];
-        self.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"record_audio_effect_uncle",@"record_audio_effect_lolita",@"record_audio_effect_serious",@"record_audio_effect_robort",nil];
-        [self.secondCollectView reloadData];
-    }
-    else if([button.titleLabel.text isEqualToString:@"混响"]){
-         self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
-        self.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"record_audio_effect_recording_room",@"record_audio_effect_vocal_concert",@"record_audio_effect_KTV",@"record_audio_effect_stage",nil];
-        [self.secondCollectView reloadData];
-    }
-    else if([button.titleLabel.text isEqualToString:@"背景音乐"]){
-        self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"music1",@"music2",@"music3",@"music4",nil];
-        [self.secondCollectView reloadData];
-    }
-    else if([button.titleLabel.text isEqualToString:@"LOGO"]){
-        self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"静态LOGO",@"动态LOGO",nil];
-        self.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"ksvc",@"elephant",nil];
-        
-        [self.secondCollectView reloadData];
-    }
-    else if([button.titleLabel.text isEqualToString:@"美颜"]){
-        self.voiceArray =  [[NSArray alloc]initWithObjects:@"无",@"粉嫩",@"自然",@"白皙",nil];
-        self.pictureArray =  [[NSArray alloc]initWithObjects:@"ksy_media_edit_record_beauty_origin",@"ksy_media_edit_record_beauty_NaturalFitler_fennen",@"ksy_media_edit_record_beauty_ExtTilter_ziran",@"ksy_media_edit_record_beauty_ProFitler_baixi",nil];
-        [self.secondCollectView reloadData];
-    }
-    else if([button.titleLabel.text isEqualToString:@"滤镜"]){
-        self.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"小清新",@"靓丽",@"甜美可人",@"怀旧",@"蓝调",@"老照片",@"樱花",@"樱花(夜)",@"红润(夜)",@"阳光(夜)",@"红润",@"阳光",@"自然",nil];
-        self.pictureArray = [[NSArray alloc]initWithObjects:@"自然",@"小清新",@"靓丽",@"甜美可人",@"怀旧",@"蓝调",@"老照片",@"樱花",@"樱花(夜)",@"红润(夜)",@"阳光(夜)",@"红润",@"阳光",@"自然",nil];
-        [self.secondCollectView reloadData];
-    }
-    else if([button.titleLabel.text isEqualToString:@"贴纸"]){
-        self.voiceArray = [[NSArray alloc]initWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil];
-        self.pictureArray = [[NSArray alloc]initWithObjects:@"decal_0",@"decal_1",@"decal_2",@"decal_3",@"decal_4",@"decal_5",@"decal_6",@"decal_7",nil];
-        [self.secondCollectView reloadData];
-    }
+    [dataArray enumerateObjectsUsingBlock:^(id obj,NSUInteger idx,BOOL* stop){
+        NSDictionary* dic = obj;
+        KSYPictureAndLabelModel* model = [KSYPictureAndLabelModel modelWithDictionary:dic];
+        [self.dataArray addObject:model];
+    }];
+    [self.secondCollectView reloadData];
+
     
 }
 
 -(instancetype)init{
-    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-180,KSYScreenWidth , 180)];
+    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-130,KSYScreenWidth , 130)];
     if (self) {
         
-       self.selectItemIndex = 0;
-        //默认是变声
-       //self.voiceArray = @[@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台"];
+       //self.selectItemIndex = 0;
+       //默认是变声
     }
     return self;
 }
@@ -96,12 +85,12 @@
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.secondCollectView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
     [self.secondCollectView registerNib:[UINib nibWithNibName:@"KSYPictureAndLabelCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-    //        [self.secondCollectView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"footer"];
+  
     self.secondCollectView.delegate = self;
     self.secondCollectView.dataSource = self;
     self.secondCollectView.allowsMultipleSelection = NO;
     //选中的cell
-    self.selectItemIndex = 0;
+    //self.selectItemIndex = 0;
     [self addSubview:self.secondCollectView];
     self.secondCollectView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
     
@@ -120,32 +109,12 @@
         [self.secondCollectView reloadData];
     }];
     
-    if ([self.selectedTitle isEqualToString:@"背景音乐"]) {
-        //音量
-        KSYSliderView* sliderView = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 0, KSYScreenWidth, 20) leftTitle:@"音量" rightTitle:1 minimumValue:0 maxValue:1];
-        [self addSubview: sliderView];
-        sliderView.sliderBlockEvent = ^(UISlider *slider) {
-            NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f",slider.value],@"音量",nil];
-            [[NSNotificationCenter defaultCenter]postNotificationName:KSYStreamVoiceVolumeChangeNotice object:self userInfo:dic];
-        };
-        self.volumnSlider = sliderView;
 
-        //音调
-        KSYSliderView* sliderView1 = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 30, KSYScreenWidth, 20) leftTitle:@"音调" rightTitle:3 minimumValue:-3 maxValue:3];
-        [self addSubview: sliderView1];
-        sliderView1.sliderBlockEvent = ^(UISlider *slider) {
-            NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f",slider.value],@"音调",nil];
-            [[NSNotificationCenter defaultCenter]postNotificationName:KSYStreamVoiceVolumeChangeNotice object:self userInfo:dic];
-        };
-        self.voiceSlider = sliderView1;
-
-    }
-    
     
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.voiceArray.count;
+    return self.dataArray.count;
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -154,21 +123,15 @@
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString* identifier = @"cell";
     KSYPictureAndLabelCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    collectionView.allowsMultipleSelection = NO;
     
-   
-    cell.backGroundImageView.image = [UIImage imageNamed:self.pictureArray[indexPath.item]];
-    cell.backGroundImageView.contentMode = UIViewContentModeScaleToFill;
-    cell.titleNameLabel.text = self.voiceArray[indexPath.item];
-   
-    cell.backGroundImageView.layer.borderWidth = 1;
+    cell.model = self.dataArray[indexPath.item];
+
    if (indexPath.item == self.selectItemIndex){
      
      cell.backGroundImageView.layer.borderColor = [UIColor redColor].CGColor;
      
-   
-     NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)indexPath.item],[NSString stringWithFormat:@"%@",self.selectedTitle],nil];
-     [[NSNotificationCenter defaultCenter]postNotificationName:KYSStreamChangeNotice object:self userInfo:dic];
+//     NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)indexPath.item],[NSString stringWithFormat:@"%@",self.selectedTitle],nil];
+//     [[NSNotificationCenter defaultCenter]postNotificationName:KYSStreamChangeNotice object:self userInfo:dic];
     }
     else{
         cell.backGroundImageView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -204,39 +167,17 @@
    cell.backGroundImageView.layer.borderColor = [UIColor redColor].CGColor;
     
    
+    YYCache* cache = [YYCache cacheWithName:@"mydb"];
+    [cache setObject:self.dataArray[indexPath.item] forKey:self.selectedTitle];
     //发送通知
-//    NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)indexPath.item],[NSString stringWithFormat:@"%@",self.selectedTitle],nil];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:KSYStreamVoiceNotice object:self userInfo:dic];
+    NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)indexPath.item],[NSString stringWithFormat:@"%@",self.selectedTitle],nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:KYSStreamChangeNotice object:self userInfo:dic];
+    
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     [collectionView reloadData];
-   // [self.secondCollectView reloadData];
     
 }
-//-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-//
-//
-//    KSYPictureAndLabelCell* cell=(KSYPictureAndLabelCell*)[collectionView cellForItemAtIndexPath:indexPath];
-//
-//    cell.backGroundImageView.image=[UIImage imageNamed:@"白色图标"];
-//    //[self.secondCollectView reloadData];
-//
-//}
 
-
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-//#warning 如果在storboard中设置了组头或组尾, 必须设置 重用标识符
-//    static NSString *headerIdentifier = @"footer";
-//   // headerIdentifier = (kind == UICollectionElementKindSectionHeader) ? @"header" : @"footer";
-//    UICollectionReusableView *resuableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
-//    if (kind == UICollectionElementKindSectionHeader) {
-//        resuableView.backgroundColor = [UIColor redColor];
-//        resuableView.frame = CGRectMake(0, 0, KSYScreenWidth, 30);
-//    }
-//    return resuableView;
-//}
-//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-//    return CGSizeMake(KSYScreenWidth, 30);
-//}
 
 
 -(void)showSecondView{

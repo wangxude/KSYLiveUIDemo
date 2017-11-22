@@ -21,12 +21,14 @@
         ;
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:slider];
+        self.sldier = slider;
         
         // 最小值label
         UILabel *minLabel = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.origin.x - 55, slider.frame.origin.y, 50, 20)];
         minLabel.textAlignment = NSTextAlignmentRight;
         //    minLabel.text = [NSString stringWithFormat:@"%.1f", slider.minimumValue];
         minLabel.text = title;
+        minLabel.textColor = [UIColor whiteColor];
         minLabel.font = [UIFont systemFontOfSize:13];
         [self addSubview:minLabel];
         
@@ -34,6 +36,7 @@
         UILabel *maxLabel = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.origin.x + slider.frame.size.width + 5, slider.frame.origin.y, 50, 20)];
         maxLabel.textAlignment = NSTextAlignmentLeft;
         maxLabel.text = [NSString stringWithFormat:@"%.1f", slider.value];
+        maxLabel.textColor = [UIColor whiteColor];
         [self addSubview:maxLabel];
         self.rightLabel = maxLabel;
     }

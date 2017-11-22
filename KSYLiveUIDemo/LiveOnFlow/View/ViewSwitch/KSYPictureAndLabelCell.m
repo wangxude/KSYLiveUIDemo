@@ -15,4 +15,16 @@
     // Initialization code
 }
 
+-(void)setModel:(KSYPictureAndLabelModel *)model{
+    //背景图片
+    _backGroundImageView.image = [UIImage imageNamed:model.pictureName];
+    //标签名字
+    _titleNameLabel.text = [NSString stringWithFormat:@"%@",model.textLabelName];
+    
+   _backGroundImageView.contentMode = UIViewContentModeScaleToFill;
+    
+   _backGroundImageView.layer.borderWidth = 1;
+    
+}
+
 @end

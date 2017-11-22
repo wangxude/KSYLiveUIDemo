@@ -7,8 +7,11 @@
 //
 
 #import "KSYUIBaseViewController.h"
+#import "KSYPictureAndLabelModel.h"
 
 @interface KSYUIBaseViewController ()<UIImagePickerControllerDelegate>
+
+@property(nonatomic,strong)NSDictionary* allModelDic;
 
 @end
 
@@ -16,6 +19,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //初始化模型数据
+    YYCache *cache = [YYCache cacheWithName:@"mydb"];
+    NSArray* dataArray ;
+    KSYPictureAndLabelModel* model;
+    
+    dataArray = [self.allModelDic valueForKey:@"混响"];
+    model= [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
+    [cache setObject:model forKey:@"混响"];
+    
+    dataArray = [self.allModelDic valueForKey:@"变声"];
+    model = [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
+    [cache setObject:model forKey:@"变声"];
+    
+    dataArray = [self.allModelDic valueForKey:@"LOGO"];
+    model = [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
+    [cache setObject:model forKey:@"LOGO"];
+    
+    dataArray = [self.allModelDic valueForKey:@"背景音乐"];
+    model = [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
+    [cache setObject:model forKey:@"背景音乐"];
+    
+    dataArray = [self.allModelDic valueForKey:@"美颜"];
+    model = [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
+    [cache setObject:model forKey:@"美颜"];
+    
+    dataArray = [self.allModelDic valueForKey:@"滤镜"];
+    model = [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
+    [cache setObject:model forKey:@"滤镜"];
+    
+    dataArray = [self.allModelDic valueForKey:@"贴纸"];
+    model = [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
+    [cache setObject:model forKey:@"贴纸"];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -109,6 +146,21 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
+}
+
+
+//-(void)viewDidDisappear:(BOOL)animated{
+//    [super viewDidDisappear:YES];
+//
+//
+//}
+
+-(NSDictionary*)allModelDic{
+    if (!_allModelDic) {
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"ArrayResourceList.plist" ofType:nil];
+        _allModelDic = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:path]];
+    }
+    return _allModelDic;
 }
 /*
 #pragma mark - Navigation

@@ -24,15 +24,16 @@
 
 @implementation KSYToolTipsView
 
-+(instancetype)shareInstance
-{
-    static KSYToolTipsView *stateView = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        stateView = [[KSYToolTipsView alloc]init];
-    });
-    return stateView;
-}
+//+(instancetype)shareInstance
+//{
+//    //static
+//    KSYToolTipsView *stateView = nil;
+////    static dispatch_once_t onceToken;
+////    dispatch_once(&onceToken, ^{
+//    stateView = [[KSYToolTipsView alloc]init];
+//  //  });
+//    return stateView;
+//}
 //2.初始化UIWindow
 -(instancetype)init
 {
