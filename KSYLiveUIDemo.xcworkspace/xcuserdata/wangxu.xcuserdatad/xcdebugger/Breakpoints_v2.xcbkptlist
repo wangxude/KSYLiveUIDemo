@@ -196,7 +196,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/View/KSYSettingPartView.m"
-            timestampString = "532852961.623154"
+            timestampString = "532959603.930602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -212,7 +212,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/View/KSYSettingPartView.m"
-            timestampString = "532852961.623212"
+            timestampString = "532959603.930702"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
@@ -228,7 +228,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/View/KSYSettingPartView.m"
-            timestampString = "532852961.623255"
+            timestampString = "532959603.930758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -451,60 +451,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KSYLiveUIDemo/LiveOnFlow/View/viewSwitch/KSYSecondView.m"
-            timestampString = "532862176.955829"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
+            timestampString = "532961285.453505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "-setUpSubView:viewHeight:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KSYLiveUIDemo/LiveOnFlow/View/viewSwitch/KSYSecondView.m"
-            timestampString = "532862176.956219"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-setUpSubView:viewHeight:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KSYLiveUIDemo/LiveOnFlow/View/viewSwitch/KSYSecondView.m"
-            timestampString = "532862176.956488"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-setUpSubView:viewHeight:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KSYLiveUIDemo/LiveOnFlow/View/viewSwitch/KSYSecondView.m"
-            timestampString = "532862176.956742"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "-setUpSubView:viewHeight:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1151,12 +1103,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KSYLiveUIDemo/LiveOnFlow/View/viewSwitch/KSYSecondView.m"
-            timestampString = "532862176.958777"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
+            timestampString = "532961285.454363"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-collectionView:didSelectItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1263,13 +1215,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KSYLiveUIDemo/LiveOnFlow/View/viewSwitch/KSYSecondView.m"
-            timestampString = "532862176.959421"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
+            timestampString = "532961285.45455"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "-collectionView:cellForItemAtIndexPath:"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "-numberOfSectionsInCollectionView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1279,12 +1231,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KSYLiveUIDemo/LiveOnFlow/View/viewSwitch/KSYSecondView.m"
-            timestampString = "532862176.959663"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
+            timestampString = "532961285.454612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "KSYSecondView"
             landmarkType = "3">
          </BreakpointContent>
@@ -1408,11 +1360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
-            timestampString = "532938608.395918"
+            timestampString = "532961285.454805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
             landmarkName = "-addCenterView"
             landmarkType = "7">
          </BreakpointContent>
@@ -1424,11 +1376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
-            timestampString = "532938608.395993"
+            timestampString = "532961285.454851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
             landmarkName = "-addCenterView"
             landmarkType = "7">
          </BreakpointContent>
@@ -1440,12 +1392,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
-            timestampString = "532938608.396051"
+            timestampString = "532961285.454906"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
+            timestampString = "532961285.454971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "-setUpSubView:viewHeight:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/View/ViewSwitch/KSYSecondView.m"
+            timestampString = "532961285.455015"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "-setUpSubView:viewHeight:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
+            timestampString = "532961285.455059"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "-streamConfigChange:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

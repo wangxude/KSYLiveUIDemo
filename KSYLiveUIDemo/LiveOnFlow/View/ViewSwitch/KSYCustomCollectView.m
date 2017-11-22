@@ -19,7 +19,7 @@
 @implementation KSYCustomCollectView
 
 -(instancetype)init{
-    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-120,KSYScreenWidth , 120)];
+    self = [super initWithFrame:CGRectMake(0,KSYScreenHeight-180,KSYScreenWidth , 180)];
     if (self) {
         //添加布局
         [self addCollectView];
@@ -53,7 +53,7 @@
         make.bottom.equalTo(self);
         make.width.equalTo(self);
         make.left.equalTo(self);
-        make.height.mas_equalTo(@120);
+        make.height.mas_equalTo(@180);
         //[self.scratchableLatexView reloadData];
     }];
     
@@ -152,7 +152,7 @@
    }
    else if ([title isEqualToString:@"音效"]) {
       NSArray* array = @[@"混响",@"变声"];
-      [self.secondView setUpSubView:array viewHeight:120];
+      [self.secondView setUpSubView:array viewHeight:130];
        self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"录音棚",@"演唱会",@"KTV",@"小舞台",nil];
        self.secondView.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"record_audio_effect_recording_room",@"record_audio_effect_vocal_concert",@"record_audio_effect_KTV",@"record_audio_effect_stage",nil];
        self.secondView.alpha = 1;
@@ -160,15 +160,17 @@
    }
    else if ([title isEqualToString:@"背景音乐"]) {
        NSArray* array = @[@"背景音乐"];
-       [self.secondView setUpSubView:array viewHeight:160];
+       [self.secondView setUpSubView:array viewHeight:170];
        self.secondView.alpha = 1;
-       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"music1",@"music2",@"music3",@"music4",nil];
+       self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"CA_hotel",@"Faded",@"Immortals",nil];
+       self.secondView.pictureArray = [[NSArray alloc]initWithObjects:@"关闭效果",@"CA_hotel",@"Faded",@"Immortals",nil];
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }
    else if ([title isEqualToString:@"LOGO"]) {
        NSArray* array = @[@"LOGO"];
-       [self.secondView setUpSubView:array viewHeight:120];
+       [self.secondView setUpSubView:array viewHeight:130];
        self.secondView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"静态logo",@"动态logo",nil];
+       self.secondView.pictureArray = [[NSArray alloc]initWithObjects:@"禁用",@"ksvc",@"elephant",nil];
        self.secondView.alpha = 1;
        [self transformDirection:YES withCurrentView:self.scratchableLatexView withLastView:self.secondView];
    }

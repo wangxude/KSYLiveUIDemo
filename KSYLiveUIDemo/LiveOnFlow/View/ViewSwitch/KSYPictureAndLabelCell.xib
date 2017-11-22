@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="179" height="124"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="record_audio_effect_KTV" translatesAutoresizingMaskIntoConstraints="NO" id="YRt-7h-eXd">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="record_audio_effect_KTV" translatesAutoresizingMaskIntoConstraints="NO" id="YRt-7h-eXd">
                         <rect key="frame" x="5" y="5" width="169" height="92"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Amv-MX-kSI">
@@ -49,6 +49,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="record_audio_effect_KTV" width="63" height="64"/>
+        <image name="record_audio_effect_KTV" width="126" height="128"/>
     </resources>
 </document>

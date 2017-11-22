@@ -22,7 +22,31 @@
 
 #import "UIView+Extension.h"
 
-@interface KSYBrushLiveVC ()
+//文件下载 工具
+#import "KSYFileSelector.h"
+//解码gif图片需要的库
+#import <YYImage/YYImage.h>
+
+@interface KSYBrushLiveVC (){
+    KSYFileSelector * fileDownLoadTool;
+    
+    KSYFileSelector* logoFileDownLoadTool;
+    //静态图标
+    GPUImagePicture *_logoPicure;
+    //图片的方向
+    UIImageOrientation _logoOrientation;
+    //解码器
+    YYImageDecoder  * _animateDecoder;
+    //加锁
+    NSLock          *_dlLock;
+    NSTimeInterval   _dlTime;
+    //跟屏幕刷新频率一样的定时器
+    CADisplayLink   *_displayLink;
+    //动画的索引
+    int _animateIdx;
+}
+
+@property(nonatomic,strong)NSArray* filePathArray;
 
 @property(nonatomic,copy)NSURL* rtmpUrl;
 
@@ -128,6 +152,39 @@
     [self addBottomSubView];
     
     [self addSubDrawView];
+    
+    [self addObserver];
+    
+    NSArray* bgmPatternArray  = @[@".mp3", @".m4a", @".aac"];
+    fileDownLoadTool  = [[KSYFileSelector alloc] initWithDir:@"/Documents/bgms/"
+                                                   andSuffix:bgmPatternArray];
+    //下载背景音乐
+    //NSString* path = fileDownLoadTool.filePath;
+    self.filePathArray = fileDownLoadTool.fileList;
+    NSLog(@"%@",self.filePathArray);
+    if (self.filePathArray.count == 0) {
+        NSString *urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/bgm.aac";
+        [fileDownLoadTool downloadFile:urlStr name:@"bgm.aac" ];
+        urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/test1.mp3";
+        [fileDownLoadTool downloadFile:urlStr name:@"test1.mp3"];
+        [fileDownLoadTool downloadFile:urlStr name:@"test2.mp3"];
+        [fileDownLoadTool downloadFile:urlStr name:@"test3.mp3"];
+        
+        
+    }
+    
+    //下载logo图片
+    logoFileDownLoadTool = [[KSYFileSelector alloc] initWithDir:@"/Documents/logo/"
+                                                      andSuffix:@[@".gif", @".png", @".apng"]];
+    if (logoFileDownLoadTool.fileList.count < 3) {
+        NSArray *names = @[@"horse.gif"];
+        for (NSString* name in names ) {
+            NSString * host = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/picture/animateLogo/";
+            NSString * url = [host stringByAppendingString:name];
+            [logoFileDownLoadTool downloadFile:url name:name];
+        }
+    }
+    _dlLock = [[NSLock alloc]init];
 }
 
 -(void)addSubDrawView{
@@ -135,7 +192,7 @@
    // _drawView.centerX = self.view.center.x;
 //    _drawView.centerY = self.view.center.y;
     _drawView.frame = CGRectMake(60, 80, KSYScreenWidth-120, 400);
-    [_drawView.layer setBorderColor:[[UIColor purpleColor] CGColor]];
+    [_drawView.layer setBorderColor:[[UIColor redColor] CGColor]];
     [_drawView.layer setBorderWidth:1.0f];
     [self.view addSubview:_drawView];
     _drawView.hidden = YES;
@@ -158,6 +215,9 @@
     [notification addObserver:self selector:@selector(streamStateChange:) name:KSYStreamStateDidChangeNotification object:nil];
     //监听采集状态的改变
     //    [notification addObserver:self selector:@selector(onCaptureStateChange:) name:KSYCaptureStateDidChangeNotification object:nil];
+    [notification addObserver:self selector:@selector(streamVolumnChangeState:) name:KSYStreamVoiceVolumeChangeNotice object:nil];
+    //监听音量 、音调、等参数的改变
+    [notification addObserver:self selector:@selector(streamConfigChange:) name:KYSStreamChangeNotice object:nil];
     
 }
 /**
@@ -182,6 +242,166 @@
             NSLog(@"----%@",@"发生错误");
             break;
     }
+}
+
+-(void)streamVolumnChangeState:(NSNotification*)notice{
+    KSYWeakSelf;
+    NSDictionary* dic =notice.userInfo;
+    for (NSString* string in [dic allKeys]) {
+        if ([string isEqualToString:@"音量"]) {
+            // 仅仅修改播放音量, 观众音量请调节mixer的音量
+            float  number = [[dic valueForKey:string] floatValue];
+            _wxStreamerKit.bgmPlayer.bgmVolume = number;
+        }
+        else if([string isEqualToString:@"音调"]){
+            // 同时修改本地和观众端的 音调 (推荐变调的取值范围为 -3 到 3的整数)
+            float  number = [[dic valueForKey:string] floatValue];
+            _wxStreamerKit.bgmPlayer.bgmPitch = number;
+        }
+    }
+}
+
+#pragma mark - 监听变声的通知
+-(void)streamConfigChange:(NSNotification*)notice{
+    //    reverbType＝ 0;//关闭
+    //    reverbType ＝1;//录音棚
+    //    reverbType ＝2;//演唱会
+    //    reverbType ＝3;//KTV
+    //    reverbType ＝4;//小舞台
+    
+    KSYWeakSelf;
+    NSDictionary* dic =notice.userInfo;
+    for (NSString* string in [dic allKeys]) {
+        //混响设置
+        if ([string isEqualToString:@"混响"]) {
+            int  number = [[dic valueForKey:string] intValue];
+            _wxStreamerKit.aCapDev.reverbType = number;
+            
+        }
+        //变声设置
+        else if ([string isEqualToString:@"变声"]){
+            int number = [[dic valueForKey:string] intValue];
+            _wxStreamerKit.aCapDev.effectType = number;
+        }
+        //背景音乐设置
+        else if ([string isEqualToString:@"背景音乐"]){
+            int number = [[dic valueForKey:string] intValue];
+            //停止播放背景音乐
+            [_wxStreamerKit.bgmPlayer stopPlayBgm];
+            if (number == 0) {
+                return;
+            }
+            NSString* path = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/bgms/%@",self.filePathArray[number-1]]];
+            
+            if (!path) {
+                return;
+            }
+            [_wxStreamerKit.bgmPlayer startPlayBgm:path isLoop:NO];
+            
+        }
+        //logo设置
+        else if ([string isEqualToString:@"LOGO"]){
+            int number = [[dic valueForKey:string] intValue];
+            if (number == 0) {
+                //清除logo
+                [_dlLock lock];
+                _animateDecoder = nil;
+                _wxStreamerKit.logoPic = nil;
+                [_wxStreamerKit setLogoOrientaion:_logoOrientation];
+                [_dlLock unlock];
+            }
+            else if (number == 1){
+                //设置静态logo
+                [_dlLock lock];
+                _animateDecoder = nil;
+                // _wxStreamerKit.logoPic = nil;
+                [_wxStreamerKit setLogoOrientaion:_logoOrientation];
+                [_dlLock unlock];
+                [self setUpLogo];
+            }
+            else{
+                //设置动态logo
+                //                _wxStreamerKit.logoPic = nil;
+                [self setupAnimateLogo:logoFileDownLoadTool.filePath];
+                
+            }
+        }
+        
+    }
+}
+
+#pragma mark -设置动态logo 或者设置静态logo
+-(void)setUpLogo{
+    
+    CGFloat yPos = 0.15;
+    // 预览视图的scale
+    CGFloat scale = MAX(self.view.frame.size.width, self.view.frame.size.height) / self.view.frame.size.height;
+    CGFloat hgt  = 0.1 * scale; // logo图片的高度是预览画面的十分之一
+    UIImage * logoImg = [UIImage imageNamed:@"ksvc"];
+    _logoPicure   =  [[GPUImagePicture alloc] initWithImage:logoImg];
+    _wxStreamerKit.logoPic  = _logoPicure;
+    _logoOrientation = logoImg.imageOrientation;
+    [_wxStreamerKit setLogoOrientaion: _logoOrientation];
+    //设置大小
+    _wxStreamerKit.logoRect = CGRectMake(0.05, yPos, 0, hgt);
+    //设置透明度
+    _wxStreamerKit.logoAlpha= 0.5;
+}
+
+- (void) setupAnimateLogo:(NSString*)path {
+    CGFloat yPos = 0.15;
+    // 预览视图的scale
+    CGFloat scale = MAX(self.view.frame.size.width, self.view.frame.size.height) / self.view.frame.size.height;
+    CGFloat hgt  = 0.1 * scale; // logo图片的高度是预览画面的十分之一
+    //设置大小
+    _wxStreamerKit.logoRect = CGRectMake(0.05, yPos, 0, hgt);
+    
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    [_dlLock lock];
+    _animateDecoder = [YYImageDecoder decoderWithData:data scale: [[UIScreen mainScreen] scale]];
+    [_wxStreamerKit setLogoOrientaion:UIImageOrientationUp];
+    [_dlLock unlock];
+    _animateIdx = 0;
+    _dlTime = 0;
+    if(!_displayLink){
+        KSYWeakProxy *proxy = [KSYWeakProxy proxyWithTarget:self];
+        SEL dpCB = @selector(displayLinkCallBack:);
+        _displayLink = [CADisplayLink displayLinkWithTarget:proxy
+                                                   selector:dpCB];
+        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop]
+                           forMode:NSRunLoopCommonModes];
+    }
+}
+
+- (void) updateAnimateLogo {
+    if (_animateDecoder==nil) {
+        return;
+    }
+    [_dlLock lock];
+    YYImageFrame* frame = [_animateDecoder frameAtIndex:_animateIdx
+                                       decodeForDisplay:NO];
+    if (frame.image) {
+        _wxStreamerKit.logoPic = [[GPUImagePicture alloc] initWithImage:frame.image];
+    }
+    _animateIdx = (_animateIdx+1)%_animateDecoder.frameCount;
+    [_dlLock unlock];
+}
+
+- (void)displayLinkCallBack:(CADisplayLink *)link {
+    dispatch_async( dispatch_get_global_queue(0, 0), ^(){
+        if (_animateDecoder) {
+            _dlTime += link.duration;
+            // 读取 图像的 duration 来决定下一帧的刷新时间
+            // 也可以固定设置为一个值来调整动画的快慢程度
+            NSTimeInterval delay = [_animateDecoder frameDurationAtIndex:_animateIdx];
+            if (delay < 0.04) {
+                delay = 0.04;
+            }
+            if (_dlTime < delay) return;
+            _dlTime -= delay;
+            [self updateAnimateLogo];
+        }
+    });
 }
 
 #pragma mark - 旁路录制状态的改变
@@ -472,6 +692,7 @@
             if ([title isEqualToString:@"镜像"]) {
                 selfWeak.mirrorState = !selfWeak.mirrorState;
                 selfWeak.wxStreamerKit.streamerMirrored = selfWeak.mirrorState;
+                selfWeak.wxStreamerKit.previewMirrored = selfWeak.mirrorState;
             }
             else if ([title isEqualToString:@"闪光灯"]){
                 [selfWeak.wxStreamerKit toggleTorch];

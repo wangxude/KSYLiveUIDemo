@@ -399,20 +399,21 @@
     //美颜按钮
     
     UIButton* skinCareBtn = [[UIButton alloc]initButtonWithTitle:@"美颜" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
-        NSLog(@"%@",@"美颜");
-        self.skinCareView = [[KSYSecondView alloc]init];
-        self.skinCareView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
-        NSArray* titleArray = @[@"美颜",@"滤镜",@"贴纸"];
-        
-        [self.skinCareView setUpSubView:titleArray viewHeight:200];
-        self.skinCareView.voiceArray = [[NSArray alloc]initWithObjects:@"无",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil];
-        [self.skinCareView showSecondView];
-        //隐藏底部视图
-        self.bottomView.alpha = 0;
+//        NSLog(@"%@",@"美颜");
+//        self.skinCareView = [[KSYSecondView alloc]init];
+//        self.skinCareView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
+//        NSArray* titleArray = @[@"美颜",@"滤镜",@"贴纸"];
+//        
+//        [self.skinCareView setUpSubView:titleArray viewHeight:210];
+//        
+//        self.skinCareView.voiceArray =  [[NSArray alloc]initWithObjects:@"无",@"粉嫩",@"自然",@"白皙",nil];
+//        self.skinCareView.pictureArray =  [[NSArray alloc]initWithObjects:@"ksy_media_edit_record_beauty_origin",@"ksy_media_edit_record_beauty_NaturalFitler_fennen",@"ksy_media_edit_record_beauty_ExtTilter_ziran",@"ksy_media_edit_record_beauty_ProFitler_baixi",nil];
+//        [self.skinCareView showSecondView];
+//        //隐藏底部视图
+//        self.bottomView.alpha = 0;
         
     }];
     [self.bottomView addSubview:skinCareBtn];
-    
     
     //摄像头切换
     UIButton* caremaBtn = [[UIButton alloc]initButtonWithTitle:@"摄像头切换" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
