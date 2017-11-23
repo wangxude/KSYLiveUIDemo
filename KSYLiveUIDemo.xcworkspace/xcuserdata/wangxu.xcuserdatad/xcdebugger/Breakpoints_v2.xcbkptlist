@@ -1280,11 +1280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
-            timestampString = "533047723.324631"
+            timestampString = "533100574.347015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "806"
-            endingLineNumber = "806"
+            startingLineNumber = "730"
+            endingLineNumber = "730"
             landmarkName = "-addCenterView"
             landmarkType = "7">
          </BreakpointContent>
@@ -1296,11 +1296,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
-            timestampString = "533047723.324692"
+            timestampString = "533100574.347309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "804"
-            endingLineNumber = "804"
+            startingLineNumber = "728"
+            endingLineNumber = "728"
             landmarkName = "-addCenterView"
             landmarkType = "7">
          </BreakpointContent>
@@ -1312,13 +1312,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYPictureInPictureVC.m"
-            timestampString = "533047723.324745"
+            timestampString = "533100574.347506"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "592"
-            endingLineNumber = "592"
-            landmarkName = "KSYPictureInPictureVC"
-            landmarkType = "3">
+            startingLineNumber = "508"
+            endingLineNumber = "508"
+            landmarkName = "-updateAePicView"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1405,11 +1405,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.324802"
+            timestampString = "533100574.347687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "890"
-            endingLineNumber = "890"
+            startingLineNumber = "715"
+            endingLineNumber = "715"
             landmarkName = "-addBottomSubView"
             landmarkType = "7">
             <Locations>
@@ -1417,45 +1417,45 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__35-[KSYUIStreamerVC addBottomSubView]_block_invoke.691"
+                  symbolName = "__35-[KSYUIStreamerVC addBottomSubView]_block_invoke.570"
                   moduleName = "KSYLiveUIDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-                  timestampString = "533037265.125397"
+                  timestampString = "533100405.812963"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "850"
-                  endingLineNumber = "850"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
                   offsetFromSymbolStart = "848">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.699"
+                  symbolName = "__copy_helper_block_.582"
                   moduleName = "KSYLiveUIDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-                  timestampString = "533037265.127271"
+                  timestampString = "533100405.814739"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "850"
-                  endingLineNumber = "850"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.700"
+                  symbolName = "__destroy_helper_block_.583"
                   moduleName = "KSYLiveUIDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-                  timestampString = "533037265.129049"
+                  timestampString = "533100405.816219"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "850"
-                  endingLineNumber = "850"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
                   offsetFromSymbolStart = "36">
                </Location>
             </Locations>
@@ -1468,11 +1468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.325329"
+            timestampString = "533100574.347744"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "891"
-            endingLineNumber = "891"
+            startingLineNumber = "716"
+            endingLineNumber = "716"
             landmarkName = "-addBottomSubView"
             landmarkType = "7">
             <Locations>
@@ -1480,45 +1480,45 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__35-[KSYUIStreamerVC addBottomSubView]_block_invoke.691"
+                  symbolName = "__35-[KSYUIStreamerVC addBottomSubView]_block_invoke.570"
                   moduleName = "KSYLiveUIDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-                  timestampString = "533037265.136579"
+                  timestampString = "533100405.81997"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "850"
-                  endingLineNumber = "850"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
                   offsetFromSymbolStart = "848">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.699"
+                  symbolName = "__copy_helper_block_.582"
                   moduleName = "KSYLiveUIDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-                  timestampString = "533037265.138239"
+                  timestampString = "533100405.821293"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "850"
-                  endingLineNumber = "850"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.700"
+                  symbolName = "__destroy_helper_block_.583"
                   moduleName = "KSYLiveUIDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangxu/KSYLiveUIDemo/KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-                  timestampString = "533037265.139909"
+                  timestampString = "533100405.822609"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "850"
-                  endingLineNumber = "850"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
                   offsetFromSymbolStart = "36">
                </Location>
             </Locations>
@@ -1531,11 +1531,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.325676"
+            timestampString = "533100574.347792"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "477"
-            endingLineNumber = "477"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "-streamConfigChange:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1547,11 +1547,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.326019"
+            timestampString = "533100574.347838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "390"
-            endingLineNumber = "390"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "-streamVolumnChangeState:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1563,11 +1563,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.326455"
+            timestampString = "533100574.347889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "-streamConfigChange:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1579,11 +1579,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.326834"
+            timestampString = "533100574.347948"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "-streamConfigChange:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1595,11 +1595,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.327175"
+            timestampString = "533100574.348002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "-streamConfigChange:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1611,12 +1611,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
-            timestampString = "533047723.327635"
+            timestampString = "533100574.348049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
-            landmarkName = "-streamConfigChange:"
+            startingLineNumber = "895"
+            endingLineNumber = "895"
+            landmarkName = "-touchesBegan:withEvent:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
+            timestampString = "533100574.348096"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "901"
+            endingLineNumber = "901"
+            landmarkName = "-touchesBegan:withEvent:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KSYLiveUIDemo/LiveOnFlow/ViewController/MainVC/KSYUIStreamerVC.m"
+            timestampString = "533100574.348138"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "902"
+            endingLineNumber = "902"
+            landmarkName = "-touchesBegan:withEvent:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

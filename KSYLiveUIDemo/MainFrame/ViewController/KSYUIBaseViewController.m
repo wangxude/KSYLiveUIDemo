@@ -17,9 +17,59 @@
 
 @implementation KSYUIBaseViewController
 
+-(id)initWithUrl:(NSURL *)rtmpUrl{
+    if (self = [super init]) {
+        self.rtmpUrl = rtmpUrl;
+        
+    }
+    return self;
+}
+
+-(NSDictionary*)modelSenderDic{
+    if (!_modelSenderDic) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _modelSenderDic = [NSDictionary dictionaryWithObjectsAndKeys:[defaults objectForKey:@"resolutionGroup"],@"resolutionGroup",[defaults objectForKey:@"liveGroup"],@"liveGroup",[defaults objectForKey:@"performanceGroup"],@"performanceGroup",[defaults objectForKey:@"collectGroup"],@"collectGroup",[defaults objectForKey:@"videoGroup"],@"videoGroup",[defaults objectForKey:@"audioGroup"],@"audioGroup",nil];
+    }
+    return _modelSenderDic;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initCacheData];
+    
+    NSArray* bgmPatternArray  = @[@".mp3", @".m4a", @".aac"];
+    _fileDownLoadTool  = [[KSYFileSelector alloc] initWithDir:@"/Documents/bgms/"
+                                                   andSuffix:bgmPatternArray];
+    //下载背景音乐
+    //NSString* path = fileDownLoadTool.filePath;
+    self.filePathArray = _fileDownLoadTool.fileList;
+    NSLog(@"%@",self.filePathArray);
+    if (self.filePathArray.count == 0) {
+        NSString *urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/bgm.aac";
+        [_fileDownLoadTool downloadFile:urlStr name:@"bgm.aac" ];
+        urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/test1.mp3";
+        [_fileDownLoadTool downloadFile:urlStr name:@"test1.mp3"];
+        [_fileDownLoadTool downloadFile:urlStr name:@"test2.mp3"];
+        [_fileDownLoadTool downloadFile:urlStr name:@"test3.mp3"];
+        
+    }
+    
+    //下载logo图片
+    _logoFileDownLoadTool = [[KSYFileSelector alloc] initWithDir:@"/Documents/logo/"
+                                                      andSuffix:@[@".gif", @".png", @".apng"]];
+    if (_logoFileDownLoadTool.fileList.count < 3) {
+        NSArray *names = @[@"horse.gif"];
+        for (NSString* name in names ) {
+            NSString * host = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/picture/animateLogo/";
+            NSString * url = [host stringByAppendingString:name];
+            [_logoFileDownLoadTool downloadFile:url name:name];
+        }
+    }
+    // Do any additional setup after loading the view.
+}
+-(void)initCacheData{
     //初始化模型数据
     YYCache *cache = [YYCache cacheWithName:@"mydb"];
     NSArray* dataArray ;
@@ -52,8 +102,6 @@
     dataArray = [self.allModelDic valueForKey:@"贴纸"];
     model = [KSYPictureAndLabelModel modelWithDictionary:dataArray[0]];
     [cache setObject:model forKey:@"贴纸"];
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,19 +196,39 @@
     });
 }
 
-
-//-(void)viewDidDisappear:(BOOL)animated{
-//    [super viewDidDisappear:YES];
-//
-//
-//}
-
+//懒加载数据源
 -(NSDictionary*)allModelDic{
     if (!_allModelDic) {
         NSString* path = [[NSBundle mainBundle] pathForResource:@"ArrayResourceList.plist" ofType:nil];
         _allModelDic = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:path]];
     }
     return _allModelDic;
+}
+
+-(void)downloadGPUResource{ // 下载资源文件
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    _gpuResourceDir=[NSHomeDirectory() stringByAppendingString:@"/Documents/GPUResource/"];
+    // 判断文件夹是否存在，如果不存在，则创建
+    if (![[NSFileManager defaultManager] fileExistsAtPath:_gpuResourceDir]) {
+        [fileManager createDirectoryAtPath:_gpuResourceDir
+               withIntermediateDirectories:YES
+                                attributes:nil
+                                     error:nil];
+    }
+    NSString *zipPath = [_gpuResourceDir stringByAppendingString:@"KSYGPUResource.zip"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:zipPath]) {
+        return; // already downloaded
+    }
+    NSString *zipUrl = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/KSYLive_iOS_Resource/KSYGPUResource.zip";
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSURL *url =[NSURL URLWithString:zipUrl];
+        NSData *data =[NSData dataWithContentsOfURL:url];
+        [data writeToFile:zipPath atomically:YES];
+        ZipArchive *zipArchive = [[ZipArchive alloc] init];
+        [zipArchive UnzipOpenFile:zipPath ];
+        [zipArchive UnzipFileTo:_gpuResourceDir overWrite:YES];
+        [zipArchive UnzipCloseFile];
+    });
 }
 /*
 #pragma mark - Navigation

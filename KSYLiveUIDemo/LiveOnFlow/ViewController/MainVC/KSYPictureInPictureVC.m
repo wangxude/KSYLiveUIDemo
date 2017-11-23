@@ -26,15 +26,11 @@
 
 //滑块的view视图
 #import "KSYSliderView.h"
-
-#import "ZipArchive.h"
-
 #import "KSYDecalBGView.h"
 
+#import "KSYQRCode.h"
+
 @interface KSYPictureInPictureVC (){
-    KSYFileSelector * fileDownLoadTool;
-    
-    KSYFileSelector* logoFileDownLoadTool;
     //静态图标
     GPUImagePicture *_logoPicure;
     //图片的方向
@@ -49,25 +45,13 @@
     //动画的索引
     int _animateIdx;
     
-    
-    //GPUResource资源的存储路径
-    NSString *_gpuResourceDir;
 }
-
-
-
-@property(nonatomic,strong)NSArray* filePathArray;
-
 
 //播放视频的url
 @property(nonatomic,copy)NSURL* videoUrl;
 //背景图片的url
 @property(nonatomic,copy)NSURL* backgroundPicUrl;
 
-
-@property(nonatomic,copy)NSURL* rtmpUrl;
-
-@property(nonatomic,strong)NSDictionary* modelSenderDic;
 //底部bottomView
 @property(nonatomic,strong)UIView* bottomView;
 //底部的录屏按钮的view
@@ -219,21 +203,6 @@
     
 }
 
--(id)initWithUrl:(NSURL *)rtmpUrl{
-    if (self = [super init]) {
-        self.rtmpUrl = rtmpUrl;
-        
-    }
-    return self;
-}
-
--(NSDictionary*)modelSenderDic{
-    if (!_modelSenderDic) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        _modelSenderDic = [NSDictionary dictionaryWithObjectsAndKeys:[defaults objectForKey:@"resolutionGroup"],@"resolutionGroup",[defaults objectForKey:@"liveGroup"],@"liveGroup",[defaults objectForKey:@"performanceGroup"],@"performanceGroup",[defaults objectForKey:@"collectGroup"],@"collectGroup",[defaults objectForKey:@"videoGroup"],@"videoGroup",[defaults objectForKey:@"audioGroup"],@"audioGroup",nil];
-    }
-    return _modelSenderDic;
-}
 
 - (void)viewDidLoad {
     
@@ -301,40 +270,13 @@
     [self addCenterView];
     [self addBottomSubView];
     
+    [self addStickerView];
     //添加滑块的view视图
     [self addSliderView];
     
     [self addObserver];
     
-    NSArray* bgmPatternArray  = @[@".mp3", @".m4a", @".aac"];
-    fileDownLoadTool  = [[KSYFileSelector alloc] initWithDir:@"/Documents/bgms/"
-                                                   andSuffix:bgmPatternArray];
-    //下载背景音乐
-    //NSString* path = fileDownLoadTool.filePath;
-    self.filePathArray = fileDownLoadTool.fileList;
-    NSLog(@"%@",self.filePathArray);
-    if (self.filePathArray.count == 0) {
-        NSString *urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/bgm.aac";
-        [fileDownLoadTool downloadFile:urlStr name:@"bgm.aac" ];
-        urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/test1.mp3";
-        [fileDownLoadTool downloadFile:urlStr name:@"test1.mp3"];
-        [fileDownLoadTool downloadFile:urlStr name:@"test2.mp3"];
-        [fileDownLoadTool downloadFile:urlStr name:@"test3.mp3"];
-        
-        
-    }
-    
-    //下载logo图片
-    logoFileDownLoadTool = [[KSYFileSelector alloc] initWithDir:@"/Documents/logo/"
-                                                      andSuffix:@[@".gif", @".png", @".apng"]];
-    if (logoFileDownLoadTool.fileList.count < 3) {
-        NSArray *names = @[@"horse.gif"];
-        for (NSString* name in names ) {
-            NSString * host = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/picture/animateLogo/";
-            NSString * url = [host stringByAppendingString:name];
-            [logoFileDownLoadTool downloadFile:url name:name];
-        }
-    }
+   
     _dlLock = [[NSLock alloc]init];
     
     [self downloadGPUResource];
@@ -469,8 +411,7 @@
             }
             else{
                 //设置动态logo
-                //                _wxStreamerKit.logoPic = nil;
-                [self setupAnimateLogo:logoFileDownLoadTool.filePath];
+                [self setupAnimateLogo:self.logoFileDownLoadTool.filePath];
                 
             }
         }
@@ -531,31 +472,6 @@
     }
 }
 
--(void)downloadGPUResource{ // 下载资源文件
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    _gpuResourceDir=[NSHomeDirectory() stringByAppendingString:@"/Documents/GPUResource/"];
-    // 判断文件夹是否存在，如果不存在，则创建
-    if (![[NSFileManager defaultManager] fileExistsAtPath:_gpuResourceDir]) {
-        [fileManager createDirectoryAtPath:_gpuResourceDir
-               withIntermediateDirectories:YES
-                                attributes:nil
-                                     error:nil];
-    }
-    NSString *zipPath = [_gpuResourceDir stringByAppendingString:@"KSYGPUResource.zip"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:zipPath]) {
-        return; // already downloaded
-    }
-    NSString *zipUrl = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/KSYLive_iOS_Resource/KSYGPUResource.zip";
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSURL *url =[NSURL URLWithString:zipUrl];
-        NSData *data =[NSData dataWithContentsOfURL:url];
-        [data writeToFile:zipPath atomically:YES];
-        ZipArchive *zipArchive = [[ZipArchive alloc] init];
-        [zipArchive UnzipOpenFile:zipPath ];
-        [zipArchive UnzipFileTo:_gpuResourceDir overWrite:YES];
-        [zipArchive UnzipCloseFile];
-    });
-}
 
 #pragma mark - 监听 滑块视图是否显示
 -(void)hideOrDisplaySliderView:(NSNotification*)notice{
@@ -726,7 +642,7 @@
 -(void)streamFunc{
     if (_wxStreamerKit.streamerBase.streamState == KSYStreamStateIdle || _wxStreamerKit.streamerBase.streamState == KSYStreamStateError) {
         //启动推流
-       [_wxStreamerKit.streamerBase startStream:_rtmpUrl];
+       [_wxStreamerKit.streamerBase startStream:self.rtmpUrl];
     }
     else{
         [_wxStreamerKit stopPreview];
@@ -785,7 +701,15 @@
     }];
     
     UIButton* flowAddressBtn = [[UIButton alloc]initButtonWithTitle:@"拉流地址" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
-        NSLog(@"%@",@"拉流地址");
+        KSYQRCode *playUrlQRCodeVc = [[KSYQRCode alloc] init];
+        //状态为直播视频
+        //推流地址对应的拉流地址
+        NSString * uuidStr =[[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        NSString *devCode  = [[uuidStr substringToIndex:3] lowercaseString];
+        NSString *streamPlaySrv = @"http://test.hdllive.ks-cdn.com/live";
+        NSString *streamPlayPostfix = @".flv";
+        playUrlQRCodeVc.url = [ NSString stringWithFormat:@"%@/%@%@", streamPlaySrv, devCode,streamPlayPostfix];
+        [self presentViewController:playUrlQRCodeVc animated:YES completion:nil];
     }];
     [self.topView addSubview:flowAddressBtn];
     
@@ -1041,11 +965,9 @@
         self.skinSliderView.hidden = YES;
     }
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

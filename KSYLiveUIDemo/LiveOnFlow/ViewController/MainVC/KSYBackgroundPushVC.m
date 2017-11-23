@@ -18,11 +18,10 @@
 //截图提示框
 #import "KSYToolTipsView.h"
 
+#import "KSYQRCode.h"
+
 @interface KSYBackgroundPushVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property(nonatomic,copy)NSURL* rtmpUrl;
-
-@property(nonatomic,strong)NSDictionary* modelSenderDic;
 //底部bottomView
 @property(nonatomic,strong)UIView* bottomView;
 //底部的录屏按钮的view
@@ -45,21 +44,6 @@
 
 @implementation KSYBackgroundPushVC
 
--(id)initWithUrl:(NSURL *)rtmpUrl{
-    if (self = [super init]) {
-        self.rtmpUrl = rtmpUrl;
-        
-    }
-    return self;
-}
-
--(NSDictionary*)modelSenderDic{
-    if (!_modelSenderDic) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        _modelSenderDic = [NSDictionary dictionaryWithObjectsAndKeys:[defaults objectForKey:@"resolutionGroup"],@"resolutionGroup",[defaults objectForKey:@"liveGroup"],@"liveGroup",[defaults objectForKey:@"performanceGroup"],@"performanceGroup",[defaults objectForKey:@"collectGroup"],@"collectGroup",[defaults objectForKey:@"videoGroup"],@"videoGroup",[defaults objectForKey:@"audioGroup"],@"audioGroup",nil];
-    }
-    return _modelSenderDic;
-}
 
 - (void)viewDidLoad {
     
@@ -222,7 +206,7 @@
 -(void)streamFunc{
     if (_wxStreamerKit.streamerBase.streamState == KSYStreamStateIdle || _wxStreamerKit.streamerBase.streamState == KSYStreamStateError) {
         //启动推流
-        [_wxStreamerKit.streamerBase startStream:_rtmpUrl];
+        [_wxStreamerKit.streamerBase startStream:self.rtmpUrl];
     }
     else{
         [_wxStreamerKit stopPreview];
@@ -276,7 +260,15 @@
     }];
     
     UIButton* flowAddressBtn = [[UIButton alloc]initButtonWithTitle:@"拉流地址" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
-        NSLog(@"%@",@"拉流地址");
+        KSYQRCode *playUrlQRCodeVc = [[KSYQRCode alloc] init];
+        //状态为直播视频
+        //推流地址对应的拉流地址
+        NSString * uuidStr =[[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        NSString *devCode  = [[uuidStr substringToIndex:3] lowercaseString];
+        NSString *streamPlaySrv = @"http://test.hdllive.ks-cdn.com/live";
+        NSString *streamPlayPostfix = @".flv";
+        playUrlQRCodeVc.url = [ NSString stringWithFormat:@"%@/%@%@", streamPlaySrv, devCode,streamPlayPostfix];
+        [self presentViewController:playUrlQRCodeVc animated:YES completion:nil];
     }];
     [self.topView addSubview:flowAddressBtn];
     

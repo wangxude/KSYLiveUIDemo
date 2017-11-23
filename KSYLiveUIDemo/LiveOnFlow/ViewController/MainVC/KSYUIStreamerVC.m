@@ -17,22 +17,16 @@
 #import "KSYSubBlackView.h"
 //截图提示框
 #import "KSYToolTipsView.h"
-//文件下载 工具
-#import "KSYFileSelector.h"
 //解码gif图片需要的库
 #import <YYImage/YYImage.h>
-
 //滑块的view视图
 #import "KSYSliderView.h"
 
-#import "ZipArchive.h"
-
 #import "KSYDecalBGView.h"
 
+#import "KSYQRCode.h"
+
 @interface KSYUIStreamerVC (){
-    KSYFileSelector * fileDownLoadTool;
-    
-    KSYFileSelector* logoFileDownLoadTool;
     //静态图标
     GPUImagePicture *_logoPicure;
     //图片的方向
@@ -46,19 +40,11 @@
     CADisplayLink   *_displayLink;
     //动画的索引
     int _animateIdx;
-    
-    //GPUResource资源的存储路径
-    NSString *_gpuResourceDir;
-
+   
 }
 
 @property(nonatomic,strong)KSYToolTipsView * topTipView;
 
-@property(nonatomic,strong)NSArray* filePathArray;
-
-@property(nonatomic,copy)NSURL* rtmpUrl;
-
-@property(nonatomic,strong)NSDictionary* modelSenderDic;
 //底部bottomView
 @property(nonatomic,strong)UIView* bottomView;
 //底部的录屏按钮的view
@@ -88,7 +74,6 @@
 //贴纸图片数组
 @property(nonatomic,strong)NSArray* tiezhiArray;
 
-
 //创建5个全局的模块
 //美颜slider  view视图
 @property(nonatomic,strong)UIView* skinSliderView;
@@ -109,117 +94,12 @@
 
 @implementation KSYUIStreamerVC
 
+//懒加载顶部提示框
 -(KSYToolTipsView*)topTipView{
     if (!_topTipView) {
         _topTipView = [[KSYToolTipsView alloc]init];
     }
     return _topTipView;
-}
-
-/**
-  添加贴纸图层
- */
--(void)addStickerView{
-    //贴纸页面(贴纸列表view在贴纸页面创建的时候就会添加到这个图层上)
-    _decalBackGroundView = [[UIView alloc] init];
-  //  _decalBackGroundView.frame = self.view.frame;
-    //贴纸组合view
-    _decalBGView = [[KSYDecalBGView alloc] init];
-   // _decalBGView.frame = self.view.frame;
-    
-    //添加视图
-    [_decalBackGroundView addSubview:_decalBGView];
-    [self.view addSubview:self.decalBackGroundView];
-    
-    [self.decalBackGroundView sendSubviewToBack:_decalBGView];
-    //单个贴纸view
-    [_decalBackGroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(0);
-        make.bottom.equalTo(self.view).offset(-130);
-        make.width.equalTo(self.view);
-        make.height.mas_equalTo(@300);
-    }];
-    [_decalBGView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(0);
-        make.bottom.equalTo(self.view).offset(-130);
-        make.width.equalTo(self.view);
-        make.height.mas_equalTo(@300);
-    }];
-}
-
--(void)addSliderView{
-    self.backgroundSliderView = [[UIView alloc]init];
-    self.backgroundSliderView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.2];
-    [self.view addSubview:self.backgroundSliderView];
-    
-    
-    self.volumnSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 0, KSYScreenWidth, 20) leftTitle:@"音量" rightTitle:100 minimumValue:0 maxValue:100];
-        [self.backgroundSliderView addSubview: self.volumnSlider];
-        self.volumnSlider.sliderBlockEvent = ^(UISlider *slider) {
-           
-        };
-    self.voiceSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 40, KSYScreenWidth, 20) leftTitle:@"音调" rightTitle:100 minimumValue:0 maxValue:100];
-    [self.backgroundSliderView addSubview: self.voiceSlider];
-    self.voiceSlider.sliderBlockEvent = ^(UISlider *slider) {
-        
-    };
-    
-    [self.backgroundSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(0);
-        make.bottom.equalTo(self.view).offset(-130);
-        make.width.equalTo(self.view);
-        make.height.mas_equalTo(@60);
-    }];
-    self.backgroundSliderView.hidden = YES;
-    
-    
-    self.skinSliderView = [[UIView alloc]init];
-    self.skinSliderView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.2];
-    [self.view addSubview:self.skinSliderView];
-    
-    
-    self.whiteSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 0, KSYScreenWidth, 20) leftTitle:@"美白" rightTitle:1 minimumValue:0 maxValue:1];
-    [self.skinSliderView addSubview: self.whiteSlider];
-    self.whiteSlider.sliderBlockEvent = ^(UISlider *slider) {
-        
-    };
-    self.hongrunSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 30, KSYScreenWidth, 20) leftTitle:@"红润" rightTitle:1 minimumValue:-1 maxValue:1];
-    [self.skinSliderView addSubview: self.hongrunSlider];
-    self.hongrunSlider.sliderBlockEvent = ^(UISlider *slider) {
-        
-    };
-    
-    self.exfoliatingSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 60, KSYScreenWidth, 20) leftTitle:@"磨皮" rightTitle:1 minimumValue:0 maxValue:1];
-    [self.skinSliderView addSubview: self.exfoliatingSlider];
-    self.exfoliatingSlider.sliderBlockEvent = ^(UISlider *slider) {
-        
-    };
-    
-    [self.skinSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(0);
-        make.bottom.equalTo(self.view).offset(-130);
-        make.width.equalTo(self.view);
-        make.height.mas_equalTo(@90);
-    }];
-    self.skinSliderView.hidden = YES;
-    
-
-}
-
--(id)initWithUrl:(NSURL *)rtmpUrl{
-    if (self = [super init]) {
-        self.rtmpUrl = rtmpUrl;
-       
-    }
-    return self;
-}
-
--(NSDictionary*)modelSenderDic{
-    if (!_modelSenderDic) {
-         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        _modelSenderDic = [NSDictionary dictionaryWithObjectsAndKeys:[defaults objectForKey:@"resolutionGroup"],@"resolutionGroup",[defaults objectForKey:@"liveGroup"],@"liveGroup",[defaults objectForKey:@"performanceGroup"],@"performanceGroup",[defaults objectForKey:@"collectGroup"],@"collectGroup",[defaults objectForKey:@"videoGroup"],@"videoGroup",[defaults objectForKey:@"audioGroup"],@"audioGroup",nil];
-    }
-    return _modelSenderDic;
 }
 
 - (void)viewDidLoad {
@@ -233,8 +113,6 @@
     if (!_wxStreamerKit) {
         _wxStreamerKit = [[KSYGPUStreamerKit alloc]init];
     }
- 
-    
     KSYSettingModel* model = [KSYSettingModel modelWithDictionary:self.modelSenderDic];
     //音频编码器类型
     _wxStreamerKit.streamerBase.audioCodec = model.audioCodecType;
@@ -282,49 +160,45 @@
     [self addTopSubView];
     [self addCenterView];
     [self addBottomSubView];
-    
+    //添加滑块视图
+    [self addStickerView];
     //添加滑块的view视图
     [self addSliderView];
-    
+    //添加监听者
     [self addObserver];
     
-    NSArray* bgmPatternArray  = @[@".mp3", @".m4a", @".aac"];
-    fileDownLoadTool  = [[KSYFileSelector alloc] initWithDir:@"/Documents/bgms/"
-                                             andSuffix:bgmPatternArray];
-    //下载背景音乐
-    //NSString* path = fileDownLoadTool.filePath;
-    self.filePathArray = fileDownLoadTool.fileList;
-    NSLog(@"%@",self.filePathArray);
-    if (self.filePathArray.count == 0) {
-        NSString *urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/bgm.aac";
-        [fileDownLoadTool downloadFile:urlStr name:@"bgm.aac" ];
-        urlStr = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/test1.mp3";
-        [fileDownLoadTool downloadFile:urlStr name:@"test1.mp3"];
-        [fileDownLoadTool downloadFile:urlStr name:@"test2.mp3"];
-        [fileDownLoadTool downloadFile:urlStr name:@"test3.mp3"];
-       
-        
-    }
-    
-    //下载logo图片
-    logoFileDownLoadTool = [[KSYFileSelector alloc] initWithDir:@"/Documents/logo/"
-                                      andSuffix:@[@".gif", @".png", @".apng"]];
-    if (logoFileDownLoadTool.fileList.count < 3) {
-        NSArray *names = @[@"horse.gif"];
-        for (NSString* name in names ) {
-            NSString * host = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/picture/animateLogo/";
-            NSString * url = [host stringByAppendingString:name];
-            [logoFileDownLoadTool downloadFile:url name:name];
-        }
-    }
     _dlLock = [[NSLock alloc]init];
     
-    
-   [self downloadGPUResource];
-    
-    [self addStickerView];
-    
 }
+
+/**
+ 开始预览
+ */
+-(void)beginCapture{
+    if (!_wxStreamerKit.vCapDev.isRunning) {
+        _wxStreamerKit.videoOrientation = [[UIApplication sharedApplication]statusBarOrientation];
+        [_wxStreamerKit setupFilter:_currentFilter];
+        //启动预览
+        [_wxStreamerKit startPreview:self.view];
+    }
+    else{
+        [_wxStreamerKit stopPreview];
+    }
+}
+
+/**
+ 开始推流
+ */
+-(void)streamFunc{
+    if (_wxStreamerKit.streamerBase.streamState == KSYStreamStateIdle || _wxStreamerKit.streamerBase.streamState == KSYStreamStateError) {
+        //启动推流
+        [_wxStreamerKit.streamerBase startStream:self.rtmpUrl];
+    }
+    else{
+        [_wxStreamerKit stopPreview];
+    }
+}
+
 -(void)displayBottom:(NSNotification*)notice{
     self.bottomView.alpha = 1;
 }
@@ -374,7 +248,7 @@
 }
 
 -(void)streamVolumnChangeState:(NSNotification*)notice{
-    KSYWeakSelf;
+    //KSYWeakSelf;
     NSDictionary* dic =notice.userInfo;
     for (NSString* string in [dic allKeys]) {
         if ([string isEqualToString:@"音量"]) {
@@ -392,13 +266,8 @@
 
 #pragma mark - 监听配置改变的通知
 -(void)streamConfigChange:(NSNotification*)notice{
-//    reverbType＝ 0;//关闭
-//    reverbType ＝1;//录音棚
-//    reverbType ＝2;//演唱会
-//    reverbType ＝3;//KTV
-//    reverbType ＝4;//小舞台
     
-    KSYWeakSelf;
+   // KSYWeakSelf;
     NSDictionary* dic =notice.userInfo;
     for (NSString* string in [dic allKeys]) {
         //混响设置
@@ -453,7 +322,7 @@
             else{
                 //设置动态logo
 //                _wxStreamerKit.logoPic = nil;
-                [self setupAnimateLogo:logoFileDownLoadTool.filePath];
+                [self setupAnimateLogo:self.logoFileDownLoadTool.filePath];
                 
             }
         }
@@ -514,31 +383,7 @@
     }
 }
 
--(void)downloadGPUResource{ // 下载资源文件
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    _gpuResourceDir=[NSHomeDirectory() stringByAppendingString:@"/Documents/GPUResource/"];
-    // 判断文件夹是否存在，如果不存在，则创建
-    if (![[NSFileManager defaultManager] fileExistsAtPath:_gpuResourceDir]) {
-        [fileManager createDirectoryAtPath:_gpuResourceDir
-               withIntermediateDirectories:YES
-                                attributes:nil
-                                     error:nil];
-    }
-    NSString *zipPath = [_gpuResourceDir stringByAppendingString:@"KSYGPUResource.zip"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:zipPath]) {
-        return; // already downloaded
-    }
-    NSString *zipUrl = @"https://ks3-cn-beijing.ksyun.com/ksy.vcloud.sdk/Ios/KSYLive_iOS_Resource/KSYGPUResource.zip";
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSURL *url =[NSURL URLWithString:zipUrl];
-        NSData *data =[NSData dataWithContentsOfURL:url];
-        [data writeToFile:zipPath atomically:YES];
-        ZipArchive *zipArchive = [[ZipArchive alloc] init];
-        [zipArchive UnzipOpenFile:zipPath ];
-        [zipArchive UnzipFileTo:_gpuResourceDir overWrite:YES];
-        [zipArchive UnzipCloseFile];
-    });
-}
+
 
 #pragma mark - 监听 滑块视图是否显示
 -(void)hideOrDisplaySliderView:(NSNotification*)notice{
@@ -556,6 +401,8 @@
         }
     }
 }
+
+
 
 #pragma mark - Decal 相关
 - (void)genDecalViewWithImgName:(NSString *)imgName{
@@ -685,33 +532,7 @@
         [_wxStreamerKit.streamerBase stopBypassRecord];
     }
 }
-/**
- 开始预览
- */
--(void)beginCapture{
-    if (!_wxStreamerKit.vCapDev.isRunning) {
-        _wxStreamerKit.videoOrientation = [[UIApplication sharedApplication]statusBarOrientation];
-        [_wxStreamerKit setupFilter:_currentFilter];
-        //启动预览
-        [_wxStreamerKit startPreview:self.view];
-    }
-    else{
-        [_wxStreamerKit stopPreview];
-    }
-}
 
-/**
- 开始推流
- */
--(void)streamFunc{
-    if (_wxStreamerKit.streamerBase.streamState == KSYStreamStateIdle || _wxStreamerKit.streamerBase.streamState == KSYStreamStateError) {
-        //启动推流
-        [_wxStreamerKit.streamerBase startStream:_rtmpUrl];
-    }
-    else{
-        [_wxStreamerKit stopPreview];
-    }
-}
 #pragma mark - 添加顶部视图
 /** 添加顶部的按钮*/
 -(void)addTopSubView{
@@ -734,8 +555,6 @@
         make.width.mas_equalTo(@120);
         make.height.mas_equalTo(@40);
     }];
-    
-    
     
     UIButton* closeBtn = [[UIButton alloc]initButtonWithTitle:@"" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"关闭");
@@ -764,6 +583,15 @@
     
     UIButton* flowAddressBtn = [[UIButton alloc]initButtonWithTitle:@"拉流地址" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"拉流地址");
+        KSYQRCode *playUrlQRCodeVc = [[KSYQRCode alloc] init];
+        //状态为直播视频
+        //推流地址对应的拉流地址
+        NSString * uuidStr =[[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        NSString *devCode  = [[uuidStr substringToIndex:3] lowercaseString];
+        NSString *streamPlaySrv = @"http://test.hdllive.ks-cdn.com/live";
+        NSString *streamPlayPostfix = @".flv";
+        playUrlQRCodeVc.url = [ NSString stringWithFormat:@"%@/%@%@", streamPlaySrv, devCode,streamPlayPostfix];
+       [self presentViewController:playUrlQRCodeVc animated:YES completion:nil];
     }];
     [self.topView addSubview:flowAddressBtn];
     
@@ -807,9 +635,6 @@
         }
     }];
     [self.recordView addSubview:screenShotBtn];
-    
-    
-   
     
     weakObj(self);
     UIButton* recordScreenBtn = [[UIButton alloc]initButtonWithTitle:@"" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
@@ -890,7 +715,6 @@
 
     }];
     [self.bottomView addSubview:skinCareBtn];
-    
     
     //摄像头切换
     UIButton* caremaBtn = [[UIButton alloc]initButtonWithTitle:@"摄像头切换" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
@@ -976,6 +800,97 @@
   
 }
 
+/**
+ 添加贴纸图层
+ */
+-(void)addStickerView{
+    //贴纸页面(贴纸列表view在贴纸页面创建的时候就会添加到这个图层上)
+    _decalBackGroundView = [[UIView alloc] init];
+    //  _decalBackGroundView.frame = self.view.frame;
+    //贴纸组合view
+    _decalBGView = [[KSYDecalBGView alloc] init];
+    // _decalBGView.frame = self.view.frame;
+    
+    //添加视图
+    [_decalBackGroundView addSubview:_decalBGView];
+    [self.view addSubview:self.decalBackGroundView];
+    
+    [self.decalBackGroundView sendSubviewToBack:_decalBGView];
+    //单个贴纸view
+    [_decalBackGroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@300);
+    }];
+    [_decalBGView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@300);
+    }];
+}
+
+/**
+ 添加滑块图层
+ */
+-(void)addSliderView{
+    self.backgroundSliderView = [[UIView alloc]init];
+    self.backgroundSliderView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
+    [self.view addSubview:self.backgroundSliderView];
+    
+    
+    self.volumnSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 0, KSYScreenWidth, 20) leftTitle:@"音量" rightTitle:100 minimumValue:0 maxValue:100];
+    [self.backgroundSliderView addSubview: self.volumnSlider];
+    self.volumnSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    self.voiceSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 25, KSYScreenWidth, 20) leftTitle:@"音调" rightTitle:100 minimumValue:0 maxValue:100];
+    [self.backgroundSliderView addSubview: self.voiceSlider];
+    self.voiceSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    
+    [self.backgroundSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@50);
+    }];
+    self.backgroundSliderView.hidden = YES;
+    
+    
+    self.skinSliderView = [[UIView alloc]init];
+    self.skinSliderView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.2];
+    [self.view addSubview:self.skinSliderView];
+    
+    
+    self.whiteSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 0, KSYScreenWidth, 20) leftTitle:@"美白" rightTitle:1 minimumValue:0 maxValue:1];
+    [self.skinSliderView addSubview: self.whiteSlider];
+    self.whiteSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    self.hongrunSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 25, KSYScreenWidth, 20) leftTitle:@"红润" rightTitle:1 minimumValue:-1 maxValue:1];
+    [self.skinSliderView addSubview: self.hongrunSlider];
+    self.hongrunSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    
+    self.exfoliatingSlider = [[KSYSliderView alloc]initWithFrame:CGRectMake(0, 50, KSYScreenWidth, 20) leftTitle:@"磨皮" rightTitle:1 minimumValue:0 maxValue:1];
+    [self.skinSliderView addSubview: self.exfoliatingSlider];
+    self.exfoliatingSlider.sliderBlockEvent = ^(UISlider *slider) {
+        
+    };
+    
+    [self.skinSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-130);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(@75);
+    }];
+    self.skinSliderView.hidden = YES;
+}
+
 #pragma mark - 点击当前view视图的touch事件
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     //判断当前视图是不是录屏视图
@@ -988,7 +903,7 @@
     self.bottomView.alpha = 1;
     self.recordView.alpha = 0;
     self.topView.alpha = 1;
-        
+    //隐藏滑块视图
     self.backgroundSliderView.hidden = YES;
     self.skinSliderView.hidden = YES;
    }
@@ -998,6 +913,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

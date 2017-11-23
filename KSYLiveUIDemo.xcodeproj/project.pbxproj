@@ -29,6 +29,7 @@
 		780CDCAB1FC4378700EA98C5 /* Hotel_California_out2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780CDCA81FC4378600EA98C5 /* Hotel_California_out2.mp3 */; };
 		780CDCAC1FC4378700EA98C5 /* Immortals_out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780CDCA91FC4378700EA98C5 /* Immortals_out.mp3 */; };
 		780CDCAD1FC4378700EA98C5 /* faded_out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780CDCAA1FC4378700EA98C5 /* faded_out.mp3 */; };
+		780E14E41FC66EC60058F00B /* KSYQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 780E14E21FC66EC50058F00B /* KSYQRCode.m */; };
 		7810AC861FBA8B1200424040 /* KSYSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AC851FBA8B1200424040 /* KSYSettingModel.m */; };
 		7811E8711FC2F86D00AB88CD /* KSYSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7811E8701FC2F86D00AB88CD /* KSYSliderView.m */; };
 		7811E8741FC300BA00AB88CD /* RecordAv.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7811E8731FC300BA00AB88CD /* RecordAv.mp4 */; };
@@ -197,6 +198,8 @@
 		780CDCA81FC4378600EA98C5 /* Hotel_California_out2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Hotel_California_out2.mp3; sourceTree = "<group>"; };
 		780CDCA91FC4378700EA98C5 /* Immortals_out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Immortals_out.mp3; sourceTree = "<group>"; };
 		780CDCAA1FC4378700EA98C5 /* faded_out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = faded_out.mp3; sourceTree = "<group>"; };
+		780E14E21FC66EC50058F00B /* KSYQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYQRCode.m; sourceTree = "<group>"; };
+		780E14E31FC66EC50058F00B /* KSYQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYQRCode.h; sourceTree = "<group>"; };
 		7810AC841FBA8B1200424040 /* KSYSettingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYSettingModel.h; sourceTree = "<group>"; };
 		7810AC851FBA8B1200424040 /* KSYSettingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYSettingModel.m; sourceTree = "<group>"; };
 		7811E86F1FC2F86D00AB88CD /* KSYSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYSliderView.h; sourceTree = "<group>"; };
@@ -590,6 +593,8 @@
 				78F3C7861FB0064300497D29 /* KSYLiveOnFlowViewController.m */,
 				7816F4661FB2FFC1002DFFEB /* KSYQRViewController.h */,
 				7816F4671FB2FFC1002DFFEB /* KSYQRViewController.m */,
+				780E14E31FC66EC50058F00B /* KSYQRCode.h */,
+				780E14E21FC66EC50058F00B /* KSYQRCode.m */,
 				7816F4691FB301EF002DFFEB /* KSYParameterSettingVC.h */,
 				7816F46A1FB301EF002DFFEB /* KSYParameterSettingVC.m */,
 				7811E8721FC2FB6C00AB88CD /* MainVC */,
@@ -1230,6 +1235,7 @@
 				78089F621FC19ED000F79445 /* KSYUIStreamerVC.m in Sources */,
 				78F599401FB15589004C4C08 /* BaseView.m in Sources */,
 				7805081A1FAC1C9C0044754A /* AppDelegate.m in Sources */,
+				780E14E41FC66EC60058F00B /* KSYQRCode.m in Sources */,
 				78F5994A1FB15589004C4C08 /* VideoListShowController.m in Sources */,
 				78F598E81FB15580004C4C08 /* KSYProgressView.m in Sources */,
 				78F7EEF91FC57A64000E6B7E /* KSYDecalBGView.m in Sources */,
