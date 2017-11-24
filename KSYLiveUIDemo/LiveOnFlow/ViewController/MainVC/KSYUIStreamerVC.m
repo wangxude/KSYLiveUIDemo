@@ -25,6 +25,8 @@
 #import "KSYDecalBGView.h"
 
 #import "KSYQRCode.h"
+//视图控制器
+#import "KSYUIWindowVC.h"
 
 @interface KSYUIStreamerVC (){
     //静态图标
@@ -334,10 +336,25 @@
                 [_wxStreamerKit setupFilter: _currentFilter];//取消滤镜只要将_filter置为nil就行
             }
             else {
-                KSYBeautifyProFilter * filter = [[KSYBeautifyProFilter alloc] initWithIdx:number];
+                
+                //设置滤镜
+                KSYBeautifyProFilter * filter = [[KSYBeautifyProFilter alloc] initWithIdx:4];
                 filter.grindRatio  = self.exfoliatingSlider.sldier.value;
                 filter.whitenRatio = self.whiteSlider.sldier.value;
-                filter.ruddyRatio  = self.hongrunSlider.sldier.value;
+                filter.ruddyRatio  = 0.5;
+                
+                KSYBuildInSpecialEffects * specialEffects = [[KSYBuildInSpecialEffects alloc] initWithIdx:number];
+                specialEffects.intensity   = self.hongrunSlider.sldier.value;
+                [filter addTarget:specialEffects];
+                
+                // 用滤镜组 将 滤镜 串联成整体
+                GPUImageFilterGroup * fg = [[GPUImageFilterGroup alloc] init];
+                [fg addFilter:filter];
+                [fg addFilter:specialEffects];
+                
+                [fg setInitialFilters:[NSArray arrayWithObject:filter]];
+                [fg setTerminalFilter:specialEffects];
+                
                 _currentFilter    = filter;
                 [_wxStreamerKit setupFilter: _currentFilter];
 
@@ -581,7 +598,7 @@
         make.height.equalTo(control.mas_height);
     }];
     
-    UIButton* flowAddressBtn = [[UIButton alloc]initButtonWithTitle:@"拉流地址" titleColor:[UIColor whiteColor] font:KSYUIFont(14) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+    UIButton* flowAddressBtn = [[UIButton alloc]initButtonWithTitle:@"拉流地址" titleColor:[UIColor whiteColor] font:KSYUIFont(13) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
         NSLog(@"%@",@"拉流地址");
         KSYQRCode *playUrlQRCodeVc = [[KSYQRCode alloc] init];
         //状态为直播视频
@@ -601,10 +618,27 @@
         make.width.mas_equalTo(@80);
         make.height.equalTo(control.mas_height);
     }];
+    
+    UIButton* backGroundPicBtn = [[UIButton alloc]initButtonWithTitle:@"悬浮窗" titleColor:[UIColor whiteColor] font:KSYUIFont(13) backGroundColor:KSYRGB(112,87,78)  callBack:^(UIButton *sender) {
+        KSYUIWindowVC *floatVC = [[KSYUIWindowVC alloc] init];
+        floatVC.streamerVC = self;
+        [self presentViewController:floatVC animated:YES completion:nil];
+    }];
+   // backGroundPicBtn.titleLabel.lineBreakMode = 0;
+    [self.topView addSubview:backGroundPicBtn];
+    
+    [backGroundPicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(flowAddressBtn.mas_left).offset(-5);
+        make.top.equalTo(control.mas_top);
+        make.width.mas_equalTo(@40);
+        make.height.equalTo(control.mas_height);
+    }];
 }
 
 /** 添加中间的按钮 */
 -(void)addCenterView{
+    
+   
     
 }
 

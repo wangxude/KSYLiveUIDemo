@@ -30,6 +30,7 @@
 		780CDCAC1FC4378700EA98C5 /* Immortals_out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780CDCA91FC4378700EA98C5 /* Immortals_out.mp3 */; };
 		780CDCAD1FC4378700EA98C5 /* faded_out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780CDCAA1FC4378700EA98C5 /* faded_out.mp3 */; };
 		780E14E41FC66EC60058F00B /* KSYQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 780E14E21FC66EC50058F00B /* KSYQRCode.m */; };
+		780E14E71FC6A2BA0058F00B /* KSYUIWindowVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 780E14E61FC6A2BA0058F00B /* KSYUIWindowVC.m */; };
 		7810AC861FBA8B1200424040 /* KSYSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AC851FBA8B1200424040 /* KSYSettingModel.m */; };
 		7811E8711FC2F86D00AB88CD /* KSYSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7811E8701FC2F86D00AB88CD /* KSYSliderView.m */; };
 		7811E8741FC300BA00AB88CD /* RecordAv.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7811E8731FC300BA00AB88CD /* RecordAv.mp4 */; };
@@ -200,6 +201,8 @@
 		780CDCAA1FC4378700EA98C5 /* faded_out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = faded_out.mp3; sourceTree = "<group>"; };
 		780E14E21FC66EC50058F00B /* KSYQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSYQRCode.m; sourceTree = "<group>"; };
 		780E14E31FC66EC50058F00B /* KSYQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYQRCode.h; sourceTree = "<group>"; };
+		780E14E51FC6A2BA0058F00B /* KSYUIWindowVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYUIWindowVC.h; sourceTree = "<group>"; };
+		780E14E61FC6A2BA0058F00B /* KSYUIWindowVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYUIWindowVC.m; sourceTree = "<group>"; };
 		7810AC841FBA8B1200424040 /* KSYSettingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYSettingModel.h; sourceTree = "<group>"; };
 		7810AC851FBA8B1200424040 /* KSYSettingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSYSettingModel.m; sourceTree = "<group>"; };
 		7811E86F1FC2F86D00AB88CD /* KSYSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSYSliderView.h; sourceTree = "<group>"; };
@@ -535,6 +538,8 @@
 				78089F5A1FC19ECE00F79445 /* KSYBrushLiveVC.m */,
 				78089F571FC19ECE00F79445 /* KSYPictureInPictureVC.h */,
 				78089F5D1FC19ECF00F79445 /* KSYPictureInPictureVC.m */,
+				780E14E51FC6A2BA0058F00B /* KSYUIWindowVC.h */,
+				780E14E61FC6A2BA0058F00B /* KSYUIWindowVC.m */,
 			);
 			path = MainVC;
 			sourceTree = "<group>";
@@ -1224,6 +1229,7 @@
 				78F599521FB15589004C4C08 /* VideoModel.m in Sources */,
 				78F5994E1FB15589004C4C08 /* VersionSwitchHandler.m in Sources */,
 				78AF45F81FB8690600E4B78A /* KSYTransViewAfterView.m in Sources */,
+				780E14E71FC6A2BA0058F00B /* KSYUIWindowVC.m in Sources */,
 				78089F681FC19EEB00F79445 /* KSYCustomCollectView.m in Sources */,
 				780508281FAC1C9C0044754A /* main.m in Sources */,
 				78F599461FB15589004C4C08 /* PlayController.m in Sources */,
